@@ -37,9 +37,9 @@ namespace DppDashboard.ViewModels
             EditBrandCommand = new RelayCommand(_ => OpenEditBrandDialog(), _ => _selectedBrand != null);
             DeleteBrandCommand = new RelayCommand(async _ => await DeleteSelectedBrandAsync(), _ => _selectedBrand != null);
 
-            NewProductCommand = new RelayCommand(_ => MessageBox.Show("Ny produkt - kommer snart", "Ny produkt"), _ => _selectedBrand != null);
-            EditProductCommand = new RelayCommand(_ => MessageBox.Show($"Redigera produkt: {_selectedProduct?.ProductName}", "Redigera produkt"), _ => _selectedProduct != null);
-            DeleteProductCommand = new RelayCommand(_ => MessageBox.Show($"Ta bort {_selectedProduct?.ProductName}?", "Ta bort produkt", MessageBoxButton.YesNo), _ => _selectedProduct != null);
+            NewProductCommand = new RelayCommand(_ => OpenNewProductDialog(), _ => _selectedBrand != null && !string.IsNullOrEmpty(_currentBrandApiKey));
+            EditProductCommand = new RelayCommand(_ => OpenEditProductDialog(), _ => _selectedProduct != null && _productDetail != null && !string.IsNullOrEmpty(_currentBrandApiKey));
+            DeleteProductCommand = new RelayCommand(async _ => await DeleteSelectedProductAsync(), _ => _selectedProduct != null && !string.IsNullOrEmpty(_currentBrandApiKey));
 
             _ = LoadBrandsAsync();
         }
@@ -289,6 +289,80 @@ namespace DppDashboard.ViewModels
             ProductDetail = null;
             SelectedBrand = null;
             await LoadBrandsAsync();
+        }
+
+        private void OpenNewProductDialog()
+        {
+            if (_selectedBrand == null || string.IsNullOrEmpty(_currentBrandApiKey)) return;
+            var vm = new ProductEditViewModel(null, _selectedBrand.Id, _currentBrandApiKey);
+            var dialog = new ProductEditDialog(vm)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                _ = ReloadProductsAsync();
+            }
+        }
+
+        private void OpenEditProductDialog()
+        {
+            if (_selectedBrand == null || _productDetail == null || string.IsNullOrEmpty(_currentBrandApiKey)) return;
+            var vm = new ProductEditViewModel(_productDetail, _selectedBrand.Id, _currentBrandApiKey);
+            var dialog = new ProductEditDialog(vm)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                _ = ReloadProductsAsync();
+            }
+        }
+
+        private async Task DeleteSelectedProductAsync()
+        {
+            if (_selectedProduct == null || string.IsNullOrEmpty(_currentBrandApiKey)) return;
+
+            var result = MessageBox.Show(
+                $"Vill du ta bort {_selectedProduct.ProductName}?\n\nDetta tar även bort varianter, batchar och items.",
+                "Ta bort produkt",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes) return;
+
+            SelectedContext = "Tar bort produkt...";
+            try
+            {
+                var json = await _apiClient.DeleteWithTenantKeyAsync($"/api/products/{_selectedProduct.Id}", _currentBrandApiKey);
+                Debug.WriteLine($"[Brands] DELETE /api/products/{_selectedProduct.Id} => {json}");
+
+                if (json != null)
+                {
+                    using var doc = JsonDocument.Parse(json);
+                    if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
+                    {
+                        await ReloadProductsAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        SelectedContext = $"Fel: {err.GetString()}";
+                        return;
+                    }
+                }
+                SelectedContext = "Fel: Inget svar från servern";
+            }
+            catch (Exception ex)
+            {
+                SelectedContext = $"Fel: {ex.Message}";
+            }
+        }
+
+        private async Task ReloadProductsAsync()
+        {
+            if (_selectedBrand != null)
+                await LoadProductsAsync(_selectedBrand);
         }
 
         private T? ParseData<T>(string? json)

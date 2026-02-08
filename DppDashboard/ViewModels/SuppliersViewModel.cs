@@ -37,9 +37,9 @@ namespace DppDashboard.ViewModels
             EditSupplierCommand = new RelayCommand(_ => OpenEditSupplierDialog(), _ => _selectedSupplier != null);
             DeleteSupplierCommand = new RelayCommand(async _ => await DeleteSelectedSupplierAsync(), _ => _selectedSupplier != null);
 
-            NewMaterialCommand = new RelayCommand(_ => MessageBox.Show("Nytt material - kommer snart", "Nytt material"), _ => _selectedSupplier != null);
-            EditMaterialCommand = new RelayCommand(_ => MessageBox.Show($"Redigera material: {_selectedMaterial?.MaterialName}", "Redigera material"), _ => _selectedMaterial != null);
-            DeleteMaterialCommand = new RelayCommand(_ => MessageBox.Show($"Ta bort {_selectedMaterial?.MaterialName}?", "Ta bort material", MessageBoxButton.YesNo), _ => _selectedMaterial != null);
+            NewMaterialCommand = new RelayCommand(_ => OpenNewMaterialDialog(), _ => _selectedSupplier != null && !string.IsNullOrEmpty(_currentSupplierApiKey));
+            EditMaterialCommand = new RelayCommand(_ => OpenEditMaterialDialog(), _ => _selectedMaterial != null && !string.IsNullOrEmpty(_currentSupplierApiKey));
+            DeleteMaterialCommand = new RelayCommand(async _ => await DeleteSelectedMaterialAsync(), _ => _selectedMaterial != null && !string.IsNullOrEmpty(_currentSupplierApiKey));
 
             _ = LoadSuppliersAsync();
         }
@@ -68,7 +68,7 @@ namespace DppDashboard.ViewModels
 
                 if (value != null)
                 {
-                    SelectedContext = "Material";
+                    SelectedContext = "Tyger";
                     _currentSupplierApiKey = value.ApiKey;
                     _ = LoadMaterialsAsync(value);
                 }
@@ -142,11 +142,11 @@ namespace DppDashboard.ViewModels
 
             if (string.IsNullOrEmpty(supplier.ApiKey))
             {
-                SelectedContext = "Material (ingen API-nyckel)";
+                SelectedContext = "Tyger (ingen API-nyckel)";
                 return;
             }
 
-            SelectedContext = "Material (...)";
+            SelectedContext = "Tyger (...)";
 
             try
             {
@@ -162,11 +162,11 @@ namespace DppDashboard.ViewModels
                                 Materials.Add(item);
                     }
                 }
-                SelectedContext = $"Material ({Materials.Count})";
+                SelectedContext = $"Tyger ({Materials.Count})";
             }
             catch
             {
-                SelectedContext = "Material (Fel)";
+                SelectedContext = "Tyger (Fel)";
             }
         }
 
@@ -189,12 +189,14 @@ namespace DppDashboard.ViewModels
                             var compositionsTask = _apiClient.GetWithTenantKeyAsync($"/api/materials/{materialId}/compositions", apiKey);
                             var certificationsTask = _apiClient.GetWithTenantKeyAsync($"/api/materials/{materialId}/certifications", apiKey);
                             var supplyChainTask = _apiClient.GetWithTenantKeyAsync($"/api/materials/{materialId}/supply-chain", apiKey);
+                            var batchesTask = _apiClient.GetWithTenantKeyAsync($"/api/materials/{materialId}/batches", apiKey);
 
-                            await Task.WhenAll(compositionsTask, certificationsTask, supplyChainTask);
+                            await Task.WhenAll(compositionsTask, certificationsTask, supplyChainTask, batchesTask);
 
                             detail.Compositions ??= ParseData<List<MaterialComposition>>(compositionsTask.Result);
                             detail.Certifications ??= ParseData<List<MaterialCertification>>(certificationsTask.Result);
                             detail.SupplyChain ??= ParseData<List<MaterialSupplyChainStep>>(supplyChainTask.Result);
+                            detail.Batches = ParseData<List<BatchUsage>>(batchesTask.Result) ?? new List<BatchUsage>();
 
                             MaterialDetail = detail;
                         }
@@ -203,7 +205,7 @@ namespace DppDashboard.ViewModels
             }
             catch (Exception ex)
             {
-                StatusText = $"Fel vid laddning av material: {ex.Message}";
+                StatusText = $"Fel vid laddning av tyg: {ex.Message}";
             }
             finally
             {
@@ -222,6 +224,80 @@ namespace DppDashboard.ViewModels
             }
             catch { }
             return default;
+        }
+
+        private void OpenNewMaterialDialog()
+        {
+            if (_selectedSupplier == null || string.IsNullOrEmpty(_currentSupplierApiKey)) return;
+            var vm = new MaterialEditViewModel(null, _selectedSupplier.Id, _currentSupplierApiKey);
+            var dialog = new MaterialEditDialog(vm)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                _ = ReloadMaterialsAsync();
+            }
+        }
+
+        private void OpenEditMaterialDialog()
+        {
+            if (_selectedSupplier == null || _selectedMaterial == null || string.IsNullOrEmpty(_currentSupplierApiKey)) return;
+            var vm = new MaterialEditViewModel(_selectedMaterial, _selectedSupplier.Id, _currentSupplierApiKey);
+            var dialog = new MaterialEditDialog(vm)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                _ = ReloadMaterialsAsync();
+            }
+        }
+
+        private async Task DeleteSelectedMaterialAsync()
+        {
+            if (_selectedMaterial == null || string.IsNullOrEmpty(_currentSupplierApiKey)) return;
+
+            var result = MessageBox.Show(
+                $"Vill du ta bort {_selectedMaterial.MaterialName}?",
+                "Ta bort tyg",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes) return;
+
+            SelectedContext = "Tar bort tyg...";
+            try
+            {
+                var json = await _apiClient.DeleteWithTenantKeyAsync($"/api/materials/{_selectedMaterial.Id}", _currentSupplierApiKey);
+                Debug.WriteLine($"[Suppliers] DELETE /api/materials/{_selectedMaterial.Id} => {json}");
+
+                if (json != null)
+                {
+                    using var doc = JsonDocument.Parse(json);
+                    if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
+                    {
+                        await ReloadMaterialsAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        SelectedContext = $"Fel: {err.GetString()}";
+                        return;
+                    }
+                }
+                SelectedContext = "Fel: Inget svar från servern";
+            }
+            catch (Exception ex)
+            {
+                SelectedContext = $"Fel: {ex.Message}";
+            }
+        }
+
+        private async Task ReloadMaterialsAsync()
+        {
+            if (_selectedSupplier != null)
+                await LoadMaterialsAsync(_selectedSupplier);
         }
 
         private void OpenNewSupplierDialog()
@@ -256,7 +332,7 @@ namespace DppDashboard.ViewModels
             if (_selectedSupplier == null) return;
 
             var result = MessageBox.Show(
-                $"Vill du ta bort {_selectedSupplier.SupplierName}?\n\nDetta tar även bort alla material kopplade till denna supplier.",
+                $"Vill du ta bort {_selectedSupplier.SupplierName}?\n\nDetta tar även bort alla tyger kopplade till denna supplier.",
                 "Ta bort supplier",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);

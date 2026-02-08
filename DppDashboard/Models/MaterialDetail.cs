@@ -24,5 +24,7 @@ namespace DppDashboard.Models
 
         [JsonPropertyName("supply_chain")]
         public List<MaterialSupplyChainStep>? SupplyChain { get; set; }
+
+        public List<BatchUsage>? Batches { get; set; }
     }
 }

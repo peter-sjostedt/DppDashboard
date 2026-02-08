@@ -160,5 +160,56 @@ namespace DppDashboard.Services
                 return null;
             }
         }
+
+        public async Task<string?> PostWithTenantKeyAsync(string endpoint, object data, string tenantApiKey)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, endpoint);
+                request.Headers.Add("X-API-Key", tenantApiKey);
+                request.Content = new StringContent(
+                    JsonSerializer.Serialize(data, JsonOptions),
+                    Encoding.UTF8, "application/json");
+                var response = await _http.SendAsync(request);
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<string?> PutWithTenantKeyAsync(string endpoint, object data, string tenantApiKey)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Put, endpoint);
+                request.Headers.Add("X-API-Key", tenantApiKey);
+                request.Content = new StringContent(
+                    JsonSerializer.Serialize(data, JsonOptions),
+                    Encoding.UTF8, "application/json");
+                var response = await _http.SendAsync(request);
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<string?> DeleteWithTenantKeyAsync(string endpoint, string tenantApiKey)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Delete, endpoint);
+                request.Headers.Add("X-API-Key", tenantApiKey);
+                var response = await _http.SendAsync(request);
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

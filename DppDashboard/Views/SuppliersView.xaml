@@ -36,7 +36,7 @@
             </Grid>
         </Border>
 
-        <!-- Middle: Materials -->
+        <!-- Middle: Tyger -->
         <Border Grid.Column="1" BorderBrush="#DDDDDD" BorderThickness="1" Margin="4" Padding="8" Background="White">
             <Grid>
                 <Grid.RowDefinitions>
@@ -46,7 +46,7 @@
                 </Grid.RowDefinitions>
                 <DockPanel Grid.Row="0">
                     <TextBlock Text="{Binding SelectedContext}" Style="{StaticResource PanelHeaderStyle}" VerticalAlignment="Center" />
-                    <Button Content="+ Nytt material" Command="{Binding NewMaterialCommand}"
+                    <Button Content="+ Nytt tyg" Command="{Binding NewMaterialCommand}"
                             HorizontalAlignment="Right" Padding="8,3" Margin="2" />
                 </DockPanel>
                 <ListBox Grid.Row="1" ItemsSource="{Binding Materials}"
@@ -68,16 +68,16 @@
             </Grid>
         </Border>
 
-        <!-- Right: Material detail -->
+        <!-- Right: Tyg detail -->
         <Border Grid.Column="2" BorderBrush="#DDDDDD" BorderThickness="1" Margin="4" Padding="8" Background="White">
             <Grid>
-                <TextBlock Text="Laddar materialdata..."
+                <TextBlock Text="Laddar tygdata..."
                            VerticalAlignment="Center" HorizontalAlignment="Center"
                            Foreground="Gray" FontSize="13"
                            Visibility="{Binding IsLoadingMaterial, Converter={StaticResource BoolToVis}}" />
 
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
-                           Foreground="Gray" FontSize="13" Text="Välj ett material för detaljer">
+                           Foreground="Gray" FontSize="13" Text="Välj ett tyg för detaljer">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Visibility" Value="Collapsed" />
@@ -112,19 +112,19 @@
                         <TextBlock Text="{Binding MaterialType}" Foreground="Gray" Margin="0,0,0,4" />
                         <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,0,0,16" />
 
-                        <!-- Kompositioner -->
+                        <!-- Sammansättning -->
                         <StackPanel Margin="0,0,0,16">
                             <StackPanel.Style>
                                 <Style TargetType="StackPanel"><Setter Property="Visibility" Value="Visible" />
                                     <Style.Triggers><DataTrigger Binding="{Binding Compositions}" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers>
                                 </Style>
                             </StackPanel.Style>
-                            <TextBlock Text="Komposition" FontWeight="SemiBold" FontSize="13" Margin="0,0,0,6" />
+                            <TextBlock Text="Sammansättning" FontWeight="SemiBold" FontSize="13" Margin="0,0,0,6" />
                             <DataGrid ItemsSource="{Binding Compositions}" AutoGenerateColumns="False" IsReadOnly="True"
                                       HeadersVisibility="Column" GridLinesVisibility="Horizontal"
                                       BorderThickness="1" BorderBrush="#DDD" MaxHeight="200" CanUserResizeRows="False">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Material" Binding="{Binding ContentName}" Width="Auto" />
+                                    <DataGridTextColumn Header="Ämne" Binding="{Binding ContentName}" Width="Auto" />
                                     <DataGridTextColumn Header="Andel" Binding="{Binding ContentValue}" Width="Auto" />
                                     <DataGridTextColumn Header="Källa" Binding="{Binding ContentSource}" Width="Auto" />
                                     <DataGridTextColumn Header="Återvunnen" Binding="{Binding Recycled}" Width="Auto" />
@@ -167,6 +167,43 @@
                                     <DataGridTextColumn Header="Steg" Binding="{Binding ProcessStep}" Width="*" />
                                     <DataGridTextColumn Header="Land" Binding="{Binding Country}" Width="Auto" />
                                     <DataGridTextColumn Header="Anläggning" Binding="{Binding FacilityName}" Width="Auto" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                        <!-- Används i produktioner -->
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="Används i produktioner" FontWeight="SemiBold" FontSize="13" Margin="0,0,0,6" />
+                            <TextBlock Text="Tyget har inte använts i några produktioner ännu" Foreground="Gray" FontSize="12">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Batches.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <DataGrid ItemsSource="{Binding Batches}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                      BorderThickness="1" BorderBrush="#DDD" MaxHeight="200" CanUserResizeRows="False">
+                                <DataGrid.Style>
+                                    <Style TargetType="DataGrid">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Batches.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.Style>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Batchnr" Binding="{Binding BatchNumber}" Width="Auto" />
+                                    <DataGridTextColumn Header="PO-nummer" Binding="{Binding PoNumber}" Width="Auto" />
+                                    <DataGridTextColumn Header="Komponent" Binding="{Binding Component}" Width="Auto" />
+                                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto" />
+                                    <DataGridTextColumn Header="Produktionsdatum" Binding="{Binding ProductionDate}" Width="Auto" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </StackPanel>
