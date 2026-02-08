@@ -27,6 +27,8 @@ namespace DppDashboard.ViewModels
         private string _statusMessage = string.Empty;
         private bool _statusIsError;
         private bool _isSaving;
+        private bool _isLocked;
+        private int _batchCount;
 
         private CompositionRow? _selectedComposition;
         private CertificationRow? _selectedCertification;
@@ -45,7 +47,7 @@ namespace DppDashboard.ViewModels
             _supplierId = supplierId;
             _tenantApiKey = tenantApiKey;
             IsNew = material == null;
-            DialogTitle = material == null ? "Nytt tyg" : $"Redigera tyg: {material.MaterialName}";
+            _dialogTitle = material == null ? "Nytt tyg" : $"Redigera tyg: {material.MaterialName}";
 
             if (material != null)
             {
@@ -56,7 +58,7 @@ namespace DppDashboard.ViewModels
 
             Compositions.CollectionChanged += OnCompositionsChanged;
 
-            SaveAllCommand = new RelayCommand(async _ => await SaveAllAsync(), _ => !string.IsNullOrWhiteSpace(MaterialName) && !IsSaving && CompositionIsValid);
+            SaveAllCommand = new RelayCommand(async _ => await SaveAllAsync(), _ => !IsLocked && !string.IsNullOrWhiteSpace(MaterialName) && !IsSaving && CompositionIsValid);
             CancelCommand = new RelayCommand(_ => RequestClose?.Invoke(false));
 
             AddCompositionCommand = new RelayCommand(_ => Compositions.Add(new CompositionRow()));
@@ -74,8 +76,14 @@ namespace DppDashboard.ViewModels
                 _ = LoadExistingDataAsync();
         }
 
+        private string _dialogTitle;
+
         public bool IsNew { get; }
-        public string DialogTitle { get; }
+        public string DialogTitle { get => _dialogTitle; private set { _dialogTitle = value; OnPropertyChanged(); } }
+        public bool IsLocked { get => _isLocked; private set { _isLocked = value; OnPropertyChanged(); OnPropertyChanged(nameof(IsEditable)); OnPropertyChanged(nameof(LockMessage)); } }
+        public bool IsEditable => !_isLocked;
+        public int BatchCount { get => _batchCount; private set { _batchCount = value; OnPropertyChanged(); } }
+        public string LockMessage => _isLocked ? $"Detta tyg används i {_batchCount} produktionsbatch(ar) och kan inte ändras." : string.Empty;
 
         public string MaterialName { get => _materialName; set { _materialName = value; OnPropertyChanged(); } }
         public string MaterialType { get => _materialType; set { _materialType = value; OnPropertyChanged(); } }
@@ -118,8 +126,21 @@ namespace DppDashboard.ViewModels
                 var compositionsTask = App.ApiClient.GetWithTenantKeyAsync($"/api/materials/{_materialId}/compositions", _tenantApiKey);
                 var certificationsTask = App.ApiClient.GetWithTenantKeyAsync($"/api/materials/{_materialId}/certifications", _tenantApiKey);
                 var supplyChainTask = App.ApiClient.GetWithTenantKeyAsync($"/api/materials/{_materialId}/supply-chain", _tenantApiKey);
+                var batchesTask = App.ApiClient.GetWithTenantKeyAsync($"/api/materials/{_materialId}/batches", _tenantApiKey);
 
-                await Task.WhenAll(compositionsTask, certificationsTask, supplyChainTask);
+                await Task.WhenAll(compositionsTask, certificationsTask, supplyChainTask, batchesTask);
+
+                // Check if material is used in batches
+                var batches = ParseDataList<BatchUsage>(batchesTask.Result);
+                if (batches != null && batches.Count > 0)
+                {
+                    BatchCount = batches.Count;
+                    IsLocked = true;
+                    DialogTitle = $"Tyg: {_materialName} (låst)";
+                    StatusIsError = false;
+                    StatusMessage = LockMessage;
+                    CommandManager.InvalidateRequerySuggested();
+                }
 
                 var compositions = ParseDataList<MaterialComposition>(compositionsTask.Result);
                 if (compositions != null)
@@ -247,9 +268,16 @@ namespace DppDashboard.ViewModels
                         ["content_value"] = comp.ContentValue,
                         ["content_source"] = NullIfEmpty(comp.ContentSource),
                         ["recycled"] = comp.Recycled ? 1 : 0,
-                        ["recycled_percentage"] = comp.RecycledPercentage > 0 ? comp.RecycledPercentage : 0,
-                        ["recycled_input_source"] = NullIfEmpty(comp.RecycledInputSource)
                     };
+                    if (comp.Recycled)
+                    {
+                        payload["recycled_percentage"] = comp.RecycledPercentage;
+                        payload["recycled_input_source"] = NullIfEmpty(comp.RecycledInputSource);
+                    }
+                    else
+                    {
+                        payload["recycled_percentage"] = 0;
+                    }
 
                     string? compResult;
                     if (comp.Id.HasValue)

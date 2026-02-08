@@ -6,7 +6,17 @@
         WindowStartupLocation="CenterOwner"
         Width="700" Height="550"
         ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
     <DockPanel Margin="12">
+        <!-- Lock warning -->
+        <Border DockPanel.Dock="Top" Background="#FFF3E0" BorderBrush="#FFB74D" BorderThickness="1"
+                Padding="10,6" Margin="0,0,0,8"
+                Visibility="{Binding IsLocked, Converter={StaticResource BoolToVis}}">
+            <TextBlock Text="{Binding LockMessage}" Foreground="#E65100" TextWrapping="Wrap" FontWeight="SemiBold" />
+        </Border>
+
         <!-- Status message -->
         <TextBlock DockPanel.Dock="Top" Text="{Binding StatusMessage}" TextWrapping="Wrap" Margin="0,0,0,8">
             <TextBlock.Style>
@@ -20,6 +30,9 @@
                         <DataTrigger Binding="{Binding StatusMessage}" Value="">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
+                        <DataTrigger Binding="{Binding IsLocked}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </TextBlock.Style>
@@ -28,8 +41,9 @@
         <!-- Bottom buttons -->
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
             <Button Content="Spara allt" Command="{Binding SaveAllCommand}"
-                    Width="100" Padding="8,4" Margin="0,0,8,0" IsDefault="True" />
-            <Button Content="Avbryt" Command="{Binding CancelCommand}"
+                    Width="100" Padding="8,4" Margin="0,0,8,0" IsDefault="True"
+                    Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}" />
+            <Button Content="Stäng" Command="{Binding CancelCommand}"
                     Width="80" Padding="8,4" IsCancel="True" />
         </StackPanel>
 
@@ -40,10 +54,12 @@
             <TabItem Header="Grundinfo">
                 <StackPanel Margin="12">
                     <TextBlock Text="Tygnamn *" FontWeight="SemiBold" Margin="0,0,0,4" />
-                    <TextBox Text="{Binding MaterialName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" />
+                    <TextBox Text="{Binding MaterialName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12"
+                             IsReadOnly="{Binding IsLocked}" />
 
                     <TextBlock Text="Tygtyp" FontWeight="SemiBold" Margin="0,0,0,4" />
-                    <ComboBox SelectedValue="{Binding MaterialType}" SelectedValuePath="Content" IsEditable="True" Margin="0,0,0,12">
+                    <ComboBox SelectedValue="{Binding MaterialType}" SelectedValuePath="Content" IsEditable="True" Margin="0,0,0,12"
+                              IsEnabled="{Binding IsEditable}">
                         <ComboBoxItem Content="Textile" />
                         <ComboBoxItem Content="Leather" />
                         <ComboBoxItem Content="Rubber" />
@@ -53,19 +69,22 @@
 
                     <TextBlock Text="Beskrivning" FontWeight="SemiBold" Margin="0,0,0,4" />
                     <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
-                             AcceptsReturn="True" TextWrapping="Wrap" Height="80" Margin="0,0,0,12" />
+                             AcceptsReturn="True" TextWrapping="Wrap" Height="80" Margin="0,0,0,12"
+                             IsReadOnly="{Binding IsLocked}" />
                 </StackPanel>
             </TabItem>
 
             <!-- Flik 2: Sammansättning -->
             <TabItem Header="Sammansättning">
                 <DockPanel Margin="12">
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8"
+                                Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}">
                         <Button Content="+ Lägg till" Command="{Binding AddCompositionCommand}" Padding="8,3" Margin="0,0,4,0" />
                         <Button Content="Ta bort vald" Command="{Binding RemoveCompositionCommand}" Padding="8,3" />
                     </StackPanel>
 
-                    <TextBlock DockPanel.Dock="Bottom" Text="{Binding CompositionStatus}" FontWeight="SemiBold" Margin="0,8,0,0">
+                    <TextBlock DockPanel.Dock="Bottom" Text="{Binding CompositionStatus}" FontWeight="SemiBold" Margin="0,8,0,0"
+                               Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Foreground" Value="Red" />
@@ -81,7 +100,8 @@
                     <DataGrid ItemsSource="{Binding Compositions}" SelectedItem="{Binding SelectedComposition}"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
                               HeadersVisibility="Column" GridLinesVisibility="Horizontal"
-                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False">
+                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False"
+                              IsReadOnly="{Binding IsLocked}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Fiber" Width="*" SortMemberPath="ContentName">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -160,7 +180,8 @@
             <!-- Flik 3: Certifieringar -->
             <TabItem Header="Certifieringar">
                 <DockPanel Margin="12">
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8"
+                                Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}">
                         <Button Content="+ Lägg till" Command="{Binding AddCertificationCommand}" Padding="8,3" Margin="0,0,4,0" />
                         <Button Content="Ta bort vald" Command="{Binding RemoveCertificationCommand}" Padding="8,3" />
                     </StackPanel>
@@ -168,7 +189,8 @@
                     <DataGrid ItemsSource="{Binding Certifications}" SelectedItem="{Binding SelectedCertification}"
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
                               HeadersVisibility="Column" GridLinesVisibility="Horizontal"
-                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False">
+                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False"
+                              IsReadOnly="{Binding IsLocked}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Certifiering" Width="*" SortMemberPath="Certification">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -217,7 +239,8 @@
             <!-- Flik 4: Supply Chain -->
             <TabItem Header="Supply Chain">
                 <DockPanel Margin="12">
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8"
+                                Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}">
                         <Button Content="+ Lägg till" Command="{Binding AddSupplyChainStepCommand}" Padding="8,3" Margin="0,0,4,0" />
                         <Button Content="Ta bort vald" Command="{Binding RemoveSupplyChainStepCommand}" Padding="8,3" Margin="0,0,4,0" />
                         <Button Content="Flytta upp" Command="{Binding MoveUpSupplyChainCommand}" Padding="8,3" Margin="0,0,4,0" />
@@ -228,7 +251,8 @@
                               AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
                               CanUserSortColumns="False"
                               HeadersVisibility="Column" GridLinesVisibility="Horizontal"
-                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False">
+                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False"
+                              IsReadOnly="{Binding IsLocked}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="#" Binding="{Binding Sequence}" Width="35" IsReadOnly="True" />
 

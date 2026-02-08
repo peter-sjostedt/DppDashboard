@@ -246,8 +246,31 @@ namespace DppDashboard.ViewModels
         {
             if (_selectedBrand == null) return;
 
+            // Check if brand has products
+            if (!string.IsNullOrEmpty(_selectedBrand.ApiKey))
+            {
+                var prodJson = await _apiClient.GetWithTenantKeyAsync("/api/products", _selectedBrand.ApiKey);
+                if (prodJson != null)
+                {
+                    try
+                    {
+                        using var pDoc = JsonDocument.Parse(prodJson);
+                        if (pDoc.RootElement.TryGetProperty("data", out var pData) && pData.GetArrayLength() > 0)
+                        {
+                            MessageBox.Show(
+                                $"Brandet \"{_selectedBrand.BrandName}\" har {pData.GetArrayLength()} produkt(er) och kan inte tas bort.\n\nTa bort produkterna först.",
+                                "Kan inte ta bort",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                            return;
+                        }
+                    }
+                    catch { }
+                }
+            }
+
             var result = MessageBox.Show(
-                $"Vill du ta bort {_selectedBrand.BrandName}?\n\nDetta tar även bort alla produkter, batchar och items.",
+                $"Vill du ta bort {_selectedBrand.BrandName}?",
                 "Ta bort brand",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
@@ -323,8 +346,28 @@ namespace DppDashboard.ViewModels
         {
             if (_selectedProduct == null || string.IsNullOrEmpty(_currentBrandApiKey)) return;
 
+            // Check if product has batches
+            var batchJson = await _apiClient.GetWithTenantKeyAsync($"/api/products/{_selectedProduct.Id}/batches", _currentBrandApiKey);
+            if (batchJson != null)
+            {
+                try
+                {
+                    using var bDoc = JsonDocument.Parse(batchJson);
+                    if (bDoc.RootElement.TryGetProperty("data", out var bData) && bData.GetArrayLength() > 0)
+                    {
+                        MessageBox.Show(
+                            $"Produkten \"{_selectedProduct.ProductName}\" har {bData.GetArrayLength()} batch(ar) och kan inte tas bort.\n\nTa bort batcharna först.",
+                            "Kan inte ta bort",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                        return;
+                    }
+                }
+                catch { }
+            }
+
             var result = MessageBox.Show(
-                $"Vill du ta bort {_selectedProduct.ProductName}?\n\nDetta tar även bort varianter, batchar och items.",
+                $"Vill du ta bort {_selectedProduct.ProductName}?",
                 "Ta bort produkt",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);

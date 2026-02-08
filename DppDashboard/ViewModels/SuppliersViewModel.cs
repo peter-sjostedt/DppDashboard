@@ -259,6 +259,26 @@ namespace DppDashboard.ViewModels
         {
             if (_selectedMaterial == null || string.IsNullOrEmpty(_currentSupplierApiKey)) return;
 
+            // Check if material is used in batches
+            var batchJson = await _apiClient.GetWithTenantKeyAsync($"/api/materials/{_selectedMaterial.Id}/batches", _currentSupplierApiKey);
+            if (batchJson != null)
+            {
+                try
+                {
+                    using var bDoc = JsonDocument.Parse(batchJson);
+                    if (bDoc.RootElement.TryGetProperty("data", out var bData) && bData.GetArrayLength() > 0)
+                    {
+                        MessageBox.Show(
+                            $"Tyget \"{_selectedMaterial.MaterialName}\" används i {bData.GetArrayLength()} produktionsbatch(ar) och kan inte tas bort.",
+                            "Kan inte ta bort",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                        return;
+                    }
+                }
+                catch { }
+            }
+
             var result = MessageBox.Show(
                 $"Vill du ta bort {_selectedMaterial.MaterialName}?",
                 "Ta bort tyg",
@@ -345,8 +365,31 @@ namespace DppDashboard.ViewModels
         {
             if (_selectedSupplier == null) return;
 
+            // Check if supplier has materials used in batches
+            if (!string.IsNullOrEmpty(_selectedSupplier.ApiKey))
+            {
+                var matJson = await _apiClient.GetWithTenantKeyAsync("/api/materials", _selectedSupplier.ApiKey);
+                if (matJson != null)
+                {
+                    try
+                    {
+                        using var mDoc = JsonDocument.Parse(matJson);
+                        if (mDoc.RootElement.TryGetProperty("data", out var mData) && mData.GetArrayLength() > 0)
+                        {
+                            MessageBox.Show(
+                                $"Suppliern \"{_selectedSupplier.SupplierName}\" har {mData.GetArrayLength()} tyg(er) och kan inte tas bort.\n\nTa bort tygerna först.",
+                                "Kan inte ta bort",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                            return;
+                        }
+                    }
+                    catch { }
+                }
+            }
+
             var result = MessageBox.Show(
-                $"Vill du ta bort {_selectedSupplier.SupplierName}?\n\nDetta tar även bort alla tyger kopplade till denna supplier.",
+                $"Vill du ta bort {_selectedSupplier.SupplierName}?",
                 "Ta bort supplier",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
