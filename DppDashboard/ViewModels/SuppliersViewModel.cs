@@ -37,8 +37,8 @@ namespace DppDashboard.ViewModels
             EditSupplierCommand = new RelayCommand(_ => OpenEditSupplierDialog(), _ => _selectedSupplier != null);
             DeleteSupplierCommand = new RelayCommand(async _ => await DeleteSelectedSupplierAsync(), _ => _selectedSupplier != null);
 
-            NewMaterialCommand = new RelayCommand(_ => OpenNewMaterialDialog(), _ => _selectedSupplier != null && !string.IsNullOrEmpty(_currentSupplierApiKey));
-            EditMaterialCommand = new RelayCommand(_ => OpenEditMaterialDialog(), _ => _selectedMaterial != null && !string.IsNullOrEmpty(_currentSupplierApiKey));
+            NewMaterialCommand = new RelayCommand(async _ => await OpenNewMaterialDialogAsync(), _ => _selectedSupplier != null && !string.IsNullOrEmpty(_currentSupplierApiKey));
+            EditMaterialCommand = new RelayCommand(async _ => await OpenEditMaterialDialogAsync(), _ => _selectedMaterial != null && !string.IsNullOrEmpty(_currentSupplierApiKey));
             DeleteMaterialCommand = new RelayCommand(async _ => await DeleteSelectedMaterialAsync(), _ => _selectedMaterial != null && !string.IsNullOrEmpty(_currentSupplierApiKey));
 
             _ = LoadSuppliersAsync();
@@ -226,7 +226,7 @@ namespace DppDashboard.ViewModels
             return default;
         }
 
-        private void OpenNewMaterialDialog()
+        private async Task OpenNewMaterialDialogAsync()
         {
             if (_selectedSupplier == null || string.IsNullOrEmpty(_currentSupplierApiKey)) return;
             var vm = new MaterialEditViewModel(null, _selectedSupplier.Id, _currentSupplierApiKey);
@@ -236,13 +236,14 @@ namespace DppDashboard.ViewModels
             };
             if (dialog.ShowDialog() == true)
             {
-                _ = ReloadMaterialsAsync();
+                await ReloadMaterialsAsync();
             }
         }
 
-        private void OpenEditMaterialDialog()
+        private async Task OpenEditMaterialDialogAsync()
         {
             if (_selectedSupplier == null || _selectedMaterial == null || string.IsNullOrEmpty(_currentSupplierApiKey)) return;
+            int editedId = _selectedMaterial.Id;
             var vm = new MaterialEditViewModel(_selectedMaterial, _selectedSupplier.Id, _currentSupplierApiKey);
             var dialog = new MaterialEditDialog(vm)
             {
@@ -250,7 +251,7 @@ namespace DppDashboard.ViewModels
             };
             if (dialog.ShowDialog() == true)
             {
-                _ = ReloadMaterialsAsync();
+                await ReloadMaterialsAsync(editedId);
             }
         }
 
@@ -294,10 +295,23 @@ namespace DppDashboard.ViewModels
             }
         }
 
-        private async Task ReloadMaterialsAsync()
+        private async Task ReloadMaterialsAsync(int? reselectMaterialId = null)
         {
             if (_selectedSupplier != null)
+            {
+                SelectedMaterial = null;
                 await LoadMaterialsAsync(_selectedSupplier);
+
+                if (reselectMaterialId.HasValue)
+                {
+                    var match = Materials.FirstOrDefault(m => m.Id == reselectMaterialId.Value);
+                    if (match != null)
+                    {
+                        Debug.WriteLine($"[Suppliers] Re-selecting material Id={match.Id} Name={match.MaterialName}");
+                        SelectedMaterial = match;
+                    }
+                }
+            }
         }
 
         private void OpenNewSupplierDialog()

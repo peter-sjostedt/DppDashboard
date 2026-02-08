@@ -150,6 +150,14 @@ namespace DppDashboard.ViewModels
             StatusIsError = true;
             StatusMessage = "Sparar grundinfo...";
 
+            Debug.WriteLine($"[MaterialEdit] === SaveAllAsync START ===");
+            Debug.WriteLine($"[MaterialEdit] MaterialId={_materialId}, IsNew={IsNew}, Name={MaterialName}");
+            Debug.WriteLine($"[MaterialEdit] Compositions: {Compositions.Count} rows, total={CompositionTotal}%, valid={CompositionIsValid}");
+            Debug.WriteLine($"[MaterialEdit] Certifications: {Certifications.Count} rows");
+            Debug.WriteLine($"[MaterialEdit] SupplyChain: {SupplyChainSteps.Count} rows");
+            Debug.WriteLine($"[MaterialEdit] Deleted: {_deletedCompositions.Count} comp, {_deletedCertifications.Count} cert, {_deletedSupplyChainSteps.Count} sc");
+            Debug.WriteLine($"[MaterialEdit] TenantApiKey: {_tenantApiKey[..Math.Min(8, _tenantApiKey.Length)]}...");
+
             try
             {
                 // 1. Save basic info
@@ -213,17 +221,20 @@ namespace DppDashboard.ViewModels
                 foreach (var id in _deletedCompositions)
                 {
                     Debug.WriteLine($"[MaterialEdit] DELETE /api/compositions/{id}");
-                    await App.ApiClient.DeleteWithTenantKeyAsync($"/api/compositions/{id}", _tenantApiKey);
+                    var delResult = await App.ApiClient.DeleteWithTenantKeyAsync($"/api/compositions/{id}", _tenantApiKey);
+                    Debug.WriteLine($"[MaterialEdit]   => {delResult}");
                 }
                 foreach (var id in _deletedCertifications)
                 {
                     Debug.WriteLine($"[MaterialEdit] DELETE /api/material-certifications/{id}");
-                    await App.ApiClient.DeleteWithTenantKeyAsync($"/api/material-certifications/{id}", _tenantApiKey);
+                    var delResult = await App.ApiClient.DeleteWithTenantKeyAsync($"/api/material-certifications/{id}", _tenantApiKey);
+                    Debug.WriteLine($"[MaterialEdit]   => {delResult}");
                 }
                 foreach (var id in _deletedSupplyChainSteps)
                 {
                     Debug.WriteLine($"[MaterialEdit] DELETE /api/supply-chain/{id}");
-                    await App.ApiClient.DeleteWithTenantKeyAsync($"/api/supply-chain/{id}", _tenantApiKey);
+                    var delResult = await App.ApiClient.DeleteWithTenantKeyAsync($"/api/supply-chain/{id}", _tenantApiKey);
+                    Debug.WriteLine($"[MaterialEdit]   => {delResult}");
                 }
 
                 // 3. Save compositions
@@ -235,21 +246,23 @@ namespace DppDashboard.ViewModels
                         ["content_name"] = NullIfEmpty(comp.ContentName),
                         ["content_value"] = comp.ContentValue,
                         ["content_source"] = NullIfEmpty(comp.ContentSource),
-                        ["recycled"] = comp.Recycled,
-                        ["recycled_percentage"] = comp.RecycledPercentage > 0 ? comp.RecycledPercentage : null,
+                        ["recycled"] = comp.Recycled ? 1 : 0,
+                        ["recycled_percentage"] = comp.RecycledPercentage > 0 ? comp.RecycledPercentage : 0,
                         ["recycled_input_source"] = NullIfEmpty(comp.RecycledInputSource)
                     };
 
+                    string? compResult;
                     if (comp.Id.HasValue)
                     {
-                        Debug.WriteLine($"[MaterialEdit] PUT /api/compositions/{comp.Id}");
-                        await App.ApiClient.PutWithTenantKeyAsync($"/api/compositions/{comp.Id}", payload, _tenantApiKey);
+                        Debug.WriteLine($"[MaterialEdit] PUT /api/compositions/{comp.Id} payload={JsonSerializer.Serialize(payload)}");
+                        compResult = await App.ApiClient.PutWithTenantKeyAsync($"/api/compositions/{comp.Id}", payload, _tenantApiKey);
                     }
                     else
                     {
-                        Debug.WriteLine($"[MaterialEdit] POST /api/materials/{materialId}/compositions");
-                        await App.ApiClient.PostWithTenantKeyAsync($"/api/materials/{materialId}/compositions", payload, _tenantApiKey);
+                        Debug.WriteLine($"[MaterialEdit] POST /api/materials/{materialId}/compositions payload={JsonSerializer.Serialize(payload)}");
+                        compResult = await App.ApiClient.PostWithTenantKeyAsync($"/api/materials/{materialId}/compositions", payload, _tenantApiKey);
                     }
+                    Debug.WriteLine($"[MaterialEdit]   => {compResult}");
                 }
 
                 // 4. Save certifications
@@ -263,16 +276,18 @@ namespace DppDashboard.ViewModels
                         ["valid_until"] = cert.ValidUntil?.ToString("yyyy-MM-dd")
                     };
 
+                    string? certResult;
                     if (cert.Id.HasValue)
                     {
-                        Debug.WriteLine($"[MaterialEdit] PUT /api/material-certifications/{cert.Id}");
-                        await App.ApiClient.PutWithTenantKeyAsync($"/api/material-certifications/{cert.Id}", payload, _tenantApiKey);
+                        Debug.WriteLine($"[MaterialEdit] PUT /api/material-certifications/{cert.Id} payload={JsonSerializer.Serialize(payload)}");
+                        certResult = await App.ApiClient.PutWithTenantKeyAsync($"/api/material-certifications/{cert.Id}", payload, _tenantApiKey);
                     }
                     else
                     {
-                        Debug.WriteLine($"[MaterialEdit] POST /api/materials/{materialId}/certifications");
-                        await App.ApiClient.PostWithTenantKeyAsync($"/api/materials/{materialId}/certifications", payload, _tenantApiKey);
+                        Debug.WriteLine($"[MaterialEdit] POST /api/materials/{materialId}/certifications payload={JsonSerializer.Serialize(payload)}");
+                        certResult = await App.ApiClient.PostWithTenantKeyAsync($"/api/materials/{materialId}/certifications", payload, _tenantApiKey);
                     }
+                    Debug.WriteLine($"[MaterialEdit]   => {certResult}");
                 }
 
                 // 5. Save supply chain
@@ -290,18 +305,22 @@ namespace DppDashboard.ViewModels
                         ["facility_identifier"] = NullIfEmpty(step.FacilityIdentifier)
                     };
 
+                    string? scResult;
                     if (step.Id.HasValue)
                     {
-                        Debug.WriteLine($"[MaterialEdit] PUT /api/supply-chain/{step.Id}");
-                        await App.ApiClient.PutWithTenantKeyAsync($"/api/supply-chain/{step.Id}", payload, _tenantApiKey);
+                        Debug.WriteLine($"[MaterialEdit] PUT /api/supply-chain/{step.Id} payload={JsonSerializer.Serialize(payload)}");
+                        scResult = await App.ApiClient.PutWithTenantKeyAsync($"/api/supply-chain/{step.Id}", payload, _tenantApiKey);
                     }
                     else
                     {
-                        Debug.WriteLine($"[MaterialEdit] POST /api/materials/{materialId}/supply-chain");
-                        await App.ApiClient.PostWithTenantKeyAsync($"/api/materials/{materialId}/supply-chain", payload, _tenantApiKey);
+                        Debug.WriteLine($"[MaterialEdit] POST /api/materials/{materialId}/supply-chain payload={JsonSerializer.Serialize(payload)}");
+                        scResult = await App.ApiClient.PostWithTenantKeyAsync($"/api/materials/{materialId}/supply-chain", payload, _tenantApiKey);
                     }
+                    Debug.WriteLine($"[MaterialEdit]   => {scResult}");
                 }
 
+                Debug.WriteLine($"[MaterialEdit] === SaveAllAsync COMPLETE ===");
+                StatusIsError = false;
                 RequestClose?.Invoke(true);
             }
             catch (Exception ex)
@@ -392,6 +411,7 @@ namespace DppDashboard.ViewModels
             OnPropertyChanged(nameof(CompositionTotal));
             OnPropertyChanged(nameof(CompositionIsValid));
             OnPropertyChanged(nameof(CompositionStatus));
+            CommandManager.InvalidateRequerySuggested();
         }
 
         private static CompositionRow ToCompositionRow(MaterialComposition mc)
