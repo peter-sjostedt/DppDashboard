@@ -1,0 +1,292 @@
+﻿<Window x:Class="HospitexDPP.Views.MaterialEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding DialogTitle}"
+        Icon="/dpp.ico"
+        WindowStartupLocation="CenterOwner"
+        Width="700" Height="550"
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    <DockPanel Margin="12">
+        <!-- Lock warning -->
+        <Border DockPanel.Dock="Top" Background="#FFF3E0" BorderBrush="#FFB74D" BorderThickness="1"
+                Padding="10,6" Margin="0,0,0,8"
+                Visibility="{Binding IsLocked, Converter={StaticResource BoolToVis}}">
+            <TextBlock Text="{Binding LockMessage}" Foreground="#E65100" TextWrapping="Wrap" FontWeight="SemiBold" />
+        </Border>
+
+        <!-- Status message -->
+        <TextBlock DockPanel.Dock="Top" Text="{Binding StatusMessage}" TextWrapping="Wrap" Margin="0,0,0,8">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Foreground" Value="#4CAF50" />
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding StatusIsError}" Value="True">
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding StatusMessage}" Value="">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsLocked}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <!-- Bottom buttons -->
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+            <Button Content="Spara allt" Command="{Binding SaveAllCommand}"
+                    Width="100" Padding="8,4" Margin="0,0,8,0" IsDefault="True"
+                    Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}" />
+            <Button Content="Stäng" Command="{Binding CancelCommand}"
+                    Width="80" Padding="8,4" IsCancel="True" />
+        </StackPanel>
+
+        <!-- TabControl -->
+        <TabControl>
+
+            <!-- Flik 1: Grundinfo -->
+            <TabItem Header="Grundinfo">
+                <StackPanel Margin="12">
+                    <TextBlock Text="Tygnamn *" FontWeight="SemiBold" Margin="0,0,0,4" />
+                    <TextBox Text="{Binding MaterialName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12"
+                             IsReadOnly="{Binding IsLocked}" />
+
+                    <TextBlock Text="Tygtyp" FontWeight="SemiBold" Margin="0,0,0,4" />
+                    <ComboBox SelectedValue="{Binding MaterialType}" SelectedValuePath="Content" IsEditable="True" Margin="0,0,0,12"
+                              IsEnabled="{Binding IsEditable}">
+                        <ComboBoxItem Content="Textile" />
+                        <ComboBoxItem Content="Leather" />
+                        <ComboBoxItem Content="Rubber" />
+                        <ComboBoxItem Content="Metal" />
+                        <ComboBoxItem Content="Plastic" />
+                    </ComboBox>
+
+                    <TextBlock Text="Beskrivning" FontWeight="SemiBold" Margin="0,0,0,4" />
+                    <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                             AcceptsReturn="True" TextWrapping="Wrap" Height="80" Margin="0,0,0,12"
+                             IsReadOnly="{Binding IsLocked}" />
+                </StackPanel>
+            </TabItem>
+
+            <!-- Flik 2: Sammansättning -->
+            <TabItem Header="Sammansättning">
+                <DockPanel Margin="12">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8"
+                                Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}">
+                        <Button Content="+ Lägg till" Command="{Binding AddCompositionCommand}" Padding="8,3" Margin="0,0,4,0" />
+                        <Button Content="Ta bort vald" Command="{Binding RemoveCompositionCommand}" Padding="8,3" />
+                    </StackPanel>
+
+                    <TextBlock DockPanel.Dock="Bottom" Text="{Binding CompositionStatus}" FontWeight="SemiBold" Margin="0,8,0,0"
+                               Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="Red" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CompositionIsValid}" Value="True">
+                                        <Setter Property="Foreground" Value="#4CAF50" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <DataGrid ItemsSource="{Binding Compositions}" SelectedItem="{Binding SelectedComposition}"
+                              AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False"
+                              IsReadOnly="{Binding IsLocked}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Fiber" Width="*" SortMemberPath="ContentName">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ContentName}" Margin="4,0" VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedValue="{Binding ContentName, UpdateSourceTrigger=PropertyChanged}"
+                                                  SelectedValuePath="Content" IsEditable="True">
+                                            <ComboBoxItem Content="Cotton" />
+                                            <ComboBoxItem Content="Polyester" />
+                                            <ComboBoxItem Content="Elastane" />
+                                            <ComboBoxItem Content="Viscose" />
+                                            <ComboBoxItem Content="Nylon" />
+                                            <ComboBoxItem Content="Wool" />
+                                            <ComboBoxItem Content="Silk" />
+                                            <ComboBoxItem Content="Linen" />
+                                            <ComboBoxItem Content="Lyocell" />
+                                            <ComboBoxItem Content="Modal" />
+                                            <ComboBoxItem Content="Polypropylene" />
+                                            <ComboBoxItem Content="Acrylic" />
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Andel %" Binding="{Binding ContentValue, UpdateSourceTrigger=PropertyChanged}" Width="70" />
+
+                            <DataGridTemplateColumn Header="Källa" Width="110" SortMemberPath="ContentSource">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ContentSource}" Margin="4,0" VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedValue="{Binding ContentSource, UpdateSourceTrigger=PropertyChanged}"
+                                                  SelectedValuePath="Content" IsEditable="True">
+                                            <ComboBoxItem Content="Organic" />
+                                            <ComboBoxItem Content="Conventional" />
+                                            <ComboBoxItem Content="Recycled" />
+                                            <ComboBoxItem Content="Bio-based" />
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridCheckBoxColumn Header="Återvunnen" Binding="{Binding Recycled, UpdateSourceTrigger=PropertyChanged}" Width="80" />
+
+                            <DataGridTextColumn Header="Återv. %" Binding="{Binding RecycledPercentage, UpdateSourceTrigger=PropertyChanged}" Width="70" />
+
+                            <DataGridTemplateColumn Header="Återv. källa" Width="120" SortMemberPath="RecycledInputSource">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RecycledInputSource}" Margin="4,0" VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedValue="{Binding RecycledInputSource, UpdateSourceTrigger=PropertyChanged}"
+                                                  SelectedValuePath="Content" IsEditable="True">
+                                            <ComboBoxItem Content="Pre-consumer" />
+                                            <ComboBoxItem Content="Post-consumer" />
+                                            <ComboBoxItem Content="Post-industrial" />
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- Flik 3: Certifieringar -->
+            <TabItem Header="Certifieringar">
+                <DockPanel Margin="12">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8"
+                                Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}">
+                        <Button Content="+ Lägg till" Command="{Binding AddCertificationCommand}" Padding="8,3" Margin="0,0,4,0" />
+                        <Button Content="Ta bort vald" Command="{Binding RemoveCertificationCommand}" Padding="8,3" />
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding Certifications}" SelectedItem="{Binding SelectedCertification}"
+                              AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False"
+                              IsReadOnly="{Binding IsLocked}">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Certifiering" Width="*" SortMemberPath="Certification">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Certification}" Margin="4,0" VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedValue="{Binding Certification, UpdateSourceTrigger=PropertyChanged}"
+                                                  SelectedValuePath="Content" IsEditable="True">
+                                            <ComboBoxItem Content="GOTS" />
+                                            <ComboBoxItem Content="GRS" />
+                                            <ComboBoxItem Content="Oeko-Tex Standard 100" />
+                                            <ComboBoxItem Content="Oeko-Tex Made in Green" />
+                                            <ComboBoxItem Content="EU Ecolabel" />
+                                            <ComboBoxItem Content="Bluesign" />
+                                            <ComboBoxItem Content="Fair Trade" />
+                                            <ComboBoxItem Content="WRAP" />
+                                            <ComboBoxItem Content="SA8000" />
+                                            <ComboBoxItem Content="ISO 14001" />
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Certifikat-ID" Binding="{Binding CertificationId}" Width="150" />
+
+                            <DataGridTemplateColumn Header="Giltig t.o.m." Width="140">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ValidUntil, StringFormat=yyyy-MM-dd}" Margin="4,0" VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding ValidUntil, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- Flik 4: Supply Chain -->
+            <TabItem Header="Supply Chain">
+                <DockPanel Margin="12">
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8"
+                                Visibility="{Binding IsEditable, Converter={StaticResource BoolToVis}}">
+                        <Button Content="+ Lägg till" Command="{Binding AddSupplyChainStepCommand}" Padding="8,3" Margin="0,0,4,0" />
+                        <Button Content="Ta bort vald" Command="{Binding RemoveSupplyChainStepCommand}" Padding="8,3" Margin="0,0,4,0" />
+                        <Button Content="Flytta upp" Command="{Binding MoveUpSupplyChainCommand}" Padding="8,3" Margin="0,0,4,0" />
+                        <Button Content="Flytta ner" Command="{Binding MoveDownSupplyChainCommand}" Padding="8,3" />
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding SupplyChainSteps}" SelectedItem="{Binding SelectedSupplyChainStep}"
+                              AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                              CanUserSortColumns="False"
+                              HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                              BorderThickness="1" BorderBrush="#DDD" CanUserResizeRows="False"
+                              IsReadOnly="{Binding IsLocked}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="#" Binding="{Binding Sequence}" Width="35" IsReadOnly="True" />
+
+                            <DataGridTemplateColumn Header="Steg" Width="*" SortMemberPath="ProcessStep">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ProcessStep}" Margin="4,0" VerticalAlignment="Center" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox SelectedValue="{Binding ProcessStep, UpdateSourceTrigger=PropertyChanged}"
+                                                  SelectedValuePath="Content" IsEditable="True">
+                                            <ComboBoxItem Content="spinning" />
+                                            <ComboBoxItem Content="weaving" />
+                                            <ComboBoxItem Content="knitting" />
+                                            <ComboBoxItem Content="dyeing" />
+                                            <ComboBoxItem Content="printing" />
+                                            <ComboBoxItem Content="finishing" />
+                                            <ComboBoxItem Content="cutting" />
+                                            <ComboBoxItem Content="sewing" />
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Land" Binding="{Binding Country}" Width="55" />
+                            <DataGridTextColumn Header="Anläggning" Binding="{Binding FacilityName}" Width="*" />
+                            <DataGridTextColumn Header="Anl.-ID" Binding="{Binding FacilityIdentifier}" Width="100" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+        </TabControl>
+    </DockPanel>
+</Window>

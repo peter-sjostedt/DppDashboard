@@ -1,0 +1,215 @@
+﻿<UserControl x:Class="HospitexDPP.Views.SuppliersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" />
+            <ColumnDefinition Width="280" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left: Supplier list -->
+        <Border Grid.Column="0" BorderBrush="#DDDDDD" BorderThickness="1" Margin="4" Padding="8" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0">
+                    <TextBlock Text="{Binding StatusText}" Style="{StaticResource PanelHeaderStyle}" VerticalAlignment="Center" />
+                    <Button Content="+ Ny supplier" Command="{Binding NewSupplierCommand}"
+                            HorizontalAlignment="Right" Padding="8,3" Margin="2" />
+                </DockPanel>
+                <ListBox Grid.Row="1" ItemsSource="{Binding Suppliers}"
+                         DisplayMemberPath="SupplierName"
+                         SelectedItem="{Binding SelectedSupplier}"
+                         BorderThickness="1" BorderBrush="#DDD" Background="Transparent" />
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,0,0">
+                    <Button Content="Redigera" Command="{Binding EditSupplierCommand}" Padding="8,3" Margin="2" />
+                    <Button Content="Ta bort" Command="{Binding DeleteSupplierCommand}" Padding="8,3" Margin="2" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Middle: Tyger -->
+        <Border Grid.Column="1" BorderBrush="#DDDDDD" BorderThickness="1" Margin="4" Padding="8" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0">
+                    <TextBlock Text="{Binding SelectedContext}" Style="{StaticResource PanelHeaderStyle}" VerticalAlignment="Center" />
+                    <Button Content="+ Nytt tyg" Command="{Binding NewMaterialCommand}"
+                            HorizontalAlignment="Right" Padding="8,3" Margin="2" />
+                </DockPanel>
+                <ListBox Grid.Row="1" ItemsSource="{Binding Materials}"
+                         SelectedItem="{Binding SelectedMaterial}"
+                         BorderThickness="1" BorderBrush="#DDD">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="4,3">
+                                <TextBlock Text="{Binding MaterialName}" FontWeight="Medium" />
+                                <TextBlock Text="{Binding MaterialType}" Foreground="Gray" FontSize="11" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,0,0">
+                    <Button Content="Redigera" Command="{Binding EditMaterialCommand}" Padding="8,3" Margin="2" />
+                    <Button Content="Ta bort" Command="{Binding DeleteMaterialCommand}" Padding="8,3" Margin="2" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Right: Tyg detail -->
+        <Border Grid.Column="2" BorderBrush="#DDDDDD" BorderThickness="1" Margin="4" Padding="8" Background="White">
+            <Grid>
+                <TextBlock Text="Laddar tygdata..."
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Foreground="Gray" FontSize="13"
+                           Visibility="{Binding IsLoadingMaterial, Converter={StaticResource BoolToVis}}" />
+
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Foreground="Gray" FontSize="13" Text="Välj ett tyg för detaljer">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding MaterialDetail}" Value="{x:Null}" />
+                                        <Condition Binding="{Binding IsLoadingMaterial}" Value="False" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer.Style>
+                        <Style TargetType="ScrollViewer">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MaterialDetail}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ScrollViewer.Style>
+
+                    <StackPanel DataContext="{Binding MaterialDetail}">
+                        <TextBlock Text="{Binding MaterialName}" Style="{StaticResource PanelHeaderStyle}"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding MaterialType}" Foreground="Gray" Margin="0,0,0,4" />
+                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="0,0,0,16" />
+
+                        <!-- Sammansättning -->
+                        <StackPanel Margin="0,0,0,16">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel"><Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers><DataTrigger Binding="{Binding Compositions}" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <TextBlock Text="Sammansättning" FontWeight="SemiBold" FontSize="13" Margin="0,0,0,6" />
+                            <DataGrid ItemsSource="{Binding Compositions}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                      BorderThickness="1" BorderBrush="#DDD" MaxHeight="200" CanUserResizeRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Ämne" Binding="{Binding ContentName}" Width="Auto" />
+                                    <DataGridTextColumn Header="Andel" Binding="{Binding ContentValue}" Width="Auto" />
+                                    <DataGridTextColumn Header="Källa" Binding="{Binding ContentSource}" Width="Auto" />
+                                    <DataGridTextColumn Header="Återvunnen" Binding="{Binding Recycled}" Width="Auto" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+
+                        <!-- Certifieringar -->
+                        <StackPanel Margin="0,0,0,16">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel"><Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers><DataTrigger Binding="{Binding Certifications}" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <TextBlock Text="Certifieringar" FontWeight="SemiBold" FontSize="13" Margin="0,0,0,6" />
+                            <DataGrid ItemsSource="{Binding Certifications}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                      BorderThickness="1" BorderBrush="#DDD" MaxHeight="200" CanUserResizeRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Certifiering" Binding="{Binding Certification}" Width="*" />
+                                    <DataGridTextColumn Header="ID" Binding="{Binding CertificationId}" Width="Auto" />
+                                    <DataGridTextColumn Header="Giltig t.o.m." Binding="{Binding ValidUntil}" Width="Auto" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+
+                        <!-- Supply Chain -->
+                        <StackPanel Margin="0,0,0,16">
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel"><Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers><DataTrigger Binding="{Binding SupplyChain}" Value="{x:Null}"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <TextBlock Text="Supply Chain" FontWeight="SemiBold" FontSize="13" Margin="0,0,0,6" />
+                            <DataGrid ItemsSource="{Binding SupplyChain}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                      BorderThickness="1" BorderBrush="#DDD" MaxHeight="200" CanUserResizeRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="#" Binding="{Binding Sequence}" Width="30" />
+                                    <DataGridTextColumn Header="Steg" Binding="{Binding ProcessStep}" Width="*" />
+                                    <DataGridTextColumn Header="Land" Binding="{Binding Country}" Width="Auto" />
+                                    <DataGridTextColumn Header="Anläggning" Binding="{Binding FacilityName}" Width="Auto" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                        <!-- Används i produktioner -->
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="Används i produktioner" FontWeight="SemiBold" FontSize="13" Margin="0,0,0,6" />
+                            <TextBlock Text="Tyget har inte använts i några produktioner ännu" Foreground="Gray" FontSize="12">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Batches.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <DataGrid ItemsSource="{Binding Batches}" AutoGenerateColumns="False" IsReadOnly="True"
+                                      HeadersVisibility="Column" GridLinesVisibility="Horizontal"
+                                      BorderThickness="1" BorderBrush="#DDD" MaxHeight="200" CanUserResizeRows="False">
+                                <DataGrid.Style>
+                                    <Style TargetType="DataGrid">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Batches.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.Style>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Batchnr" Binding="{Binding BatchNumber}" Width="Auto" />
+                                    <DataGridTextColumn Header="PO-nummer" Binding="{Binding PoNumber}" Width="Auto" />
+                                    <DataGridTextColumn Header="Komponent" Binding="{Binding Component}" Width="Auto" />
+                                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto" />
+                                    <DataGridTextColumn Header="Produktionsdatum" Binding="{Binding ProductionDate}" Width="Auto" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

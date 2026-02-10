@@ -1,0 +1,75 @@
+﻿<Window x:Class="HospitexDPP.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:HospitexDPP.ViewModels"
+        xmlns:views="clr-namespace:HospitexDPP.Views"
+        Title="DPP Dashboard" Height="600" Width="1100"
+        Icon="dpp.ico"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <views:LoginView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DashboardHomeViewModel}">
+            <views:DashboardHomeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BrandsViewModel}">
+            <views:BrandsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SuppliersViewModel}">
+            <views:SuppliersView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RelationsViewModel}">
+            <views:RelationsView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+D" Command="{Binding ShowDashboardCommand}" />
+        <KeyBinding Gesture="Ctrl+B" Command="{Binding ShowBrandsCommand}" />
+        <KeyBinding Gesture="Ctrl+S" Command="{Binding ShowSuppliersCommand}" />
+        <KeyBinding Gesture="Ctrl+R" Command="{Binding ShowRelationsCommand}" />
+    </Window.InputBindings>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Arkiv">
+                <MenuItem Header="_Anslut" Command="{Binding ConnectCommand}" />
+                <MenuItem Header="_Koppla från" Command="{Binding DisconnectCommand}" />
+                <Separator />
+                <MenuItem Header="A_vsluta" Command="{Binding ExitCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Visa">
+                <MenuItem Header="_Dashboard" Command="{Binding ShowDashboardCommand}" InputGestureText="Ctrl+D" />
+                <MenuItem Header="_Brands" Command="{Binding ShowBrandsCommand}" InputGestureText="Ctrl+B"
+                          Visibility="{Binding CanSeeBrands, Converter={StaticResource BoolToVis}}" />
+                <MenuItem Header="_Suppliers" Command="{Binding ShowSuppliersCommand}" InputGestureText="Ctrl+S"
+                          Visibility="{Binding CanSeeSuppliers, Converter={StaticResource BoolToVis}}" />
+                <MenuItem Header="_Relationer" Command="{Binding ShowRelationsCommand}" InputGestureText="Ctrl+R"
+                          Visibility="{Binding CanSeeRelations, Converter={StaticResource BoolToVis}}" />
+            </MenuItem>
+            <MenuItem Header="_Hjälp">
+                <MenuItem Header="_Om DPP Dashboard..." Command="{Binding AboutCommand}" />
+            </MenuItem>
+        </Menu>
+
+        <!-- Status bar -->
+        <Border DockPanel.Dock="Bottom" Background="#F5F5F5" BorderBrush="#DDD" BorderThickness="0,1,0,0"
+                Padding="8,4">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SessionInfo}" Value="">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <TextBlock Text="{Binding SessionInfo}" Foreground="#666" FontSize="11" />
+        </Border>
+
+        <ContentControl Content="{Binding CurrentView}" />
+    </DockPanel>
+</Window>
