@@ -1,0 +1,270 @@
+<UserControl x:Class="HospitexDPP.Views.AdminSuppliersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HospitexDPP.Controls"
+             x:Name="SuppliersRoot">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Main content -->
+        <DockPanel Margin="24,20">
+            <!-- Toolbar -->
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+                <Button Content="{DynamicResource Button_Add}"
+                        Style="{DynamicResource PrimaryButton}"
+                        DockPanel.Dock="Right"
+                        Command="{Binding AddCommand}" />
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{DynamicResource SearchTextBox}"
+                         Tag="{DynamicResource Search_Suppliers}"
+                         Margin="0,0,12,0" />
+                <ItemsControl Style="{DynamicResource FilterToggleBar}"
+                              ItemsSource="{Binding StatusFilterOptions}"
+                              HorizontalAlignment="Left" />
+            </DockPanel>
+
+            <!-- Empty state -->
+            <controls:EmptyState Title="{DynamicResource Empty_NoSuppliers}"
+                                 Description="{DynamicResource Empty_NoSuppliersDesc}"
+                                 ActionText="{DynamicResource Button_Add}"
+                                 ActionCommand="{Binding AddCommand}">
+                <controls:EmptyState.Style>
+                    <Style TargetType="controls:EmptyState">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasSuppliers}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:EmptyState.Style>
+            </controls:EmptyState>
+
+            <!-- DataGrid -->
+            <DataGrid ItemsSource="{Binding Suppliers}"
+                      SelectedItem="{Binding SelectedSupplier}"
+                      Style="{DynamicResource AdminDataGrid}"
+                      Visibility="{Binding HasSuppliers, Converter={StaticResource BoolToVis}}"
+                      MouseDoubleClick="DataGrid_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <!-- Name + location -->
+                    <DataGridTemplateColumn Width="2*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{DynamicResource Column_Name}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center" Margin="12,0">
+                                    <TextBlock Text="{Binding SupplierName}" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                    <TextBlock Text="{Binding SupplierLocation}"
+                                               Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding SupplierLocation}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SupplierLocation}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Brands count -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{DynamicResource Column_Brands}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding BrandCount}" VerticalAlignment="Center"
+                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Status -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{DynamicResource Column_Status}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <controls:StatusBadge IsActive="{Binding IsActive}" Margin="12,0" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Updated -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{DynamicResource Column_Updated}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding UpdatedAt}" VerticalAlignment="Center"
+                                           Margin="12,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Action menu -->
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{DynamicResource ActionMenuButton}"
+                                        Click="ActionMenu_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <!-- Drawer overlay -->
+        <controls:DrawerPanel IsOpen="{Binding IsDrawerOpen}"
+                              CloseCommand="{Binding CancelDrawerCommand}">
+            <controls:DrawerPanel.DrawerContent>
+                <Grid>
+                    <!-- Edit form layout: fixed header, scrollable fields, fixed footer -->
+                    <DockPanel Visibility="{Binding IsEditDrawer, Converter={StaticResource BoolToVis}}">
+                        <!-- Fixed header -->
+                        <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}"
+                                   DockPanel.Dock="Top" Margin="24,20,24,0" />
+
+                        <!-- Fixed footer -->
+                        <StackPanel DockPanel.Dock="Bottom" Margin="24,0,24,20">
+                            <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
+                                       FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="{DynamicResource Button_Save}"
+                                        Style="{DynamicResource PrimaryButton}"
+                                        Command="{Binding SaveCommand}" Margin="0,0,8,0" />
+                                <Button Content="{DynamicResource Button_Cancel}"
+                                        Style="{DynamicResource SecondaryButton}"
+                                        Command="{Binding CancelDrawerCommand}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Scrollable fields (label left, field right) -->
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="24,12,24,12" Padding="0,0,12,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MinWidth="120" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_SupplierName}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditSupplierName, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_SupplierLocation}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditSupplierLocation, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_FacilityRegistry}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditFacilityRegistry, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Field_FacilityIdentifier}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditFacilityIdentifier, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource Field_OperatorRegistry}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditOperatorRegistry, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource Field_OperatorIdentifier}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditOperatorIdentifier, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource Field_CountryConfection}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditCountryConfection, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource Field_CountryDyeing}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="7" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditCountryDyeing, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="{DynamicResource Field_CountryWeaving}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="8" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditCountryWeaving, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="{DynamicResource Field_Lei}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="9" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditLei, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <TextBlock Grid.Row="10" Grid.Column="0" Text="{DynamicResource Field_Gs1}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="10" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditGs1, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <CheckBox Grid.Row="11" Grid.Column="1"
+                                          Content="{DynamicResource Status_Active}"
+                                          IsChecked="{Binding EditIsActive}"
+                                          Margin="0,4,0,0" />
+                            </Grid>
+                        </ScrollViewer>
+                    </DockPanel>
+
+                    <!-- API key view -->
+                    <StackPanel Visibility="{Binding IsApiKeyDrawer, Converter={StaticResource BoolToVis}}"
+                                Margin="24,20">
+                        <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}" />
+                        <controls:ApiKeyDisplay ApiKey="{Binding DrawerApiKey}"
+                                                RegenerateCommand="{Binding RegenerateKeyCommand}" />
+                        <Button Content="{DynamicResource Button_Close}"
+                                Style="{DynamicResource SecondaryButton}"
+                                Command="{Binding CancelDrawerCommand}"
+                                HorizontalAlignment="Left" Margin="0,20,0,0" />
+                    </StackPanel>
+                </Grid>
+            </controls:DrawerPanel.DrawerContent>
+        </controls:DrawerPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,26 @@
+<UserControl x:Class="HospitexDPP.Controls.ApiKeyDisplay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="{DynamicResource Label_ApiKey}" Style="{DynamicResource FormLabel}" />
+        <DockPanel Margin="0,4,0,0">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button x:Name="ToggleBtn" Style="{DynamicResource SecondaryButton}"
+                        Padding="8,6" Margin="4,0,0,0" FontSize="12"
+                        Click="ToggleVisibility_Click" />
+                <Button Content="{DynamicResource Button_CopyKey}" Style="{DynamicResource SecondaryButton}"
+                        Padding="8,6" Margin="4,0,0,0" FontSize="12"
+                        Click="CopyKey_Click" />
+            </StackPanel>
+            <TextBlock x:Name="KeyText" VerticalAlignment="Center"
+                       FontFamily="Consolas" FontSize="12"
+                       Foreground="{DynamicResource TextPrimaryBrush}"
+                       TextTrimming="CharacterEllipsis" />
+        </DockPanel>
+        <TextBlock x:Name="CopyStatus" Foreground="{DynamicResource SuccessBrush}"
+                   FontSize="11" Margin="0,4,0,0" />
+        <Button Content="{DynamicResource Button_RegenerateKey}" Style="{DynamicResource SecondaryButton}"
+                Padding="8,6" Margin="0,8,0,0" HorizontalAlignment="Left" FontSize="12"
+                Click="RegenerateKey_Click" />
+    </StackPanel>
+</UserControl>

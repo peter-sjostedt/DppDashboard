@@ -1,0 +1,452 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Tabs -->
+    <sys:String x:Key="Tab_Brands">Brands</sys:String>
+    <sys:String x:Key="Tab_Suppliers">Suppliers</sys:String>
+    <sys:String x:Key="Tab_Relations">Relations</sys:String>
+
+    <!-- Buttons -->
+    <sys:String x:Key="Button_Add">+ Add</sys:String>
+    <sys:String x:Key="Button_Save">Save</sys:String>
+    <sys:String x:Key="Button_Cancel">Cancel</sys:String>
+    <sys:String x:Key="Button_Delete">Delete</sys:String>
+    <sys:String x:Key="Button_Edit">Edit</sys:String>
+    <sys:String x:Key="Button_Create">Create</sys:String>
+    <sys:String x:Key="Button_Close">Close</sys:String>
+
+    <!-- Search -->
+    <sys:String x:Key="Search_Placeholder">Search...</sys:String>
+
+    <!-- Status -->
+    <sys:String x:Key="Status_Active">Active</sys:String>
+    <sys:String x:Key="Status_Inactive">Inactive</sys:String>
+
+    <!-- Status filter -->
+    <sys:String x:Key="Filter_All">All</sys:String>
+    <sys:String x:Key="Filter_Active">Active</sys:String>
+    <sys:String x:Key="Filter_Inactive">Inactive</sys:String>
+
+    <!-- Empty states -->
+    <sys:String x:Key="Empty_NoBrands">No brands yet</sys:String>
+    <sys:String x:Key="Empty_NoBrandsDesc">Add your first brand to get started.</sys:String>
+    <sys:String x:Key="Empty_NoSuppliers">No suppliers yet</sys:String>
+    <sys:String x:Key="Empty_NoSuppliersDesc">Add your first supplier to get started.</sys:String>
+    <sys:String x:Key="Empty_NoRelations">No relations yet</sys:String>
+    <sys:String x:Key="Empty_NoRelationsDesc">Link brands to suppliers to get started.</sys:String>
+
+    <!-- Confirmations -->
+    <sys:String x:Key="Confirm_Delete">Are you sure you want to delete?</sys:String>
+    <sys:String x:Key="Confirm_RegenerateKey">The current key will stop working immediately. Continue?</sys:String>
+
+    <!-- API key -->
+    <sys:String x:Key="Label_ApiKey">API Key</sys:String>
+    <sys:String x:Key="Label_Copied">Copied!</sys:String>
+    <sys:String x:Key="Button_ShowKey">Show</sys:String>
+    <sys:String x:Key="Button_HideKey">Hide</sys:String>
+    <sys:String x:Key="Button_CopyKey">Copy</sys:String>
+    <sys:String x:Key="Button_RegenerateKey">Regenerate key</sys:String>
+
+    <!-- Column headers -->
+    <sys:String x:Key="Column_Name">Name</sys:String>
+    <sys:String x:Key="Column_Country">Country</sys:String>
+    <sys:String x:Key="Column_Suppliers">Suppliers</sys:String>
+    <sys:String x:Key="Column_Brands">Brands</sys:String>
+    <sys:String x:Key="Column_Status">Status</sys:String>
+    <sys:String x:Key="Column_Products">Products</sys:String>
+    <sys:String x:Key="Column_Materials">Materials</sys:String>
+    <sys:String x:Key="Column_Updated">Updated</sys:String>
+    <sys:String x:Key="Column_Brand">Brand</sys:String>
+    <sys:String x:Key="Column_Supplier">Supplier</sys:String>
+    <sys:String x:Key="Column_Created">Created</sys:String>
+
+    <!-- Brand fields -->
+    <sys:String x:Key="Field_BrandName">Brand name *</sys:String>
+    <sys:String x:Key="Field_LogoUrl">Logo URL</sys:String>
+    <sys:String x:Key="Field_SubBrand">Sub-brand</sys:String>
+    <sys:String x:Key="Field_ParentCompany">Parent company</sys:String>
+    <sys:String x:Key="Field_Trader">Trader</sys:String>
+    <sys:String x:Key="Field_TraderLocation">Trader location</sys:String>
+    <sys:String x:Key="Field_Lei">LEI</sys:String>
+    <sys:String x:Key="Field_Gs1">GS1 Company Prefix</sys:String>
+
+    <!-- Supplier fields -->
+    <sys:String x:Key="Field_SupplierName">Supplier name *</sys:String>
+    <sys:String x:Key="Field_SupplierLocation">Location</sys:String>
+    <sys:String x:Key="Field_FacilityRegistry">Facility Registry</sys:String>
+    <sys:String x:Key="Field_FacilityIdentifier">Facility Identifier</sys:String>
+    <sys:String x:Key="Field_OperatorRegistry">Operator Registry</sys:String>
+    <sys:String x:Key="Field_OperatorIdentifier">Operator Identifier</sys:String>
+    <sys:String x:Key="Field_CountryConfection">Country - Confection</sys:String>
+    <sys:String x:Key="Field_CountryDyeing">Country - Dyeing</sys:String>
+    <sys:String x:Key="Field_CountryWeaving">Country - Weaving</sys:String>
+
+    <!-- Relation fields -->
+    <sys:String x:Key="Field_SelectBrand">Select brand</sys:String>
+    <sys:String x:Key="Field_SelectSupplier">Select supplier</sys:String>
+
+    <!-- Drawer titles -->
+    <sys:String x:Key="Drawer_NewBrand">New brand</sys:String>
+    <sys:String x:Key="Drawer_EditBrand">Edit brand</sys:String>
+    <sys:String x:Key="Drawer_NewSupplier">New supplier</sys:String>
+    <sys:String x:Key="Drawer_EditSupplier">Edit supplier</sys:String>
+    <sys:String x:Key="Drawer_NewRelation">New relation</sys:String>
+    <sys:String x:Key="Drawer_ApiKey">API Key</sys:String>
+
+    <!-- Actions menu -->
+    <sys:String x:Key="Action_AddSupplier">Add supplier</sys:String>
+    <sys:String x:Key="Action_Edit">Edit</sys:String>
+    <sys:String x:Key="Action_ViewApiKey">View API key</sys:String>
+    <sys:String x:Key="Action_RegenerateKey">Regenerate key</sys:String>
+    <sys:String x:Key="Action_Deactivate">Deactivate</sys:String>
+    <sys:String x:Key="Action_Activate">Activate</sys:String>
+    <sys:String x:Key="Action_Delete">Delete</sys:String>
+
+    <!-- Status bar -->
+    <sys:String x:Key="StatusBar_Role">Admin</sys:String>
+    <sys:String x:Key="StatusBar_Brands">{0} brands</sys:String>
+    <sys:String x:Key="StatusBar_Suppliers">{0} suppliers</sys:String>
+
+    <!-- Messages -->
+    <sys:String x:Key="Msg_Saving">Saving...</sys:String>
+    <sys:String x:Key="Msg_Deleting">Deleting...</sys:String>
+    <sys:String x:Key="Msg_Loading">Loading...</sys:String>
+    <sys:String x:Key="Msg_NoResponse">No response from server</sys:String>
+    <sys:String x:Key="Msg_Error">Error: {0}</sys:String>
+
+    <!-- Menu -->
+    <sys:String x:Key="Menu_File">_File</sys:String>
+    <sys:String x:Key="Menu_Connect">_Connect</sys:String>
+    <sys:String x:Key="Menu_Disconnect">_Disconnect</sys:String>
+    <sys:String x:Key="Menu_Exit">E_xit</sys:String>
+    <sys:String x:Key="Menu_Help">_Help</sys:String>
+    <sys:String x:Key="Menu_About">_About Hospitex DPP...</sys:String>
+
+    <!-- Search per tab -->
+    <sys:String x:Key="Search_Brands">Search brands...</sys:String>
+    <sys:String x:Key="Search_Suppliers">Search suppliers...</sys:String>
+    <sys:String x:Key="Search_Relations">Search relations...</sys:String>
+
+    <!-- Relations grouped -->
+    <sys:String x:Key="Relations_NoSuppliers">No suppliers linked</sys:String>
+
+    <!-- Settings -->
+    <sys:String x:Key="Settings_Language">Language</sys:String>
+    <sys:String x:Key="Settings_Swedish">Svenska</sys:String>
+    <sys:String x:Key="Settings_English">English</sys:String>
+
+    <!-- ========================== -->
+    <!-- Brand view strings         -->
+    <!-- ========================== -->
+
+    <!-- Brand tabs -->
+    <sys:String x:Key="Tab_Products">Products</sys:String>
+    <sys:String x:Key="Tab_Batches">Batches</sys:String>
+    <sys:String x:Key="Tab_BrandSuppliers">Suppliers</sys:String>
+
+    <!-- Brand search -->
+    <sys:String x:Key="Search_Products">Search products...</sys:String>
+    <sys:String x:Key="Search_Batches">Search batches...</sys:String>
+    <sys:String x:Key="Search_BrandSuppliers">Search suppliers...</sys:String>
+
+    <!-- Brand empty states -->
+    <sys:String x:Key="Empty_NoProducts">No products yet</sys:String>
+    <sys:String x:Key="Empty_NoProductsDesc">Add your first product to get started.</sys:String>
+    <sys:String x:Key="Empty_NoBatches">No batches yet</sys:String>
+    <sys:String x:Key="Empty_NoBatchesDesc">Create your first batch to get started.</sys:String>
+    <sys:String x:Key="Empty_NoBrandSuppliers">No suppliers linked</sys:String>
+    <sys:String x:Key="Empty_NoBrandSuppliersDesc">Contact your admin to link suppliers.</sys:String>
+
+    <!-- Brand status bar -->
+    <sys:String x:Key="StatusBar_BrandRole">Brand</sys:String>
+    <sys:String x:Key="StatusBar_Products">{0} products</sys:String>
+    <sys:String x:Key="StatusBar_Batches">{0} batches</sys:String>
+
+    <!-- Product column headers -->
+    <sys:String x:Key="Column_ArticleNumber">Article Number</sys:String>
+    <sys:String x:Key="Column_Category">Category</sys:String>
+    <sys:String x:Key="Column_Variants">Variants</sys:String>
+    <sys:String x:Key="Column_SKU">SKU</sys:String>
+    <sys:String x:Key="Column_Size">Size</sys:String>
+    <sys:String x:Key="Column_Color">Color</sys:String>
+
+    <!-- Batch column headers -->
+    <sys:String x:Key="Column_BatchNumber">Batch Number</sys:String>
+    <sys:String x:Key="Column_PoNumber">PO Number</sys:String>
+    <sys:String x:Key="Column_Quantity">Quantity</sys:String>
+    <sys:String x:Key="Column_ProductionDate">Production Date</sys:String>
+    <sys:String x:Key="Column_Product">Product</sys:String>
+
+    <!-- Item column headers -->
+    <sys:String x:Key="Column_UniqueProductId">Unique Product ID</sys:String>
+    <sys:String x:Key="Column_SerialNumber">Serial Number</sys:String>
+    <sys:String x:Key="Column_Sgtin">SGTIN</sys:String>
+    <sys:String x:Key="Column_Tid">TID</sys:String>
+    <sys:String x:Key="Column_ItemStatus">Status</sys:String>
+
+    <!-- Drawer titles (brand) -->
+    <sys:String x:Key="Drawer_NewProduct">New product</sys:String>
+    <sys:String x:Key="Drawer_EditProduct">Edit product</sys:String>
+    <sys:String x:Key="Drawer_NewBatch">New batch</sys:String>
+    <sys:String x:Key="Drawer_EditBatch">Edit batch</sys:String>
+    <sys:String x:Key="Drawer_ManageMaterials">Manage materials</sys:String>
+    <sys:String x:Key="Drawer_ViewItems">View items</sys:String>
+    <sys:String x:Key="Drawer_MaterialDetail">Material details</sys:String>
+
+    <!-- Section headers -->
+    <sys:String x:Key="Section_ProductInfo">Product Info</sys:String>
+    <sys:String x:Key="Section_Variants">Variants</sys:String>
+    <sys:String x:Key="Section_Components">Components</sys:String>
+    <sys:String x:Key="Section_Care">Care</sys:String>
+    <sys:String x:Key="Section_Compliance">Compliance</sys:String>
+    <sys:String x:Key="Section_Circularity">Circularity</sys:String>
+    <sys:String x:Key="Section_Sustainability">Sustainability</sys:String>
+    <sys:String x:Key="Section_BasicInfo">Basic Information</sys:String>
+    <sys:String x:Key="Section_Compositions">Compositions</sys:String>
+    <sys:String x:Key="Section_MaterialCertifications">Certifications</sys:String>
+    <sys:String x:Key="Section_SupplyChain">Supply Chain</sys:String>
+
+    <!-- Product fields -->
+    <sys:String x:Key="Field_ProductName">Product name *</sys:String>
+    <sys:String x:Key="Field_GtinType">GTIN type</sys:String>
+    <sys:String x:Key="Field_Gtin">GTIN</sys:String>
+    <sys:String x:Key="Field_Description">Description</sys:String>
+    <sys:String x:Key="Field_PhotoUrl">Photo URL</sys:String>
+    <sys:String x:Key="Field_ArticleNumber">Article number</sys:String>
+    <sys:String x:Key="Field_CommodityCodeSystem">Commodity code system</sys:String>
+    <sys:String x:Key="Field_CommodityCodeNumber">Commodity code number</sys:String>
+    <sys:String x:Key="Field_YearOfSale">Year of sale</sys:String>
+    <sys:String x:Key="Field_SeasonOfSale">Season of sale</sys:String>
+    <sys:String x:Key="Field_PriceCurrency">Price currency</sys:String>
+    <sys:String x:Key="Field_Msrp">MSRP</sys:String>
+    <sys:String x:Key="Field_ResalePrice">Resale price</sys:String>
+    <sys:String x:Key="Field_Category">Category</sys:String>
+    <sys:String x:Key="Field_ProductGroup">Product group</sys:String>
+    <sys:String x:Key="Field_TypeLineConcept">Type/Line/Concept</sys:String>
+    <sys:String x:Key="Field_TypeItem">Type/Item</sys:String>
+    <sys:String x:Key="Field_AgeGroup">Age group</sys:String>
+    <sys:String x:Key="Field_Gender">Gender</sys:String>
+    <sys:String x:Key="Field_MarketSegment">Market segment</sys:String>
+    <sys:String x:Key="Field_WaterProperties">Water properties</sys:String>
+    <sys:String x:Key="Field_NetWeight">Net weight</sys:String>
+    <sys:String x:Key="Field_WeightUnit">Weight unit</sys:String>
+    <sys:String x:Key="Field_DataCarrierType">Data carrier type</sys:String>
+    <sys:String x:Key="Field_DataCarrierMaterial">Data carrier material</sys:String>
+    <sys:String x:Key="Field_DataCarrierLocation">Data carrier location</sys:String>
+
+    <!-- Variant fields -->
+    <sys:String x:Key="Field_ItemNumber">Item number</sys:String>
+    <sys:String x:Key="Field_Size">Size</sys:String>
+    <sys:String x:Key="Field_SizeCountryCode">Size country code</sys:String>
+    <sys:String x:Key="Field_ColorBrand">Color (brand)</sys:String>
+    <sys:String x:Key="Field_ColorGeneral">Color (general)</sys:String>
+
+    <!-- Component fields -->
+    <sys:String x:Key="Field_Component">Component</sys:String>
+    <sys:String x:Key="Field_Material">Material</sys:String>
+    <sys:String x:Key="Field_Content">Content</sys:String>
+    <sys:String x:Key="Field_Percentage">Percentage</sys:String>
+    <sys:String x:Key="Field_Source">Source</sys:String>
+
+    <!-- Care fields -->
+    <sys:String x:Key="Field_CareImageUrl">Care image URL</sys:String>
+    <sys:String x:Key="Field_CareText">Care text</sys:String>
+    <sys:String x:Key="Field_SafetyInformation">Safety information</sys:String>
+
+    <!-- Compliance fields -->
+    <sys:String x:Key="Field_HarmfulSubstances">Harmful substances</sys:String>
+    <sys:String x:Key="Field_HarmfulSubstancesInfo">Harmful substances info</sys:String>
+    <sys:String x:Key="Field_Certifications">Certifications</sys:String>
+    <sys:String x:Key="Field_CertificationsValidation">Certifications validation</sys:String>
+    <sys:String x:Key="Field_ChemicalComplianceStandard">Chemical compliance standard</sys:String>
+    <sys:String x:Key="Field_ChemicalComplianceValidation">Chemical compliance validation</sys:String>
+    <sys:String x:Key="Field_ChemicalComplianceLink">Chemical compliance link</sys:String>
+    <sys:String x:Key="Field_Microfibers">Microfibers</sys:String>
+    <sys:String x:Key="Field_TraceabilityProvider">Traceability provider</sys:String>
+
+    <!-- Circularity fields -->
+    <sys:String x:Key="Field_Performance">Performance</sys:String>
+    <sys:String x:Key="Field_Recyclability">Recyclability</sys:String>
+    <sys:String x:Key="Field_TakeBackInstructions">Take-back instructions</sys:String>
+    <sys:String x:Key="Field_RecyclingInstructions">Recycling instructions</sys:String>
+    <sys:String x:Key="Field_DisassemblyInstructionsSorters">Disassembly (sorters)</sys:String>
+    <sys:String x:Key="Field_DisassemblyInstructionsUser">Disassembly (user)</sys:String>
+    <sys:String x:Key="Field_CircularDesignStrategy">Circular design strategy</sys:String>
+    <sys:String x:Key="Field_CircularDesignDescription">Circular design description</sys:String>
+    <sys:String x:Key="Field_RepairInstructions">Repair instructions</sys:String>
+
+    <!-- Sustainability fields -->
+    <sys:String x:Key="Field_BrandStatement">Brand statement</sys:String>
+    <sys:String x:Key="Field_StatementLink">Statement link</sys:String>
+    <sys:String x:Key="Field_EnvironmentalFootprint">Environmental footprint</sys:String>
+
+    <!-- Batch fields -->
+    <sys:String x:Key="Field_BatchNumber">Batch number *</sys:String>
+    <sys:String x:Key="Field_PoNumber">PO number</sys:String>
+    <sys:String x:Key="Field_SelectProduct">Select product</sys:String>
+    <sys:String x:Key="Field_Quantity">Quantity</sys:String>
+    <sys:String x:Key="Field_Status">Status</sys:String>
+    <sys:String x:Key="Field_ProductionDate">Production date</sys:String>
+    <sys:String x:Key="Field_SelectMaterial">Select material</sys:String>
+    <sys:String x:Key="Field_ItemCount">Item count</sys:String>
+
+    <!-- Batch status filter -->
+    <sys:String x:Key="BatchFilter_Planned">Planned</sys:String>
+    <sys:String x:Key="BatchFilter_InProduction">In Production</sys:String>
+    <sys:String x:Key="BatchFilter_Completed">Completed</sys:String>
+
+    <!-- Section buttons -->
+    <sys:String x:Key="Button_SaveCare">Save care</sys:String>
+    <sys:String x:Key="Button_SaveCompliance">Save compliance</sys:String>
+    <sys:String x:Key="Button_SaveCircularity">Save circularity</sys:String>
+    <sys:String x:Key="Button_SaveSustainability">Save sustainability</sys:String>
+    <sys:String x:Key="Button_AddVariant">+ Add variant</sys:String>
+    <sys:String x:Key="Button_AddComponent">+ Add component</sys:String>
+    <sys:String x:Key="Button_AddMaterial">+ Add material</sys:String>
+    <sys:String x:Key="Button_GenerateItems">Generate items</sys:String>
+
+    <!-- Actions (brand) -->
+    <sys:String x:Key="Action_Duplicate">Duplicate</sys:String>
+    <sys:String x:Key="Action_ManageMaterials">Manage materials</sys:String>
+    <sys:String x:Key="Action_ViewItems">View items</sys:String>
+    <sys:String x:Key="Action_ViewMaterial">View material</sys:String>
+    <sys:String x:Key="Action_ViewDetails">View details</sys:String>
+    <sys:String x:Key="Action_AcceptOrder">Accept order</sys:String>
+
+    <!-- Read-only labels -->
+    <sys:String x:Key="Label_NoCompositions">No compositions registered</sys:String>
+    <sys:String x:Key="Label_NoCertifications">No certifications registered</sys:String>
+    <sys:String x:Key="Label_NoSupplyChain">No supply chain registered</sys:String>
+
+    <!-- Confirmations (brand) -->
+    <sys:String x:Key="Confirm_RemoveMaterial">Remove this material from the batch?</sys:String>
+    <sys:String x:Key="Confirm_DeleteItem">Delete this item?</sys:String>
+
+    <!-- ============================== -->
+    <!-- Supplier view strings           -->
+    <!-- ============================== -->
+
+    <!-- Supplier tabs -->
+    <sys:String x:Key="Tab_SupplierMaterials">Materials</sys:String>
+    <sys:String x:Key="Tab_PurchaseOrders">Purchase Orders</sys:String>
+    <sys:String x:Key="Tab_SupplierBrands">Brands</sys:String>
+
+    <!-- Supplier search -->
+    <sys:String x:Key="Search_Materials">Search materials...</sys:String>
+    <sys:String x:Key="Search_SupplierBrands">Search brands...</sys:String>
+
+    <!-- Supplier empty states -->
+    <sys:String x:Key="Empty_NoMaterials">No materials yet</sys:String>
+    <sys:String x:Key="Empty_NoMaterialsDesc">Add your first material to get started.</sys:String>
+    <sys:String x:Key="Empty_NoSupplierBrands">No brands linked</sys:String>
+    <sys:String x:Key="Empty_NoSupplierBrandsDesc">Contact your admin to link brands.</sys:String>
+
+    <!-- Supplier status bar -->
+    <sys:String x:Key="StatusBar_SupplierRole">Supplier</sys:String>
+    <sys:String x:Key="StatusBar_Materials">{0} materials</sys:String>
+
+    <!-- Material column headers -->
+    <sys:String x:Key="Column_MaterialName">Material Name</sys:String>
+    <sys:String x:Key="Column_MaterialType">Type</sys:String>
+
+    <!-- Material fields -->
+    <sys:String x:Key="Field_MaterialName">Material name *</sys:String>
+    <sys:String x:Key="Field_MaterialType">Type</sys:String>
+
+    <!-- Material drawer titles -->
+    <sys:String x:Key="Drawer_NewMaterial">New material</sys:String>
+    <sys:String x:Key="Drawer_EditMaterial">Edit material</sys:String>
+    <sys:String x:Key="Drawer_ProductDetail">Product details</sys:String>
+
+    <!-- Composition fields -->
+    <sys:String x:Key="Field_ContentName">Fiber</sys:String>
+    <sys:String x:Key="Field_ContentValue">Percentage (%)</sys:String>
+    <sys:String x:Key="Field_ContentSource">Source</sys:String>
+    <sys:String x:Key="Field_Recycled">Recycled</sys:String>
+    <sys:String x:Key="Field_RecycledPercentage">Recycled (%)</sys:String>
+    <sys:String x:Key="Field_RecycledInputSource">Recycled source</sys:String>
+    <sys:String x:Key="Button_AddComposition">+ Add fiber</sys:String>
+
+    <!-- Certification fields -->
+    <sys:String x:Key="Field_Certification">Certification</sys:String>
+    <sys:String x:Key="Field_CertificationId">Certification ID</sys:String>
+    <sys:String x:Key="Field_ValidUntil">Valid until</sys:String>
+    <sys:String x:Key="Button_AddCertification">+ Add certification</sys:String>
+
+    <!-- Supply chain fields -->
+    <sys:String x:Key="Field_Sequence">Sequence</sys:String>
+    <sys:String x:Key="Field_ProcessStep">Process step</sys:String>
+    <sys:String x:Key="Field_Country">Country</sys:String>
+    <sys:String x:Key="Field_FacilityName">Facility</sys:String>
+    <sys:String x:Key="Field_FacilityId">Facility ID</sys:String>
+    <sys:String x:Key="Button_AddSupplyChain">+ Add step</sys:String>
+
+    <!-- Section: Batch usages -->
+    <sys:String x:Key="Section_BatchUsages">Used in</sys:String>
+    <sys:String x:Key="Label_NoBatchUsages">Material is not used in any batches</sys:String>
+    <sys:String x:Key="Label_UsedInBatches">Material is used in {0} batches</sys:String>
+
+    <!-- Supplier confirmations -->
+    <sys:String x:Key="Confirm_DeleteComposition">Delete this composition?</sys:String>
+    <sys:String x:Key="Confirm_DeleteCertification">Delete this certification?</sys:String>
+    <sys:String x:Key="Confirm_DeleteSupplyChainStep">Delete this step?</sys:String>
+    <sys:String x:Key="Confirm_DeactivateMaterial">Material is used in batches and cannot be deleted. Deactivate it instead?</sys:String>
+
+    <!-- ============================== -->
+    <!-- Purchase orders (supplier)     -->
+    <!-- ============================== -->
+    <sys:String x:Key="Search_PurchaseOrders">Search purchase orders...</sys:String>
+    <sys:String x:Key="Column_DeliveryDate">Delivery Date</sys:String>
+    <sys:String x:Key="Column_Batches">Batches</sys:String>
+    <sys:String x:Key="Column_Produced">Produced</sys:String>
+    <sys:String x:Key="Status_Draft">Draft</sys:String>
+    <sys:String x:Key="Status_Sent">Sent</sys:String>
+    <sys:String x:Key="Status_Accepted">Accepted</sys:String>
+    <sys:String x:Key="Status_Fulfilled">Fulfilled</sys:String>
+    <sys:String x:Key="Status_Cancelled">Cancelled</sys:String>
+    <sys:String x:Key="Button_Accept">Accept Order</sys:String>
+    <sys:String x:Key="Empty_NoPurchaseOrders">No purchase orders</sys:String>
+    <sys:String x:Key="Empty_NoPurchaseOrdersDesc">No purchase orders have been sent to you yet.</sys:String>
+    <sys:String x:Key="Label_RequestedDelivery">Requested delivery date</sys:String>
+    <sys:String x:Key="Section_OrderLines">Order lines</sys:String>
+    <sys:String x:Key="Label_Total">Total</sys:String>
+    <sys:String x:Key="Label_BatchesInPo">Batches in this order</sys:String>
+    <sys:String x:Key="Label_NoBatches">No batches created yet</sys:String>
+
+    <!-- ============================== -->
+    <!-- Supplier batches               -->
+    <!-- ============================== -->
+    <sys:String x:Key="Tab_SupplierBatches">Batches</sys:String>
+    <sys:String x:Key="Search_SupplierBatches">Search batches...</sys:String>
+    <sys:String x:Key="Empty_NoSupplierBatches">No batches</sys:String>
+    <sys:String x:Key="Empty_NoSupplierBatchesDesc">Create your first batch under an accepted purchase order.</sys:String>
+    <sys:String x:Key="Column_Items">Items</sys:String>
+    <sys:String x:Key="Column_Facility">Facility</sys:String>
+    <sys:String x:Key="Button_CreateBatch">+ New Batch</sys:String>
+    <sys:String x:Key="Button_BulkCreate">Bulk Register</sys:String>
+    <sys:String x:Key="Label_BatchInfo">Batch Info</sys:String>
+    <sys:String x:Key="Label_FacilityInfo">Facility Info</sys:String>
+    <sys:String x:Key="Label_BatchMaterials">Linked Fabrics</sys:String>
+    <sys:String x:Key="Label_AddMaterial">Add Fabric</sys:String>
+    <sys:String x:Key="Label_Items">Registered Items</sys:String>
+    <sys:String x:Key="Label_SelectPo">Select Purchase Order</sys:String>
+    <sys:String x:Key="Label_FacilityName">Facility Name</sys:String>
+    <sys:String x:Key="Label_FacilityLocation">Location</sys:String>
+    <sys:String x:Key="Label_CountryConfection">Country of Confection</sys:String>
+    <sys:String x:Key="Label_CountryDyeing">Country of Dyeing</sys:String>
+    <sys:String x:Key="Label_CountryWeaving">Country of Weaving</sys:String>
+    <sys:String x:Key="Label_BulkQuantity">Number of items to create</sys:String>
+    <sys:String x:Key="Label_SerialPrefix">Serial number prefix</sys:String>
+    <sys:String x:Key="Label_SelectVariant">Select variant</sys:String>
+    <sys:String x:Key="Empty_NoSupplierMaterials">No fabrics linked</sys:String>
+    <sys:String x:Key="Empty_NoSupplierItems">No items registered</sys:String>
+    <sys:String x:Key="Confirm_DeleteBatch">Delete this batch? Only possible if no items exist.</sys:String>
+    <sys:String x:Key="Action_MarkCompleted">Mark as completed</sys:String>
+    <sys:String x:Key="Drawer_SupplierNewBatch">New Batch</sys:String>
+    <sys:String x:Key="Drawer_SupplierEditBatch">Edit Batch</sys:String>
+    <sys:String x:Key="Action_SplitBatch">Split Batch</sys:String>
+    <sys:String x:Key="Action_SplitBatchDesc">The current batch will be marked as completed and a new batch will be created with the same settings.</sys:String>
+    <sys:String x:Key="Confirm_SplitBatch">Do you want to split this batch? The current batch will be marked as completed and a new batch will be created with the same facility and fabric settings.</sys:String>
+
+</ResourceDictionary>

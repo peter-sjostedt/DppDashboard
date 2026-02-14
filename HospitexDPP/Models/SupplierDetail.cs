@@ -4,6 +4,9 @@ namespace HospitexDPP.Models
 {
     public class SupplierDetail
     {
+        [JsonIgnore]
+        public int BrandCount { get; set; }
+
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
@@ -45,5 +48,11 @@ namespace HospitexDPP.Models
 
         [JsonPropertyName("_is_active")]
         public int IsActive { get; set; }
+
+        [JsonPropertyName("material_count")]
+        public int MaterialCount { get; set; }
+
+        [JsonPropertyName("updated_at")]
+        public string? UpdatedAt { get; set; }
     }
 }

@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Width="400" Margin="20">
-            <TextBlock Text="DPP Dashboard" FontSize="22" FontWeight="Bold" Margin="0,0,0,20" />
+            <Image Source="/DPP-2.png" Height="180" Stretch="Uniform"
+                   HorizontalAlignment="Center" Margin="0,0,0,12" />
+            <TextBlock Text="HospitexDPP" FontSize="26" FontWeight="Bold"
+                       HorizontalAlignment="Center" Margin="0,0,0,24" />
 
             <TextBlock Text="Brand-nyckel (valfritt)" Margin="0,0,0,4" FontWeight="SemiBold" />
             <TextBox Text="{Binding BrandKey, UpdateSourceTrigger=PropertyChanged}"

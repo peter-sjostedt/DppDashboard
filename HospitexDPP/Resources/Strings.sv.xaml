@@ -1,0 +1,452 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- Tabs -->
+    <sys:String x:Key="Tab_Brands">Varumärken</sys:String>
+    <sys:String x:Key="Tab_Suppliers">Leverantörer</sys:String>
+    <sys:String x:Key="Tab_Relations">Relationer</sys:String>
+
+    <!-- Buttons -->
+    <sys:String x:Key="Button_Add">+ Lägg till</sys:String>
+    <sys:String x:Key="Button_Save">Spara</sys:String>
+    <sys:String x:Key="Button_Cancel">Avbryt</sys:String>
+    <sys:String x:Key="Button_Delete">Ta bort</sys:String>
+    <sys:String x:Key="Button_Edit">Redigera</sys:String>
+    <sys:String x:Key="Button_Create">Skapa</sys:String>
+    <sys:String x:Key="Button_Close">Stäng</sys:String>
+
+    <!-- Search -->
+    <sys:String x:Key="Search_Placeholder">Sök...</sys:String>
+
+    <!-- Status -->
+    <sys:String x:Key="Status_Active">Aktiv</sys:String>
+    <sys:String x:Key="Status_Inactive">Inaktiv</sys:String>
+
+    <!-- Status filter -->
+    <sys:String x:Key="Filter_All">Alla</sys:String>
+    <sys:String x:Key="Filter_Active">Aktiva</sys:String>
+    <sys:String x:Key="Filter_Inactive">Inaktiva</sys:String>
+
+    <!-- Empty states -->
+    <sys:String x:Key="Empty_NoBrands">Inga varumärken ännu</sys:String>
+    <sys:String x:Key="Empty_NoBrandsDesc">Lägg till ditt första varumärke för att komma igång.</sys:String>
+    <sys:String x:Key="Empty_NoSuppliers">Inga leverantörer ännu</sys:String>
+    <sys:String x:Key="Empty_NoSuppliersDesc">Lägg till din första leverantör för att komma igång.</sys:String>
+    <sys:String x:Key="Empty_NoRelations">Inga relationer ännu</sys:String>
+    <sys:String x:Key="Empty_NoRelationsDesc">Koppla varumärken till leverantörer för att komma igång.</sys:String>
+
+    <!-- Confirmations -->
+    <sys:String x:Key="Confirm_Delete">Är du säker på att du vill ta bort?</sys:String>
+    <sys:String x:Key="Confirm_RegenerateKey">Nuvarande nyckel slutar fungera omedelbart. Fortsätt?</sys:String>
+
+    <!-- API key -->
+    <sys:String x:Key="Label_ApiKey">API-nyckel</sys:String>
+    <sys:String x:Key="Label_Copied">Kopierad!</sys:String>
+    <sys:String x:Key="Button_ShowKey">Visa</sys:String>
+    <sys:String x:Key="Button_HideKey">Dölj</sys:String>
+    <sys:String x:Key="Button_CopyKey">Kopiera</sys:String>
+    <sys:String x:Key="Button_RegenerateKey">Generera ny nyckel</sys:String>
+
+    <!-- Column headers -->
+    <sys:String x:Key="Column_Name">Namn</sys:String>
+    <sys:String x:Key="Column_Country">Land</sys:String>
+    <sys:String x:Key="Column_Suppliers">Leverantörer</sys:String>
+    <sys:String x:Key="Column_Brands">Varumärken</sys:String>
+    <sys:String x:Key="Column_Status">Status</sys:String>
+    <sys:String x:Key="Column_Products">Produkter</sys:String>
+    <sys:String x:Key="Column_Materials">Tyger</sys:String>
+    <sys:String x:Key="Column_Updated">Uppdaterad</sys:String>
+    <sys:String x:Key="Column_Brand">Varumärke</sys:String>
+    <sys:String x:Key="Column_Supplier">Leverantör</sys:String>
+    <sys:String x:Key="Column_Created">Skapad</sys:String>
+
+    <!-- Brand fields -->
+    <sys:String x:Key="Field_BrandName">Varumärke *</sys:String>
+    <sys:String x:Key="Field_LogoUrl">Logotyp URL</sys:String>
+    <sys:String x:Key="Field_SubBrand">Undervarumärke</sys:String>
+    <sys:String x:Key="Field_ParentCompany">Moderbolag</sys:String>
+    <sys:String x:Key="Field_Trader">Handlare</sys:String>
+    <sys:String x:Key="Field_TraderLocation">Handlarens plats</sys:String>
+    <sys:String x:Key="Field_Lei">LEI</sys:String>
+    <sys:String x:Key="Field_Gs1">GS1 Company Prefix</sys:String>
+
+    <!-- Supplier fields -->
+    <sys:String x:Key="Field_SupplierName">Leverantörsnamn *</sys:String>
+    <sys:String x:Key="Field_SupplierLocation">Plats</sys:String>
+    <sys:String x:Key="Field_FacilityRegistry">Anläggningsregister</sys:String>
+    <sys:String x:Key="Field_FacilityIdentifier">Anläggnings-ID</sys:String>
+    <sys:String x:Key="Field_OperatorRegistry">Operatörsregister</sys:String>
+    <sys:String x:Key="Field_OperatorIdentifier">Operatörs-ID</sys:String>
+    <sys:String x:Key="Field_CountryConfection">Land - Konfektion</sys:String>
+    <sys:String x:Key="Field_CountryDyeing">Land - Färgning</sys:String>
+    <sys:String x:Key="Field_CountryWeaving">Land - Vävning</sys:String>
+
+    <!-- Relation fields -->
+    <sys:String x:Key="Field_SelectBrand">Välj varumärke</sys:String>
+    <sys:String x:Key="Field_SelectSupplier">Välj leverantör</sys:String>
+
+    <!-- Drawer titles -->
+    <sys:String x:Key="Drawer_NewBrand">Nytt varumärke</sys:String>
+    <sys:String x:Key="Drawer_EditBrand">Redigera varumärke</sys:String>
+    <sys:String x:Key="Drawer_NewSupplier">Ny leverantör</sys:String>
+    <sys:String x:Key="Drawer_EditSupplier">Redigera leverantör</sys:String>
+    <sys:String x:Key="Drawer_NewRelation">Ny relation</sys:String>
+    <sys:String x:Key="Drawer_ApiKey">API-nyckel</sys:String>
+
+    <!-- Actions menu -->
+    <sys:String x:Key="Action_AddSupplier">Lägg till leverantör</sys:String>
+    <sys:String x:Key="Action_Edit">Redigera</sys:String>
+    <sys:String x:Key="Action_ViewApiKey">Visa API-nyckel</sys:String>
+    <sys:String x:Key="Action_RegenerateKey">Generera ny nyckel</sys:String>
+    <sys:String x:Key="Action_Deactivate">Inaktivera</sys:String>
+    <sys:String x:Key="Action_Activate">Aktivera</sys:String>
+    <sys:String x:Key="Action_Delete">Ta bort</sys:String>
+
+    <!-- Status bar -->
+    <sys:String x:Key="StatusBar_Role">Admin</sys:String>
+    <sys:String x:Key="StatusBar_Brands">{0} varumärken</sys:String>
+    <sys:String x:Key="StatusBar_Suppliers">{0} leverantörer</sys:String>
+
+    <!-- Messages -->
+    <sys:String x:Key="Msg_Saving">Sparar...</sys:String>
+    <sys:String x:Key="Msg_Deleting">Tar bort...</sys:String>
+    <sys:String x:Key="Msg_Loading">Laddar...</sys:String>
+    <sys:String x:Key="Msg_NoResponse">Inget svar från servern</sys:String>
+    <sys:String x:Key="Msg_Error">Fel: {0}</sys:String>
+
+    <!-- Menu -->
+    <sys:String x:Key="Menu_File">_Arkiv</sys:String>
+    <sys:String x:Key="Menu_Connect">_Anslut</sys:String>
+    <sys:String x:Key="Menu_Disconnect">_Koppla från</sys:String>
+    <sys:String x:Key="Menu_Exit">A_vsluta</sys:String>
+    <sys:String x:Key="Menu_Help">_Hjälp</sys:String>
+    <sys:String x:Key="Menu_About">_Om Hospitex DPP...</sys:String>
+
+    <!-- Search per tab -->
+    <sys:String x:Key="Search_Brands">Sök varumärken...</sys:String>
+    <sys:String x:Key="Search_Suppliers">Sök leverantörer...</sys:String>
+    <sys:String x:Key="Search_Relations">Sök relationer...</sys:String>
+
+    <!-- Relations grouped -->
+    <sys:String x:Key="Relations_NoSuppliers">Inga leverantörer kopplade</sys:String>
+
+    <!-- Settings -->
+    <sys:String x:Key="Settings_Language">Språk</sys:String>
+    <sys:String x:Key="Settings_Swedish">Svenska</sys:String>
+    <sys:String x:Key="Settings_English">English</sys:String>
+
+    <!-- ========================== -->
+    <!-- Brand view strings         -->
+    <!-- ========================== -->
+
+    <!-- Brand tabs -->
+    <sys:String x:Key="Tab_Products">Produkter</sys:String>
+    <sys:String x:Key="Tab_Batches">Batchar</sys:String>
+    <sys:String x:Key="Tab_BrandSuppliers">Leverantörer</sys:String>
+
+    <!-- Brand search -->
+    <sys:String x:Key="Search_Products">Sök produkter...</sys:String>
+    <sys:String x:Key="Search_Batches">Sök batchar...</sys:String>
+    <sys:String x:Key="Search_BrandSuppliers">Sök leverantörer...</sys:String>
+
+    <!-- Brand empty states -->
+    <sys:String x:Key="Empty_NoProducts">Inga produkter ännu</sys:String>
+    <sys:String x:Key="Empty_NoProductsDesc">Lägg till din första produkt för att komma igång.</sys:String>
+    <sys:String x:Key="Empty_NoBatches">Inga batchar ännu</sys:String>
+    <sys:String x:Key="Empty_NoBatchesDesc">Skapa din första batch för att komma igång.</sys:String>
+    <sys:String x:Key="Empty_NoBrandSuppliers">Inga leverantörer kopplade</sys:String>
+    <sys:String x:Key="Empty_NoBrandSuppliersDesc">Kontakta din admin för att koppla leverantörer.</sys:String>
+
+    <!-- Brand status bar -->
+    <sys:String x:Key="StatusBar_BrandRole">Varumärke</sys:String>
+    <sys:String x:Key="StatusBar_Products">{0} produkter</sys:String>
+    <sys:String x:Key="StatusBar_Batches">{0} batchar</sys:String>
+
+    <!-- Product column headers -->
+    <sys:String x:Key="Column_ArticleNumber">Artikelnummer</sys:String>
+    <sys:String x:Key="Column_Category">Kategori</sys:String>
+    <sys:String x:Key="Column_Variants">Varianter</sys:String>
+    <sys:String x:Key="Column_SKU">SKU</sys:String>
+    <sys:String x:Key="Column_Size">Storlek</sys:String>
+    <sys:String x:Key="Column_Color">Färg</sys:String>
+
+    <!-- Batch column headers -->
+    <sys:String x:Key="Column_BatchNumber">Batchnummer</sys:String>
+    <sys:String x:Key="Column_PoNumber">PO-nummer</sys:String>
+    <sys:String x:Key="Column_Quantity">Antal</sys:String>
+    <sys:String x:Key="Column_ProductionDate">Produktionsdatum</sys:String>
+    <sys:String x:Key="Column_Product">Produkt</sys:String>
+
+    <!-- Item column headers -->
+    <sys:String x:Key="Column_UniqueProductId">Unikt produkt-ID</sys:String>
+    <sys:String x:Key="Column_SerialNumber">Serienummer</sys:String>
+    <sys:String x:Key="Column_Sgtin">SGTIN</sys:String>
+    <sys:String x:Key="Column_Tid">TID</sys:String>
+    <sys:String x:Key="Column_ItemStatus">Status</sys:String>
+
+    <!-- Drawer titles (brand) -->
+    <sys:String x:Key="Drawer_NewProduct">Ny produkt</sys:String>
+    <sys:String x:Key="Drawer_EditProduct">Redigera produkt</sys:String>
+    <sys:String x:Key="Drawer_NewBatch">Ny batch</sys:String>
+    <sys:String x:Key="Drawer_EditBatch">Redigera batch</sys:String>
+    <sys:String x:Key="Drawer_ManageMaterials">Hantera material</sys:String>
+    <sys:String x:Key="Drawer_ViewItems">Visa artiklar</sys:String>
+    <sys:String x:Key="Drawer_MaterialDetail">Materialdetaljer</sys:String>
+
+    <!-- Section headers -->
+    <sys:String x:Key="Section_ProductInfo">Produktinfo</sys:String>
+    <sys:String x:Key="Section_Variants">Varianter</sys:String>
+    <sys:String x:Key="Section_Components">Komponenter</sys:String>
+    <sys:String x:Key="Section_Care">Skötsel</sys:String>
+    <sys:String x:Key="Section_Compliance">Compliance</sys:String>
+    <sys:String x:Key="Section_Circularity">Cirkularitet</sys:String>
+    <sys:String x:Key="Section_Sustainability">Hållbarhet</sys:String>
+    <sys:String x:Key="Section_BasicInfo">Grundinformation</sys:String>
+    <sys:String x:Key="Section_Compositions">Kompositioner</sys:String>
+    <sys:String x:Key="Section_MaterialCertifications">Certifieringar</sys:String>
+    <sys:String x:Key="Section_SupplyChain">Leveranskedja</sys:String>
+
+    <!-- Product fields -->
+    <sys:String x:Key="Field_ProductName">Produktnamn *</sys:String>
+    <sys:String x:Key="Field_GtinType">GTIN-typ</sys:String>
+    <sys:String x:Key="Field_Gtin">GTIN</sys:String>
+    <sys:String x:Key="Field_Description">Beskrivning</sys:String>
+    <sys:String x:Key="Field_PhotoUrl">Foto URL</sys:String>
+    <sys:String x:Key="Field_ArticleNumber">Artikelnummer</sys:String>
+    <sys:String x:Key="Field_CommodityCodeSystem">Varukodsystem</sys:String>
+    <sys:String x:Key="Field_CommodityCodeNumber">Varukodsnummer</sys:String>
+    <sys:String x:Key="Field_YearOfSale">Försäljningsår</sys:String>
+    <sys:String x:Key="Field_SeasonOfSale">Försäljningssäsong</sys:String>
+    <sys:String x:Key="Field_PriceCurrency">Prisvaluta</sys:String>
+    <sys:String x:Key="Field_Msrp">Rekommenderat pris</sys:String>
+    <sys:String x:Key="Field_ResalePrice">Återförsäljningspris</sys:String>
+    <sys:String x:Key="Field_Category">Kategori</sys:String>
+    <sys:String x:Key="Field_ProductGroup">Produktgrupp</sys:String>
+    <sys:String x:Key="Field_TypeLineConcept">Typ/Linje/Koncept</sys:String>
+    <sys:String x:Key="Field_TypeItem">Typ/Artikel</sys:String>
+    <sys:String x:Key="Field_AgeGroup">Åldersgrupp</sys:String>
+    <sys:String x:Key="Field_Gender">Kön</sys:String>
+    <sys:String x:Key="Field_MarketSegment">Marknadssegment</sys:String>
+    <sys:String x:Key="Field_WaterProperties">Vattenegenskaper</sys:String>
+    <sys:String x:Key="Field_NetWeight">Nettovikt</sys:String>
+    <sys:String x:Key="Field_WeightUnit">Viktenhet</sys:String>
+    <sys:String x:Key="Field_DataCarrierType">Databärartyp</sys:String>
+    <sys:String x:Key="Field_DataCarrierMaterial">Databärarmaterial</sys:String>
+    <sys:String x:Key="Field_DataCarrierLocation">Databärarplats</sys:String>
+
+    <!-- Variant fields -->
+    <sys:String x:Key="Field_ItemNumber">Artikelnummer</sys:String>
+    <sys:String x:Key="Field_Size">Storlek</sys:String>
+    <sys:String x:Key="Field_SizeCountryCode">Storleksland</sys:String>
+    <sys:String x:Key="Field_ColorBrand">Färg (varumärke)</sys:String>
+    <sys:String x:Key="Field_ColorGeneral">Färg (generell)</sys:String>
+
+    <!-- Component fields -->
+    <sys:String x:Key="Field_Component">Komponent</sys:String>
+    <sys:String x:Key="Field_Material">Material</sys:String>
+    <sys:String x:Key="Field_Content">Innehåll</sys:String>
+    <sys:String x:Key="Field_Percentage">Procent</sys:String>
+    <sys:String x:Key="Field_Source">Källa</sys:String>
+
+    <!-- Care fields -->
+    <sys:String x:Key="Field_CareImageUrl">Skötselbildens URL</sys:String>
+    <sys:String x:Key="Field_CareText">Skötseltext</sys:String>
+    <sys:String x:Key="Field_SafetyInformation">Säkerhetsinformation</sys:String>
+
+    <!-- Compliance fields -->
+    <sys:String x:Key="Field_HarmfulSubstances">Skadliga ämnen</sys:String>
+    <sys:String x:Key="Field_HarmfulSubstancesInfo">Info skadliga ämnen</sys:String>
+    <sys:String x:Key="Field_Certifications">Certifieringar</sys:String>
+    <sys:String x:Key="Field_CertificationsValidation">Certifieringsvalidering</sys:String>
+    <sys:String x:Key="Field_ChemicalComplianceStandard">Kemisk standard</sys:String>
+    <sys:String x:Key="Field_ChemicalComplianceValidation">Kemisk validering</sys:String>
+    <sys:String x:Key="Field_ChemicalComplianceLink">Kemisk länk</sys:String>
+    <sys:String x:Key="Field_Microfibers">Mikrofibrer</sys:String>
+    <sys:String x:Key="Field_TraceabilityProvider">Spårbarhetsleverantör</sys:String>
+
+    <!-- Circularity fields -->
+    <sys:String x:Key="Field_Performance">Prestanda</sys:String>
+    <sys:String x:Key="Field_Recyclability">Återvinningsbarhet</sys:String>
+    <sys:String x:Key="Field_TakeBackInstructions">Återlämningsinstruktioner</sys:String>
+    <sys:String x:Key="Field_RecyclingInstructions">Återvinningsinstruktioner</sys:String>
+    <sys:String x:Key="Field_DisassemblyInstructionsSorters">Demontering (sorterare)</sys:String>
+    <sys:String x:Key="Field_DisassemblyInstructionsUser">Demontering (användare)</sys:String>
+    <sys:String x:Key="Field_CircularDesignStrategy">Cirkulär designstrategi</sys:String>
+    <sys:String x:Key="Field_CircularDesignDescription">Cirkulär designbeskrivning</sys:String>
+    <sys:String x:Key="Field_RepairInstructions">Reparationsinstruktioner</sys:String>
+
+    <!-- Sustainability fields -->
+    <sys:String x:Key="Field_BrandStatement">Varumärkesdeklaration</sys:String>
+    <sys:String x:Key="Field_StatementLink">Deklarationslänk</sys:String>
+    <sys:String x:Key="Field_EnvironmentalFootprint">Miljöavtryck</sys:String>
+
+    <!-- Batch fields -->
+    <sys:String x:Key="Field_BatchNumber">Batchnummer *</sys:String>
+    <sys:String x:Key="Field_PoNumber">PO-nummer</sys:String>
+    <sys:String x:Key="Field_SelectProduct">Välj produkt</sys:String>
+    <sys:String x:Key="Field_Quantity">Antal</sys:String>
+    <sys:String x:Key="Field_Status">Status</sys:String>
+    <sys:String x:Key="Field_ProductionDate">Produktionsdatum</sys:String>
+    <sys:String x:Key="Field_SelectMaterial">Välj material</sys:String>
+    <sys:String x:Key="Field_ItemCount">Antal artiklar</sys:String>
+
+    <!-- Batch status filter -->
+    <sys:String x:Key="BatchFilter_Planned">Planerad</sys:String>
+    <sys:String x:Key="BatchFilter_InProduction">I produktion</sys:String>
+    <sys:String x:Key="BatchFilter_Completed">Klar</sys:String>
+
+    <!-- Section buttons -->
+    <sys:String x:Key="Button_SaveCare">Spara skötsel</sys:String>
+    <sys:String x:Key="Button_SaveCompliance">Spara compliance</sys:String>
+    <sys:String x:Key="Button_SaveCircularity">Spara cirkularitet</sys:String>
+    <sys:String x:Key="Button_SaveSustainability">Spara hållbarhet</sys:String>
+    <sys:String x:Key="Button_AddVariant">+ Lägg till variant</sys:String>
+    <sys:String x:Key="Button_AddComponent">+ Lägg till komponent</sys:String>
+    <sys:String x:Key="Button_AddMaterial">+ Lägg till material</sys:String>
+    <sys:String x:Key="Button_GenerateItems">Generera artiklar</sys:String>
+
+    <!-- Actions (brand) -->
+    <sys:String x:Key="Action_Duplicate">Duplicera</sys:String>
+    <sys:String x:Key="Action_ManageMaterials">Hantera material</sys:String>
+    <sys:String x:Key="Action_ViewItems">Visa artiklar</sys:String>
+    <sys:String x:Key="Action_ViewMaterial">Visa material</sys:String>
+    <sys:String x:Key="Action_ViewDetails">Visa detaljer</sys:String>
+    <sys:String x:Key="Action_AcceptOrder">Acceptera order</sys:String>
+
+    <!-- Read-only labels -->
+    <sys:String x:Key="Label_NoCompositions">Inga kompositioner registrerade</sys:String>
+    <sys:String x:Key="Label_NoCertifications">Inga certifieringar registrerade</sys:String>
+    <sys:String x:Key="Label_NoSupplyChain">Ingen leveranskedja registrerad</sys:String>
+
+    <!-- Confirmations (brand) -->
+    <sys:String x:Key="Confirm_RemoveMaterial">Vill du ta bort detta material från batchen?</sys:String>
+    <sys:String x:Key="Confirm_DeleteItem">Vill du ta bort denna artikel?</sys:String>
+
+    <!-- ============================== -->
+    <!-- Supplier view strings           -->
+    <!-- ============================== -->
+
+    <!-- Supplier tabs -->
+    <sys:String x:Key="Tab_SupplierMaterials">Tyger</sys:String>
+    <sys:String x:Key="Tab_PurchaseOrders">Inköpsordrar</sys:String>
+    <sys:String x:Key="Tab_SupplierBrands">Varumärken</sys:String>
+
+    <!-- Supplier search -->
+    <sys:String x:Key="Search_Materials">Sök tyger...</sys:String>
+    <sys:String x:Key="Search_SupplierBrands">Sök varumärken...</sys:String>
+
+    <!-- Supplier empty states -->
+    <sys:String x:Key="Empty_NoMaterials">Inga tyger ännu</sys:String>
+    <sys:String x:Key="Empty_NoMaterialsDesc">Lägg till ditt första tyg för att komma igång.</sys:String>
+    <sys:String x:Key="Empty_NoSupplierBrands">Inga varumärken kopplade</sys:String>
+    <sys:String x:Key="Empty_NoSupplierBrandsDesc">Kontakta din admin för att koppla varumärken.</sys:String>
+
+    <!-- Supplier status bar -->
+    <sys:String x:Key="StatusBar_SupplierRole">Leverantör</sys:String>
+    <sys:String x:Key="StatusBar_Materials">{0} tyger</sys:String>
+
+    <!-- Material column headers -->
+    <sys:String x:Key="Column_MaterialName">Tygnamn</sys:String>
+    <sys:String x:Key="Column_MaterialType">Typ</sys:String>
+
+    <!-- Material fields -->
+    <sys:String x:Key="Field_MaterialName">Tygnamn *</sys:String>
+    <sys:String x:Key="Field_MaterialType">Typ</sys:String>
+
+    <!-- Material drawer titles -->
+    <sys:String x:Key="Drawer_NewMaterial">Nytt tyg</sys:String>
+    <sys:String x:Key="Drawer_EditMaterial">Redigera tyg</sys:String>
+    <sys:String x:Key="Drawer_ProductDetail">Produktdetaljer</sys:String>
+
+    <!-- Composition fields -->
+    <sys:String x:Key="Field_ContentName">Fiber</sys:String>
+    <sys:String x:Key="Field_ContentValue">Andel (%)</sys:String>
+    <sys:String x:Key="Field_ContentSource">Källa</sys:String>
+    <sys:String x:Key="Field_Recycled">Återvunnet</sys:String>
+    <sys:String x:Key="Field_RecycledPercentage">Återvunnet (%)</sys:String>
+    <sys:String x:Key="Field_RecycledInputSource">Återvinningskälla</sys:String>
+    <sys:String x:Key="Button_AddComposition">+ Lägg till fiber</sys:String>
+
+    <!-- Certification fields -->
+    <sys:String x:Key="Field_Certification">Certifiering</sys:String>
+    <sys:String x:Key="Field_CertificationId">Certifierings-ID</sys:String>
+    <sys:String x:Key="Field_ValidUntil">Giltig till</sys:String>
+    <sys:String x:Key="Button_AddCertification">+ Lägg till certifiering</sys:String>
+
+    <!-- Supply chain fields -->
+    <sys:String x:Key="Field_Sequence">Ordning</sys:String>
+    <sys:String x:Key="Field_ProcessStep">Processteg</sys:String>
+    <sys:String x:Key="Field_Country">Land</sys:String>
+    <sys:String x:Key="Field_FacilityName">Anläggning</sys:String>
+    <sys:String x:Key="Field_FacilityId">Anläggnings-ID</sys:String>
+    <sys:String x:Key="Button_AddSupplyChain">+ Lägg till steg</sys:String>
+
+    <!-- Section: Batch usages -->
+    <sys:String x:Key="Section_BatchUsages">Används i</sys:String>
+    <sys:String x:Key="Label_NoBatchUsages">Tyget används inte i några batchar</sys:String>
+    <sys:String x:Key="Label_UsedInBatches">Tyget används i {0} batcher</sys:String>
+
+    <!-- Supplier confirmations -->
+    <sys:String x:Key="Confirm_DeleteComposition">Vill du ta bort denna komposition?</sys:String>
+    <sys:String x:Key="Confirm_DeleteCertification">Vill du ta bort denna certifiering?</sys:String>
+    <sys:String x:Key="Confirm_DeleteSupplyChainStep">Vill du ta bort detta steg?</sys:String>
+    <sys:String x:Key="Confirm_DeactivateMaterial">Tyget används i batchar och kan inte tas bort. Vill du inaktivera det istället?</sys:String>
+
+    <!-- ============================== -->
+    <!-- Purchase orders (supplier)     -->
+    <!-- ============================== -->
+    <sys:String x:Key="Search_PurchaseOrders">Sök inköpsordrar...</sys:String>
+    <sys:String x:Key="Column_DeliveryDate">Leveransdatum</sys:String>
+    <sys:String x:Key="Column_Batches">Batcher</sys:String>
+    <sys:String x:Key="Column_Produced">Producerat</sys:String>
+    <sys:String x:Key="Status_Draft">Utkast</sys:String>
+    <sys:String x:Key="Status_Sent">Skickad</sys:String>
+    <sys:String x:Key="Status_Accepted">Accepterad</sys:String>
+    <sys:String x:Key="Status_Fulfilled">Levererad</sys:String>
+    <sys:String x:Key="Status_Cancelled">Avbruten</sys:String>
+    <sys:String x:Key="Button_Accept">Acceptera order</sys:String>
+    <sys:String x:Key="Empty_NoPurchaseOrders">Inga inköpsordrar</sys:String>
+    <sys:String x:Key="Empty_NoPurchaseOrdersDesc">Inga inköpsordrar har skickats till dig ännu.</sys:String>
+    <sys:String x:Key="Label_RequestedDelivery">Begärt leveransdatum</sys:String>
+    <sys:String x:Key="Section_OrderLines">Orderrader</sys:String>
+    <sys:String x:Key="Label_Total">Totalt</sys:String>
+    <sys:String x:Key="Label_BatchesInPo">Batcher i denna order</sys:String>
+    <sys:String x:Key="Label_NoBatches">Inga batcher skapade ännu</sys:String>
+
+    <!-- ============================== -->
+    <!-- Supplier batches               -->
+    <!-- ============================== -->
+    <sys:String x:Key="Tab_SupplierBatches">Batcher</sys:String>
+    <sys:String x:Key="Search_SupplierBatches">Sök batcher...</sys:String>
+    <sys:String x:Key="Empty_NoSupplierBatches">Inga batcher</sys:String>
+    <sys:String x:Key="Empty_NoSupplierBatchesDesc">Skapa din första batch under en accepterad inköpsorder.</sys:String>
+    <sys:String x:Key="Column_Items">Items</sys:String>
+    <sys:String x:Key="Column_Facility">Anläggning</sys:String>
+    <sys:String x:Key="Button_CreateBatch">+ Ny batch</sys:String>
+    <sys:String x:Key="Button_BulkCreate">Bulk-registrera</sys:String>
+    <sys:String x:Key="Label_BatchInfo">Batchinfo</sys:String>
+    <sys:String x:Key="Label_FacilityInfo">Anläggningsinfo</sys:String>
+    <sys:String x:Key="Label_BatchMaterials">Kopplade tyger</sys:String>
+    <sys:String x:Key="Label_AddMaterial">Lägg till tyg</sys:String>
+    <sys:String x:Key="Label_Items">Registrerade items</sys:String>
+    <sys:String x:Key="Label_SelectPo">Välj inköpsorder</sys:String>
+    <sys:String x:Key="Label_FacilityName">Anläggningsnamn</sys:String>
+    <sys:String x:Key="Label_FacilityLocation">Plats</sys:String>
+    <sys:String x:Key="Label_CountryConfection">Konfektionsland</sys:String>
+    <sys:String x:Key="Label_CountryDyeing">Färgningsland</sys:String>
+    <sys:String x:Key="Label_CountryWeaving">Vävningsland</sys:String>
+    <sys:String x:Key="Label_BulkQuantity">Antal items att skapa</sys:String>
+    <sys:String x:Key="Label_SerialPrefix">Serienummerprefix</sys:String>
+    <sys:String x:Key="Label_SelectVariant">Välj variant</sys:String>
+    <sys:String x:Key="Empty_NoSupplierMaterials">Inga tyger kopplade</sys:String>
+    <sys:String x:Key="Empty_NoSupplierItems">Inga items registrerade</sys:String>
+    <sys:String x:Key="Confirm_DeleteBatch">Ta bort denna batch? Kan bara göras om inga items finns.</sys:String>
+    <sys:String x:Key="Action_MarkCompleted">Markera som klar</sys:String>
+    <sys:String x:Key="Drawer_SupplierNewBatch">Ny batch</sys:String>
+    <sys:String x:Key="Drawer_SupplierEditBatch">Redigera batch</sys:String>
+    <sys:String x:Key="Action_SplitBatch">Splittra batch</sys:String>
+    <sys:String x:Key="Action_SplitBatchDesc">Nuvarande batch markeras som klar och en ny batch skapas med samma inställningar.</sys:String>
+    <sys:String x:Key="Confirm_SplitBatch">Vill du splittra denna batch? Den nuvarande batchen markeras som klar och en ny batch skapas med samma anläggnings- och tyginställningar.</sys:String>
+
+</ResourceDictionary>

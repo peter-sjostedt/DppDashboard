@@ -1,0 +1,366 @@
+<UserControl x:Class="HospitexDPP.Views.SupplierMaterialsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HospitexDPP.Controls">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Main content -->
+        <DockPanel Margin="24,20">
+            <!-- Toolbar -->
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+                <Button Content="{DynamicResource Button_Add}"
+                        Style="{DynamicResource PrimaryButton}"
+                        DockPanel.Dock="Right"
+                        Command="{Binding AddCommand}" />
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{DynamicResource SearchTextBox}"
+                         Tag="{DynamicResource Search_Materials}"
+                         Margin="0,0,12,0" />
+                <ItemsControl Style="{DynamicResource FilterToggleBar}"
+                              ItemsSource="{Binding StatusFilterOptions}"
+                              HorizontalAlignment="Left" />
+            </DockPanel>
+
+            <!-- Empty state -->
+            <controls:EmptyState Title="{DynamicResource Empty_NoMaterials}"
+                                 Description="{DynamicResource Empty_NoMaterialsDesc}"
+                                 ActionText="{DynamicResource Button_Add}"
+                                 ActionCommand="{Binding AddCommand}">
+                <controls:EmptyState.Style>
+                    <Style TargetType="controls:EmptyState">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasMaterials}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:EmptyState.Style>
+            </controls:EmptyState>
+
+            <!-- DataGrid -->
+            <DataGrid ItemsSource="{Binding Materials}"
+                      Style="{DynamicResource AdminDataGrid}"
+                      Visibility="{Binding HasMaterials, Converter={StaticResource BoolToVis}}"
+                      MouseDoubleClick="DataGrid_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <!-- Name + Description -->
+                    <DataGridTemplateColumn Width="2*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{DynamicResource Column_MaterialName}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel VerticalAlignment="Center" Margin="12,0">
+                                    <TextBlock Text="{Binding MaterialName}" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                    <TextBlock Text="{Binding Description}"
+                                               Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Description}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Description}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Type -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{DynamicResource Column_MaterialType}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding MaterialType}" VerticalAlignment="Center"
+                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Status -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{DynamicResource Column_Status}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <controls:StatusBadge IsActive="{Binding IsActive}" Margin="12,0" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Updated -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{DynamicResource Column_Updated}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding UpdatedAt}" VerticalAlignment="Center"
+                                           Margin="12,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Action menu -->
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{DynamicResource ActionMenuButton}"
+                                        Click="ActionMenu_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <!-- Drawer overlay (600px wide) -->
+        <controls:DrawerPanel IsOpen="{Binding IsDrawerOpen}"
+                              CloseCommand="{Binding CancelDrawerCommand}"
+                              DrawerWidth="600">
+            <controls:DrawerPanel.DrawerContent>
+                <DockPanel>
+                    <!-- Fixed header -->
+                    <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}"
+                               DockPanel.Dock="Top" Margin="24,20,24,0" />
+
+                    <!-- Fixed footer -->
+                    <StackPanel DockPanel.Dock="Bottom" Margin="24,0,24,20">
+                        <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
+                                   FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="{DynamicResource Button_Save}"
+                                    Style="{DynamicResource PrimaryButton}"
+                                    Command="{Binding SaveCommand}" Margin="0,0,8,0" />
+                            <Button Content="{DynamicResource Button_Cancel}"
+                                    Style="{DynamicResource SecondaryButton}"
+                                    Command="{Binding CancelDrawerCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Scrollable sections -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="24,12,24,12" Padding="0,0,12,0">
+                        <StackPanel>
+                            <!-- SECTION 1: Basic Info -->
+                            <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_BasicInfo}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <Grid Margin="0,8,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="140" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Material Name -->
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_MaterialName}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Center" Margin="0,0,12,8" />
+                                    <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                             Text="{Binding EditMaterialName, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <!-- Material Type -->
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_MaterialType}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Center" Margin="0,0,12,8" />
+                                    <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                             Text="{Binding EditMaterialType, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <!-- Description -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_Description}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Top" Margin="0,0,12,8" />
+                                    <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                             Text="{Binding EditDescription, UpdateSourceTrigger=PropertyChanged}"
+                                             TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" />
+
+                                    <!-- IsActive (edit mode only) -->
+                                    <CheckBox Grid.Row="3" Grid.Column="1" Margin="0,0,0,8"
+                                              Content="{DynamicResource Status_Active}"
+                                              IsChecked="{Binding EditIsActive}"
+                                              Visibility="{Binding ShowIsActive, Converter={StaticResource BoolToVis}}" />
+                                </Grid>
+                            </Expander>
+
+                            <!-- SECTION 2: Compositions -->
+                            <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_Compositions}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,0">
+                                    <DataGrid ItemsSource="{Binding Compositions}"
+                                              Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" CanUserDeleteRows="False"
+                                              IsReadOnly="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Fiber" Binding="{Binding ContentName}" Width="*" />
+                                            <DataGridTextColumn Header="%" Binding="{Binding ContentValue}" Width="60" />
+                                            <DataGridTextColumn Header="Källa" Binding="{Binding ContentSource}" Width="*" />
+                                            <DataGridTextColumn Header="Återv." Binding="{Binding Recycled}" Width="60" />
+                                            <DataGridTextColumn Header="Återv.%" Binding="{Binding RecycledPercentage}" Width="70" />
+                                            <DataGridTemplateColumn Width="Auto">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="✕" FontSize="11" Padding="4,2"
+                                                                Command="{Binding DataContext.DeleteCompositionCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                CommandParameter="{Binding}"
+                                                                Style="{DynamicResource DangerButtonSmall}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Button Content="{DynamicResource Button_AddComposition}"
+                                            Style="{DynamicResource SecondaryButton}"
+                                            Command="{Binding AddCompositionCommand}"
+                                            HorizontalAlignment="Left" Margin="0,8,0,0" />
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- SECTION 3: Certifications -->
+                            <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_MaterialCertifications}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,0">
+                                    <DataGrid ItemsSource="{Binding Certifications}"
+                                              Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" CanUserDeleteRows="False"
+                                              IsReadOnly="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Certifiering" Binding="{Binding Certification}" Width="*" />
+                                            <DataGridTextColumn Header="Cert-ID" Binding="{Binding CertificationId}" Width="*" />
+                                            <DataGridTextColumn Header="Giltig t.o.m." Binding="{Binding ValidUntil}" Width="*" />
+                                            <DataGridTemplateColumn Width="Auto">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="✕" FontSize="11" Padding="4,2"
+                                                                Command="{Binding DataContext.DeleteCertificationCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                CommandParameter="{Binding}"
+                                                                Style="{DynamicResource DangerButtonSmall}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Button Content="{DynamicResource Button_AddCertification}"
+                                            Style="{DynamicResource SecondaryButton}"
+                                            Command="{Binding AddCertificationCommand}"
+                                            HorizontalAlignment="Left" Margin="0,8,0,0" />
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- SECTION 4: Supply Chain -->
+                            <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_SupplyChain}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,0">
+                                    <DataGrid ItemsSource="{Binding SupplyChain}"
+                                              Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" CanUserDeleteRows="False"
+                                              IsReadOnly="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="#" Binding="{Binding Sequence}" Width="40" />
+                                            <DataGridTextColumn Header="Processteg" Binding="{Binding ProcessStep}" Width="*" />
+                                            <DataGridTextColumn Header="Land" Binding="{Binding Country}" Width="80" />
+                                            <DataGridTextColumn Header="Anläggning" Binding="{Binding FacilityName}" Width="*" />
+                                            <DataGridTemplateColumn Width="Auto">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Button Content="▲" FontSize="10" Padding="4,2" Margin="0,0,2,0"
+                                                                    Command="{Binding DataContext.MoveUpCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    CommandParameter="{Binding}" />
+                                                            <Button Content="▼" FontSize="10" Padding="4,2" Margin="0,0,2,0"
+                                                                    Command="{Binding DataContext.MoveDownCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    CommandParameter="{Binding}" />
+                                                            <Button Content="✕" FontSize="11" Padding="4,2"
+                                                                    Command="{Binding DataContext.DeleteSupplyChainCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Style="{DynamicResource DangerButtonSmall}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    <Button Content="{DynamicResource Button_AddSupplyChain}"
+                                            Style="{DynamicResource SecondaryButton}"
+                                            Command="{Binding AddSupplyChainCommand}"
+                                            HorizontalAlignment="Left" Margin="0,8,0,0" />
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- SECTION 5: Batch Usages (read-only, edit mode) -->
+                            <Expander IsExpanded="False" Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_BatchUsages}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,0">
+                                    <TextBlock Text="{DynamicResource Label_NoBatchUsages}"
+                                               Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12"
+                                               Margin="0,0,0,8">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasBatchUsages}" Value="True">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <DataGrid ItemsSource="{Binding BatchUsages}"
+                                              Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" IsReadOnly="True"
+                                              Visibility="{Binding HasBatchUsages, Converter={StaticResource BoolToVis}}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Batch" Binding="{Binding BatchId}" Width="80" />
+                                            <DataGridTextColumn Header="Komponent" Binding="{Binding Component}" Width="*" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </controls:DrawerPanel.DrawerContent>
+        </controls:DrawerPanel>
+    </Grid>
+</UserControl>

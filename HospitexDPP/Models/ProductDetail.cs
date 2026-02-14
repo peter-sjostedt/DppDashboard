@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace HospitexDPP.Models
@@ -7,6 +7,12 @@ namespace HospitexDPP.Models
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
+
+        [JsonPropertyName("brand_id")]
+        public int BrandId { get; set; }
+
+        [JsonPropertyName("brand_name")]
+        public string? BrandName { get; set; }
 
         [JsonPropertyName("product_name")]
         public string ProductName { get; set; } = string.Empty;
@@ -86,19 +92,29 @@ namespace HospitexDPP.Models
         [JsonPropertyName("data_carrier_location")]
         public string? DataCarrierLocation { get; set; }
 
-        [JsonPropertyName("variants")]
-        public List<VariantInfo>? Variants { get; set; }
+        [JsonPropertyName("_is_active")]
+        public int IsActive { get; set; } = 1;
 
-        [JsonPropertyName("care")]
+        [JsonPropertyName("created_at")]
+        public string? CreatedAt { get; set; }
+
+        [JsonPropertyName("updated_at")]
+        public string? UpdatedAt { get; set; }
+
+        // Nested objects from API
+        [JsonPropertyName("care_information")]
         public CareInfo? Care { get; set; }
 
-        [JsonPropertyName("compliance")]
+        [JsonPropertyName("compliance_information")]
         public ComplianceInfo? Compliance { get; set; }
 
-        [JsonPropertyName("circularity")]
+        [JsonPropertyName("circularity_information")]
         public CircularityInfo? Circularity { get; set; }
 
-        [JsonPropertyName("sustainability")]
+        [JsonPropertyName("sustainability_information")]
         public SustainabilityInfo? Sustainability { get; set; }
+
+        [JsonPropertyName("components")]
+        public List<ComponentInfo>? Components { get; set; }
     }
 }

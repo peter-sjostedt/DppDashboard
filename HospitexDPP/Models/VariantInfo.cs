@@ -24,5 +24,8 @@ namespace HospitexDPP.Models
 
         [JsonPropertyName("gtin")]
         public string? Gtin { get; set; }
+
+        [JsonPropertyName("_is_active")]
+        public int IsActive { get; set; } = 1;
     }
 }

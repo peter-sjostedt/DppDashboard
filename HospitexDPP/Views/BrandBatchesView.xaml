@@ -1,0 +1,386 @@
+<UserControl x:Class="HospitexDPP.Views.BrandBatchesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HospitexDPP.Controls">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Main content -->
+        <DockPanel Margin="24,20">
+            <!-- Toolbar -->
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+                <Button Content="{DynamicResource Button_Add}"
+                        Style="{DynamicResource PrimaryButton}"
+                        DockPanel.Dock="Right"
+                        Command="{Binding AddBatchCommand}" />
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{DynamicResource SearchTextBox}"
+                         Tag="{DynamicResource Search_Batches}"
+                         Margin="0,0,12,0" />
+                <ItemsControl Style="{DynamicResource FilterToggleBar}"
+                              ItemsSource="{Binding BatchStatusFilterOptions}"
+                              HorizontalAlignment="Left" />
+            </DockPanel>
+
+            <!-- Empty state -->
+            <controls:EmptyState Title="{DynamicResource Empty_NoBatches}"
+                                 Description="{DynamicResource Empty_NoBatchesDesc}"
+                                 ActionText="{DynamicResource Button_Add}"
+                                 ActionCommand="{Binding AddBatchCommand}">
+                <controls:EmptyState.Style>
+                    <Style TargetType="controls:EmptyState">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasBatches}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:EmptyState.Style>
+            </controls:EmptyState>
+
+            <!-- Grouped batches list -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          Visibility="{Binding HasBatches, Converter={StaticResource BoolToVis}}">
+                <ItemsControl ItemsSource="{Binding GroupedBatches}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}"
+                                      Margin="0,0,0,4">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding ProductName}" FontWeight="SemiBold"
+                                                   FontSize="14" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                        <TextBlock Foreground="{DynamicResource TextSecondaryBrush}"
+                                                   FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="({0} batchar)">
+                                                    <Binding Path="Batches.Count" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Expander.Header>
+
+                                <DataGrid ItemsSource="{Binding Batches}"
+                                          Style="{DynamicResource InlineDataGrid}"
+                                          Margin="16,8,0,8"
+                                          MouseDoubleClick="DataGrid_MouseDoubleClick">
+                                    <DataGrid.Columns>
+                                        <!-- Batch number -->
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Column_BatchNumber}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding BatchNumber}" VerticalAlignment="Center"
+                                                               Margin="8,0" FontWeight="SemiBold"
+                                                               Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <!-- PO Number -->
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Column_PoNumber}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding PoNumber}" VerticalAlignment="Center"
+                                                               Margin="8,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <!-- Supplier -->
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Column_Supplier}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding SupplierName}" VerticalAlignment="Center"
+                                                               Margin="8,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <!-- Quantity -->
+                                        <DataGridTemplateColumn Width="80">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Column_Quantity}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Quantity}" VerticalAlignment="Center"
+                                                               Margin="8,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <!-- Status -->
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Column_Status}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Status}" VerticalAlignment="Center"
+                                                               Margin="8,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <!-- Action menu -->
+                                        <DataGridTemplateColumn Width="Auto">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Style="{DynamicResource ActionMenuButton}"
+                                                            Click="BatchActionMenu_Click" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
+
+        <!-- Drawer overlay -->
+        <controls:DrawerPanel IsOpen="{Binding IsDrawerOpen}"
+                              CloseCommand="{Binding CancelDrawerCommand}">
+            <controls:DrawerPanel.DrawerContent>
+                <Grid>
+                    <!-- MODE 1: New/Edit Batch -->
+                    <DockPanel Visibility="{Binding IsBatchDrawer, Converter={StaticResource BoolToVis}}">
+                        <!-- Header -->
+                        <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}"
+                                   DockPanel.Dock="Top" Margin="24,20,24,0" />
+
+                        <!-- Footer -->
+                        <StackPanel DockPanel.Dock="Bottom" Margin="24,0,24,20">
+                            <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
+                                       FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="{DynamicResource Button_Save}"
+                                        Style="{DynamicResource PrimaryButton}"
+                                        Command="{Binding SaveBatchCommand}" Margin="0,0,8,0" />
+                                <Button Content="{DynamicResource Button_Cancel}"
+                                        Style="{DynamicResource SecondaryButton}"
+                                        Command="{Binding CancelDrawerCommand}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Fields -->
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="24,12,24,12" Padding="0,0,12,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" MinWidth="120" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Batch Number -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_BatchNumber}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditBatchNumber, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <!-- Product (only for new batch) -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_Product}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8"
+                                           Visibility="{Binding ShowProductDropdown, Converter={StaticResource BoolToVis}}" />
+                                <ComboBox Grid.Row="1" Grid.Column="1"
+                                          ItemsSource="{Binding ProductOptions}"
+                                          SelectedItem="{Binding EditSelectedProduct}"
+                                          DisplayMemberPath="ProductName"
+                                          Padding="10,8" FontSize="13" Margin="0,0,0,8"
+                                          Visibility="{Binding ShowProductDropdown, Converter={StaticResource BoolToVis}}" />
+
+                                <!-- Supplier -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_Supplier}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <ComboBox Grid.Row="2" Grid.Column="1"
+                                          ItemsSource="{Binding SupplierOptions}"
+                                          SelectedItem="{Binding EditSelectedSupplier}"
+                                          DisplayMemberPath="SupplierName"
+                                          Padding="10,8" FontSize="13" Margin="0,0,0,8" />
+
+                                <!-- PO Number -->
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Column_PoNumber}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditPoNumber, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <!-- Quantity -->
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource Column_Quantity}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditQuantity, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <!-- Status -->
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource Column_Status}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditStatus, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <!-- Production Date -->
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource Field_ProductionDate}"
+                                           Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                           VerticalAlignment="Center" Margin="0,0,12,8" />
+                                <TextBox Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                         Text="{Binding EditProductionDate, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                        </ScrollViewer>
+                    </DockPanel>
+
+                    <!-- MODE 2: Manage Materials -->
+                    <DockPanel Visibility="{Binding IsMaterialsDrawer, Converter={StaticResource BoolToVis}}">
+                        <!-- Header -->
+                        <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}"
+                                   DockPanel.Dock="Top" Margin="24,20,24,0" />
+
+                        <!-- Footer -->
+                        <StackPanel DockPanel.Dock="Bottom" Margin="24,0,24,20">
+                            <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
+                                       FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
+                            <Button Content="{DynamicResource Button_Close}"
+                                    Style="{DynamicResource SecondaryButton}"
+                                    Command="{Binding CancelDrawerCommand}"
+                                    HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <!-- Content -->
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="24,12,24,12" Padding="0,0,12,0">
+                            <StackPanel>
+                                <!-- Current materials list -->
+                                <TextBlock Text="{DynamicResource Section_BatchMaterials}"
+                                           Style="{DynamicResource SectionHeader}" Margin="0,0,0,8" />
+                                <ItemsControl ItemsSource="{Binding BatchMaterials}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="{DynamicResource SurfaceBrush}"
+                                                    BorderBrush="{DynamicResource BorderBrush}"
+                                                    BorderThickness="1" CornerRadius="6"
+                                                    Padding="12,8" Margin="0,0,0,4">
+                                                <DockPanel>
+                                                    <Button Content="✕" FontSize="11" Padding="4,2"
+                                                            Style="{DynamicResource SecondaryButton}"
+                                                            DockPanel.Dock="Right" VerticalAlignment="Center"
+                                                            Command="{Binding DataContext.RemoveMaterialCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}" />
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding MaterialName}"
+                                                                   FontWeight="SemiBold" FontSize="13"
+                                                                   Foreground="{DynamicResource TextPrimaryBrush}" />
+                                                        <TextBlock Text="{Binding Component}"
+                                                                   FontSize="12"
+                                                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                                                    </StackPanel>
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <!-- Add material -->
+                                <TextBlock Text="{DynamicResource Field_SelectMaterial}"
+                                           Style="{DynamicResource SectionHeader}" Margin="0,16,0,8" />
+                                <DockPanel Margin="0,0,0,8">
+                                    <Button Content="{DynamicResource Button_Add}"
+                                            Style="{DynamicResource PrimaryButton}"
+                                            DockPanel.Dock="Right" Margin="8,0,0,0"
+                                            Command="{Binding AddMaterialCommand}" />
+                                    <ComboBox ItemsSource="{Binding AvailableMaterials}"
+                                              SelectedItem="{Binding SelectedAvailableMaterial}"
+                                              DisplayMemberPath="MaterialName"
+                                              Padding="10,8" FontSize="13" />
+                                </DockPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </DockPanel>
+
+                    <!-- MODE 3: View Items -->
+                    <DockPanel Visibility="{Binding IsItemsDrawer, Converter={StaticResource BoolToVis}}">
+                        <!-- Header -->
+                        <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}"
+                                   DockPanel.Dock="Top" Margin="24,20,24,0" />
+
+                        <!-- Footer -->
+                        <StackPanel DockPanel.Dock="Bottom" Margin="24,0,24,20">
+                            <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
+                                       FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
+                            <Button Content="{DynamicResource Button_Close}"
+                                    Style="{DynamicResource SecondaryButton}"
+                                    Command="{Binding CancelDrawerCommand}"
+                                    HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <!-- Content -->
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="24,12,24,12" Padding="0,0,12,0">
+                            <StackPanel>
+                                <!-- Generate items -->
+                                <DockPanel Margin="0,0,0,12">
+                                    <Button Content="{DynamicResource Button_GenerateItems}"
+                                            Style="{DynamicResource PrimaryButton}"
+                                            DockPanel.Dock="Right" Margin="8,0,0,0"
+                                            Command="{Binding GenerateItemsCommand}" />
+                                    <TextBox Style="{DynamicResource FormTextBox}"
+                                             Text="{Binding GenerateItemCount, UpdateSourceTrigger=PropertyChanged}" />
+                                </DockPanel>
+
+                                <!-- Items list -->
+                                <DataGrid ItemsSource="{Binding BatchItems}"
+                                          Style="{DynamicResource InlineDataGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Unique Product ID"
+                                                            Binding="{Binding UniqueProductId}" Width="*" />
+                                        <DataGridTextColumn Header="Serial"
+                                                            Binding="{Binding SerialNumber}" Width="*" />
+                                        <DataGridTextColumn Header="SGTIN"
+                                                            Binding="{Binding Sgtin}" Width="*" />
+                                        <DataGridTextColumn Header="TID"
+                                                            Binding="{Binding Tid}" Width="*" />
+                                        <DataGridTextColumn Header="Status"
+                                                            Binding="{Binding Status}" Width="80" />
+                                        <DataGridTemplateColumn Width="Auto">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Content="✕" FontSize="11" Padding="4,2"
+                                                            Style="{DynamicResource SecondaryButton}"
+                                                            Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Grid>
+            </controls:DrawerPanel.DrawerContent>
+        </controls:DrawerPanel>
+    </Grid>
+</UserControl>

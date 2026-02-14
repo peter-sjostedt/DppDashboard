@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace HospitexDPP.Services
@@ -16,7 +17,8 @@ namespace HospitexDPP.Services
     {
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
+            NumberHandling = JsonNumberHandling.AllowReadingFromString
         };
 
         private readonly HttpClient _http;
@@ -41,7 +43,9 @@ namespace HospitexDPP.Services
             }
             catch { }
 
-            // 2. Test as brand
+            // 2. Test as brand — verify the returned entity's api_key matches
+            // (both /api/brands and /api/suppliers return 200 for any valid tenant key,
+            //  but only the entity's own record will have a matching api_key)
             try
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, "/api/brands");
@@ -50,13 +54,14 @@ namespace HospitexDPP.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var (name, id) = ExtractNameAndId(json, "brand_name");
-                    return ("brand", name, id);
+                    var (name, id, apiKey) = ExtractNameAndId(json, "brand_name");
+                    if (apiKey == key)
+                        return ("brand", name, id);
                 }
             }
             catch { }
 
-            // 3. Test as supplier
+            // 3. Test as supplier — same api_key match check
             try
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, "/api/suppliers");
@@ -65,8 +70,9 @@ namespace HospitexDPP.Services
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
-                    var (name, id) = ExtractNameAndId(json, "supplier_name");
-                    return ("supplier", name, id);
+                    var (name, id, apiKey) = ExtractNameAndId(json, "supplier_name");
+                    if (apiKey == key)
+                        return ("supplier", name, id);
                 }
             }
             catch { }
@@ -274,7 +280,7 @@ namespace HospitexDPP.Services
             }
         }
 
-        private static (string? name, int? id) ExtractNameAndId(string json, string nameField)
+        private static (string? name, int? id, string? apiKey) ExtractNameAndId(string json, string nameField)
         {
             try
             {
@@ -287,16 +293,17 @@ namespace HospitexDPP.Services
                     else if (data.ValueKind == JsonValueKind.Object)
                         item = data;
                     else
-                        return (null, null);
+                        return (null, null, null);
 
                     string? name = item.TryGetProperty(nameField, out var nameProp) ? nameProp.GetString() : null;
                     int? id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.Number
                         ? idProp.GetInt32() : null;
-                    return (name, id);
+                    string? apiKey = item.TryGetProperty("api_key", out var keyProp) ? keyProp.GetString() : null;
+                    return (name, id, apiKey);
                 }
             }
             catch { }
-            return (null, null);
+            return (null, null, null);
         }
     }
 }

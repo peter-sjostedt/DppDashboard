@@ -15,5 +15,17 @@ namespace HospitexDPP.Models
 
         [JsonPropertyName("description")]
         public string? Description { get; set; }
+
+        [JsonPropertyName("_is_active")]
+        public int IsActive { get; set; } = 1;
+
+        [JsonPropertyName("supplier_id")]
+        public int SupplierId { get; set; }
+
+        [JsonPropertyName("supplier_name")]
+        public string? SupplierName { get; set; }
+
+        [JsonPropertyName("updated_at")]
+        public string? UpdatedAt { get; set; }
     }
 }

@@ -4,11 +4,13 @@
              xmlns:local="clr-namespace:HospitexDPP"
              xmlns:conv="clr-namespace:HospitexDPP.Converters">
     <Application.Resources>
-        <conv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
-        <Style x:Key="PanelHeaderStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16" />
-            <Setter Property="FontWeight" Value="Bold" />
-            <Setter Property="Margin" Value="0,0,0,8" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Strings.sv.xaml" />
+                <ResourceDictionary Source="Resources/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+            <conv:BoolToChevronConverter x:Key="BoolToChevron" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

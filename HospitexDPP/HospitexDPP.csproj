@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Resource Include="dpp.ico" />
+    <Resource Include="DPP-2.png" />
   </ItemGroup>
 
 </Project>

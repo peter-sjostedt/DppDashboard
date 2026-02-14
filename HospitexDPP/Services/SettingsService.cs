@@ -16,10 +16,37 @@ namespace HospitexDPP.Services
         public string Name { get; set; } = string.Empty;
     }
 
+    public class WindowSettings
+    {
+        [JsonPropertyName("width")]
+        public double Width { get; set; } = 1024;
+
+        [JsonPropertyName("height")]
+        public double Height { get; set; } = 768;
+
+        [JsonPropertyName("left")]
+        public double Left { get; set; } = double.NaN;
+
+        [JsonPropertyName("top")]
+        public double Top { get; set; } = double.NaN;
+
+        [JsonPropertyName("maximized")]
+        public bool Maximized { get; set; }
+    }
+
     public class AppSettings
     {
         [JsonPropertyName("keys")]
         public List<SavedKey> Keys { get; set; } = new();
+
+        [JsonPropertyName("language")]
+        public string Language { get; set; } = "sv";
+
+        [JsonPropertyName("window")]
+        public WindowSettings? Window { get; set; }
+
+        [JsonPropertyName("filters")]
+        public Dictionary<string, string> Filters { get; set; } = new();
     }
 
     public static class SettingsService
@@ -53,6 +80,19 @@ namespace HospitexDPP.Services
                 File.WriteAllText(SettingsPath, json);
             }
             catch { }
+        }
+
+        public static void SaveFilter(string key, string value)
+        {
+            var settings = Load();
+            settings.Filters[key] = value;
+            Save(settings);
+        }
+
+        public static string? LoadFilter(string key)
+        {
+            var settings = Load();
+            return settings.Filters.TryGetValue(key, out var value) ? value : null;
         }
 
         public static void Clear()

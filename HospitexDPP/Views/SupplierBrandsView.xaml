@@ -1,0 +1,377 @@
+<UserControl x:Class="HospitexDPP.Views.SupplierBrandsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HospitexDPP.Controls">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Main content -->
+        <DockPanel Margin="24,20">
+            <!-- Toolbar: search only (read-only view) -->
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{DynamicResource SearchTextBox}"
+                         Tag="{DynamicResource Search_SupplierBrands}" />
+            </DockPanel>
+
+            <!-- Empty state -->
+            <controls:EmptyState Title="{DynamicResource Empty_NoSupplierBrands}"
+                                 Description="{DynamicResource Empty_NoSupplierBrandsDesc}">
+                <controls:EmptyState.Style>
+                    <Style TargetType="controls:EmptyState">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasBrands}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:EmptyState.Style>
+            </controls:EmptyState>
+
+            <!-- Grouped brands list -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          Visibility="{Binding HasBrands, Converter={StaticResource BoolToVis}}">
+                <ItemsControl ItemsSource="{Binding GroupedBrands}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}" Margin="0,0,0,8">
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding BrandName}" FontWeight="SemiBold" FontSize="14"
+                                                   Foreground="{DynamicResource TextPrimaryBrush}" />
+                                        <TextBlock Text="{Binding ProductCountLabel}"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}" FontSize="13"
+                                                   Margin="8,0,0,0" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Expander.Header>
+                                <StackPanel Margin="0,4,0,0">
+                                    <!-- Brand address -->
+                                    <TextBlock Text="{Binding BrandAddress}"
+                                               Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12"
+                                               Margin="0,0,0,8">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding BrandAddress}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- Products DataGrid -->
+                                    <DataGrid ItemsSource="{Binding Products}"
+                                              Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" IsReadOnly="True"
+                                              SelectionMode="Single"
+                                              MouseDoubleClick="DataGrid_MouseDoubleClick">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Width="2*">
+                                                <DataGridTemplateColumn.Header>
+                                                    <TextBlock Text="{DynamicResource Column_Product}" />
+                                                </DataGridTemplateColumn.Header>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding ProductName}" VerticalAlignment="Center"
+                                                                   Margin="12,0" FontWeight="SemiBold"
+                                                                   Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Width="*">
+                                                <DataGridTemplateColumn.Header>
+                                                    <TextBlock Text="{DynamicResource Column_Category}" />
+                                                </DataGridTemplateColumn.Header>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Category}" VerticalAlignment="Center"
+                                                                   Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Width="*">
+                                                <DataGridTemplateColumn.Header>
+                                                    <TextBlock Text="{DynamicResource Column_Variants}" />
+                                                </DataGridTemplateColumn.Header>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding VariantCount}" VerticalAlignment="Center"
+                                                                   Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                            <DataGridTemplateColumn Width="Auto">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Style="{DynamicResource ActionMenuButton}"
+                                                                Click="ActionMenu_Click" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Expander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </DockPanel>
+
+        <!-- Drawer: read-only product detail -->
+        <controls:DrawerPanel IsOpen="{Binding IsDrawerOpen}"
+                              CloseCommand="{Binding CancelDrawerCommand}"
+                              DrawerWidth="600">
+            <controls:DrawerPanel.DrawerContent>
+                <DockPanel>
+                    <!-- Header -->
+                    <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}"
+                               DockPanel.Dock="Top" Margin="24,20,24,0" />
+
+                    <!-- Footer -->
+                    <StackPanel DockPanel.Dock="Bottom" Margin="24,0,24,20">
+                        <Button Content="{DynamicResource Button_Close}"
+                                Style="{DynamicResource SecondaryButton}"
+                                Command="{Binding CancelDrawerCommand}" />
+                    </StackPanel>
+
+                    <!-- Scrollable read-only content -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="24,12,24,12" Padding="0,0,12,0">
+                        <StackPanel>
+                            <!-- Product Info -->
+                            <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_ProductInfo}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <Grid Margin="0,8,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="140" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_ProductName}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DetailProductName}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_ArticleNumber}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DetailArticleNumber}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_Category}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DetailCategory}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Field_Description}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Top" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DetailDescription}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" TextWrapping="Wrap" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource Field_GtinType}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding DetailGtinType}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource Field_Gtin}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding DetailGtin}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource Field_ProductGroup}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding DetailProductGroup}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource Field_TypeItem}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding DetailTypeItem}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{DynamicResource Field_AgeGroup}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding DetailAgeGroup}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="9" Grid.Column="0" Text="{DynamicResource Field_Gender}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding DetailGender}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+
+                                    <TextBlock Grid.Row="10" Grid.Column="0" Text="{DynamicResource Field_MarketSegment}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
+                                    <TextBlock Grid.Row="10" Grid.Column="1" Text="{Binding DetailMarketSegment}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+                                </Grid>
+                            </Expander>
+
+                            <!-- Variants -->
+                            <Expander Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding HasVariants, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_Variants}" Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <DataGrid ItemsSource="{Binding DetailVariants}" Style="{DynamicResource InlineDataGrid}"
+                                          AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,8,0,0">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Width="2*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="SKU" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ItemNumber}" VerticalAlignment="Center"
+                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="0.8*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Column_Size}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Size}" VerticalAlignment="Center"
+                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Column_Color}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ColorBrand}" VerticalAlignment="Center"
+                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="1.5*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="GTIN" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Gtin}" VerticalAlignment="Center"
+                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+
+                            <!-- Components -->
+                            <Expander Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding HasComponents, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_Components}" Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <DataGrid ItemsSource="{Binding DetailComponents}" Style="{DynamicResource InlineDataGrid}"
+                                          AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,8,0,0">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Field_Component}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Component}" VerticalAlignment="Center"
+                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Field_Material}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Material}" VerticalAlignment="Center"
+                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="*">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="{DynamicResource Field_Content}" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ContentName}" VerticalAlignment="Center"
+                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Width="60">
+                                            <DataGridTemplateColumn.Header>
+                                                <TextBlock Text="%" />
+                                            </DataGridTemplateColumn.Header>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ContentValue}" VerticalAlignment="Center"
+                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Expander>
+
+                            <!-- Care -->
+                            <Expander Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding HasCare, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_Care}" Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,0">
+                                    <TextBlock Text="{Binding DetailCareText}" TextWrapping="Wrap" FontSize="13" Margin="0,0,0,4" />
+                                    <TextBlock Text="{Binding DetailSafetyInfo}" TextWrapping="Wrap" FontSize="12"
+                                               Foreground="{DynamicResource TextSecondaryBrush}" />
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- Compliance -->
+                            <Expander Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding HasCompliance, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_Compliance}" Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,0">
+                                    <TextBlock Text="{Binding DetailHarmfulSubstances}" TextWrapping="Wrap" FontSize="13" Margin="0,0,0,4" />
+                                    <TextBlock Text="{Binding DetailCertifications}" TextWrapping="Wrap" FontSize="13" Margin="0,0,0,4" />
+                                    <TextBlock Text="{Binding DetailTraceabilityProvider}" TextWrapping="Wrap" FontSize="12"
+                                               Foreground="{DynamicResource TextSecondaryBrush}" />
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- Circularity -->
+                            <Expander Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding HasCircularity, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_Circularity}" Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,0">
+                                    <TextBlock Text="{Binding DetailRecyclability}" TextWrapping="Wrap" FontSize="13" Margin="0,0,0,4" />
+                                    <TextBlock Text="{Binding DetailRepairInstructions}" TextWrapping="Wrap" FontSize="13" Margin="0,0,0,4" />
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- Sustainability -->
+                            <Expander Style="{DynamicResource SectionExpander}" Margin="0,8,0,0"
+                                      Visibility="{Binding HasSustainability, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{DynamicResource Section_Sustainability}" Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,0">
+                                    <TextBlock Text="{Binding DetailBrandStatement}" TextWrapping="Wrap" FontSize="13" Margin="0,0,0,4" />
+                                    <TextBlock Text="{Binding DetailEnvironmentalFootprint}" TextWrapping="Wrap" FontSize="13" Margin="0,0,0,4" />
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </controls:DrawerPanel.DrawerContent>
+        </controls:DrawerPanel>
+    </Grid>
+</UserControl>
