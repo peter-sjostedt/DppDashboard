@@ -354,15 +354,15 @@
                                 <DataGrid ItemsSource="{Binding BatchItems}"
                                           Style="{DynamicResource InlineDataGrid}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Unique Product ID"
+                                        <DataGridTextColumn Header="{DynamicResource Column_UniqueProductId}"
                                                             Binding="{Binding UniqueProductId}" Width="*" />
-                                        <DataGridTextColumn Header="Serial"
+                                        <DataGridTextColumn Header="{DynamicResource Column_SerialNumber}"
                                                             Binding="{Binding SerialNumber}" Width="*" />
                                         <DataGridTextColumn Header="SGTIN"
                                                             Binding="{Binding Sgtin}" Width="*" />
                                         <DataGridTextColumn Header="TID"
                                                             Binding="{Binding Tid}" Width="*" />
-                                        <DataGridTextColumn Header="Status"
+                                        <DataGridTextColumn Header="{DynamicResource Column_Status}"
                                                             Binding="{Binding Status}" Width="80" />
                                         <DataGridTemplateColumn Width="Auto">
                                             <DataGridTemplateColumn.CellTemplate>

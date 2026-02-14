@@ -190,13 +190,37 @@
                                         <DataGridTextColumn Header="Material"
                                                             Binding="{Binding ContentName}" Width="*" />
                                         <DataGridTextColumn Header="Andel"
-                                                            Binding="{Binding ContentValue}" Width="80" />
+                                                            Binding="{Binding ContentValue}" Width="80">
+                                            <DataGridTextColumn.HeaderStyle>
+                                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.HeaderStyle>
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                    <Setter Property="Margin" Value="0,0,12,0" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
                                         <DataGridTextColumn Header="Källa"
                                                             Binding="{Binding ContentSource}" Width="*" />
                                         <DataGridTextColumn Header="Återvunnet"
                                                             Binding="{Binding Recycled}" Width="80" />
                                         <DataGridTextColumn Header="Återv.%"
-                                                            Binding="{Binding RecycledPercentage}" Width="60" />
+                                                            Binding="{Binding RecycledPercentage}" Width="60">
+                                            <DataGridTextColumn.HeaderStyle>
+                                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTextColumn.HeaderStyle>
+                                            <DataGridTextColumn.ElementStyle>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="HorizontalAlignment" Value="Right" />
+                                                    <Setter Property="Margin" Value="0,0,12,0" />
+                                                </Style>
+                                            </DataGridTextColumn.ElementStyle>
+                                        </DataGridTextColumn>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Expander>

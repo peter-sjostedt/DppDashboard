@@ -572,7 +572,7 @@ namespace HospitexDPP.ViewModels
             {
                 var payload = new Dictionary<string, object?>
                 {
-                    ["_status"] = "completed"
+                    ["status"] = "completed"
                 };
                 var json = await _apiClient.PutWithTenantKeyAsync($"/api/batches/{batch.Id}", payload, App.Session!.SupplierKey!);
                 if (json != null)
@@ -619,8 +619,17 @@ namespace HospitexDPP.ViewModels
                 if (detail == null) return;
 
                 // 2. Mark current batch as completed
-                var markPayload = new Dictionary<string, object?> { ["_status"] = "completed" };
-                await _apiClient.PutWithTenantKeyAsync($"/api/batches/{batch.Id}", markPayload, App.Session!.SupplierKey!);
+                var markPayload = new Dictionary<string, object?> { ["status"] = "completed" };
+                var markJson = await _apiClient.PutWithTenantKeyAsync($"/api/batches/{batch.Id}", markPayload, App.Session!.SupplierKey!);
+                if (markJson != null)
+                {
+                    using var markDoc = JsonDocument.Parse(markJson);
+                    if (!markDoc.RootElement.TryGetProperty("success", out var s) || !s.GetBoolean())
+                    {
+                        Debug.WriteLine($"[SupplierBatches] SplitBatch mark completed failed: {markJson}");
+                        return;
+                    }
+                }
 
                 // 3. Store materials for copying after new batch is created
                 _pendingSplitMaterials = detail.Materials?.ToList();
@@ -630,7 +639,7 @@ namespace HospitexDPP.ViewModels
                 // 4. Open create drawer prefilled with old batch's settings
                 _editBatchId = null;
                 EditBatchNumber = GenerateSplitBatchNumber(detail.BatchNumber);
-                EditProductionDate = detail.ProductionDate ?? string.Empty;
+                EditProductionDate = DateTime.Now.ToString("yyyy-MM-dd");
                 EditQuantity = detail.Quantity?.ToString() ?? string.Empty;
                 EditFacilityName = detail.FacilityName ?? string.Empty;
                 EditFacilityLocation = detail.FacilityLocation ?? string.Empty;

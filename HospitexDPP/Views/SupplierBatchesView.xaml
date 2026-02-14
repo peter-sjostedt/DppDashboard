@@ -92,27 +92,38 @@
 
                     <!-- Quantity -->
                     <DataGridTemplateColumn Width="0.6*">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.Header>
                             <TextBlock Text="{DynamicResource Column_Quantity}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding QuantityDisplay}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                           HorizontalAlignment="Right" Margin="0,0,12,0"
+                                           Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
                     <!-- Items -->
                     <DataGridTemplateColumn Width="0.5*">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.Header>
                             <TextBlock Text="{DynamicResource Column_Items}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding ItemCount}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
-                                           HorizontalAlignment="Center" />
+                                           HorizontalAlignment="Right" Margin="0,0,12,0"
+                                           Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

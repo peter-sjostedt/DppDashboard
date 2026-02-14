@@ -96,13 +96,19 @@
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
                                             <DataGridTemplateColumn Width="*">
+                                                <DataGridTemplateColumn.HeaderStyle>
+                                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                    </Style>
+                                                </DataGridTemplateColumn.HeaderStyle>
                                                 <DataGridTemplateColumn.Header>
                                                     <TextBlock Text="{DynamicResource Column_Variants}" />
                                                 </DataGridTemplateColumn.Header>
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding VariantCount}" VerticalAlignment="Center"
-                                                                   Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                                   HorizontalAlignment="Right" Margin="0,0,12,0"
+                                                                   Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -304,13 +310,19 @@
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
                                         <DataGridTemplateColumn Width="60">
+                                            <DataGridTemplateColumn.HeaderStyle>
+                                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                </Style>
+                                            </DataGridTemplateColumn.HeaderStyle>
                                             <DataGridTemplateColumn.Header>
                                                 <TextBlock Text="%" />
                                             </DataGridTemplateColumn.Header>
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ContentValue}" VerticalAlignment="Center"
-                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                               HorizontalAlignment="Right" Margin="0,0,12,0"
+                                                               Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
