@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:HospitexDPP.Controls"
+             xmlns:h="clr-namespace:HospitexDPP.Helpers"
              x:Name="BrandsRoot">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -12,13 +13,13 @@
         <DockPanel Margin="24,20">
             <!-- Toolbar: search + add button -->
             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
-                <Button Content="{DynamicResource Button_Add}"
+                <Button Content="{h:Loc Button_Add}"
                         Style="{DynamicResource PrimaryButton}"
                         DockPanel.Dock="Right"
                         Command="{Binding AddCommand}" />
                 <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource SearchTextBox}"
-                         Tag="{DynamicResource Search_Brands}"
+                         Tag="{h:Loc Search_Brands}"
                          Margin="0,0,12,0" />
                 <ItemsControl Style="{DynamicResource FilterToggleBar}"
                               ItemsSource="{Binding StatusFilterOptions}"
@@ -26,9 +27,9 @@
             </DockPanel>
 
             <!-- Empty state (shown when no brands) -->
-            <controls:EmptyState Title="{DynamicResource Empty_NoBrands}"
-                                 Description="{DynamicResource Empty_NoBrandsDesc}"
-                                 ActionText="{DynamicResource Button_Add}"
+            <controls:EmptyState Title="{h:Loc Empty_NoBrands}"
+                                 Description="{h:Loc Empty_NoBrandsDesc}"
+                                 ActionText="{h:Loc Button_Add}"
                                  ActionCommand="{Binding AddCommand}">
                 <controls:EmptyState.Style>
                     <Style TargetType="controls:EmptyState">
@@ -52,7 +53,7 @@
                     <!-- Name + location -->
                     <DataGridTemplateColumn Width="2*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Name}" />
+                            <TextBlock Text="{h:Loc Column_Name}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -83,7 +84,7 @@
                     <!-- Suppliers count -->
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Suppliers}" />
+                            <TextBlock Text="{h:Loc Column_Suppliers}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -96,7 +97,7 @@
                     <!-- Status -->
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Status}" />
+                            <TextBlock Text="{h:Loc Column_Status}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -108,7 +109,7 @@
                     <!-- Products -->
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Products}" />
+                            <TextBlock Text="{h:Loc Column_Products}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -121,7 +122,7 @@
                     <!-- Updated -->
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Updated}" />
+                            <TextBlock Text="{h:Loc Column_Updated}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -160,10 +161,10 @@
                             <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
                                        FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
                             <StackPanel Orientation="Horizontal">
-                                <Button Content="{DynamicResource Button_Save}"
+                                <Button Content="{h:Loc Button_Save}"
                                         Style="{DynamicResource PrimaryButton}"
                                         Command="{Binding SaveCommand}" Margin="0,0,8,0" />
-                                <Button Content="{DynamicResource Button_Cancel}"
+                                <Button Content="{h:Loc Button_Cancel}"
                                         Style="{DynamicResource SecondaryButton}"
                                         Command="{Binding CancelDrawerCommand}" />
                             </StackPanel>
@@ -188,56 +189,56 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_BrandName}"
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{h:Loc Field_BrandName}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
                                 <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                          Text="{Binding EditBrandName, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_LogoUrl}"
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{h:Loc Field_LogoUrl}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
                                 <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                          Text="{Binding EditLogoUrl, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_SubBrand}"
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Field_SubBrand}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
                                 <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                          Text="{Binding EditSubBrand, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Field_ParentCompany}"
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="{h:Loc Field_ParentCompany}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
                                 <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                          Text="{Binding EditParentCompany, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource Field_Trader}"
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="{h:Loc Field_Trader}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
                                 <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                          Text="{Binding EditTrader, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource Field_TraderLocation}"
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="{h:Loc Field_TraderLocation}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
                                 <TextBox Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                          Text="{Binding EditTraderLocation, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource Field_Lei}"
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="{h:Loc Field_Lei}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
                                 <TextBox Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                          Text="{Binding EditLei, UpdateSourceTrigger=PropertyChanged}" />
 
-                                <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource Field_Gs1}"
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="{h:Loc Field_Gs1}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
                                 <TextBox Grid.Row="7" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                          Text="{Binding EditGs1, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <CheckBox Grid.Row="8" Grid.Column="1"
-                                          Content="{DynamicResource Status_Active}"
+                                          Content="{h:Loc Status_Active}"
                                           IsChecked="{Binding EditIsActive}"
                                           Margin="0,4,0,0" />
                             </Grid>
@@ -250,7 +251,7 @@
                         <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}" />
                         <controls:ApiKeyDisplay ApiKey="{Binding DrawerApiKey}"
                                                 RegenerateCommand="{Binding RegenerateKeyCommand}" />
-                        <Button Content="{DynamicResource Button_Close}"
+                        <Button Content="{h:Loc Button_Close}"
                                 Style="{DynamicResource SecondaryButton}"
                                 Command="{Binding CancelDrawerCommand}"
                                 HorizontalAlignment="Left" Margin="0,20,0,0" />

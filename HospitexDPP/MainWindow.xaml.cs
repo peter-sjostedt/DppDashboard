@@ -9,6 +9,14 @@ namespace HospitexDPP
         {
             InitializeComponent();
             RestoreWindowState();
+            LanguageService.LanguageChanged += OnLanguageChanged;
+        }
+
+        private void OnLanguageChanged()
+        {
+            // No InitializeComponent() — {h:Loc} bindings update via TranslationSource.Refresh(),
+            // StatusBadge updates via its own LanguageChanged subscription,
+            // and ViewModels fire PropertyChanged for converter-based bindings.
         }
 
         private void RestoreWindowState()

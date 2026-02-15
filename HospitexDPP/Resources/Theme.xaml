@@ -29,6 +29,7 @@
         <Setter Property="AlternatingRowBackground" Value="{StaticResource SurfaceBrush}" />
         <Setter Property="CanUserResizeRows" Value="False" />
         <Setter Property="CanUserReorderColumns" Value="False" />
+        <Setter Property="FontSize" Value="13" />
         <Setter Property="RowHeight" Value="44" />
         <Setter Property="ColumnHeaderHeight" Value="36" />
     </Style>
@@ -38,7 +39,7 @@
         <Setter Property="Background" Value="{StaticResource SurfaceBrush}" />
         <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}" />
         <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontSize" Value="13" />
         <Setter Property="Padding" Value="12,8" />
         <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />

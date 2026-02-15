@@ -1,0 +1,513 @@
+<UserControl x:Class="HospitexDPP.Views.BrandPurchaseOrdersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:HospitexDPP.Controls"
+             xmlns:conv="clr-namespace:HospitexDPP.Converters"
+             xmlns:h="clr-namespace:HospitexDPP.Helpers">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <conv:HexToColorConverter x:Key="HexToColor" />
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- Main content -->
+        <DockPanel Margin="24,20">
+            <!-- Toolbar -->
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
+                <Button Content="{h:Loc Button_Add}"
+                        Style="{DynamicResource PrimaryButton}"
+                        DockPanel.Dock="Right"
+                        Command="{Binding AddCommand}" />
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{DynamicResource SearchTextBox}"
+                         Tag="{h:Loc Search_PurchaseOrders}"
+                         Margin="0,0,12,0" />
+                <ItemsControl Style="{DynamicResource FilterToggleBar}"
+                              ItemsSource="{Binding StatusFilterOptions}"
+                              HorizontalAlignment="Left" />
+            </DockPanel>
+
+            <!-- Empty state -->
+            <controls:EmptyState Title="{h:Loc Empty_NoBrandPurchaseOrders}"
+                                 Description="{h:Loc Empty_NoBrandPurchaseOrdersDesc}"
+                                 ActionText="{h:Loc Button_Add}"
+                                 ActionCommand="{Binding AddCommand}">
+                <controls:EmptyState.Style>
+                    <Style TargetType="controls:EmptyState">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding HasOrders}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:EmptyState.Style>
+            </controls:EmptyState>
+
+            <!-- DataGrid -->
+            <DataGrid ItemsSource="{Binding PurchaseOrders}"
+                      SelectedItem="{Binding SelectedOrder}"
+                      Style="{DynamicResource AdminDataGrid}"
+                      Visibility="{Binding HasOrders, Converter={StaticResource BoolToVis}}"
+                      MouseDoubleClick="DataGrid_MouseDoubleClick">
+                <DataGrid.Columns>
+                    <!-- PO Number -->
+                    <DataGridTemplateColumn Width="1.2*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{h:Loc Column_PoNumber}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding PoNumber}" FontWeight="SemiBold"
+                                           VerticalAlignment="Center" Margin="12,0"
+                                           Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
+                                           TextTrimming="CharacterEllipsis"
+                                           ToolTip="{Binding PoNumber}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Supplier -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{h:Loc Column_Supplier}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SupplierName}" VerticalAlignment="Center"
+                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
+                                           TextTrimming="CharacterEllipsis"
+                                           ToolTip="{Binding SupplierName}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Product -->
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{h:Loc Column_Product}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ProductName}" VerticalAlignment="Center"
+                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
+                                           TextTrimming="CharacterEllipsis"
+                                           ToolTip="{Binding ProductName}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Quantity (right-aligned) -->
+                    <DataGridTemplateColumn Width="0.6*">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{h:Loc Column_Quantity}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Quantity}" VerticalAlignment="Center"
+                                           HorizontalAlignment="Right" Margin="0,0,12,0"
+                                           Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Delivery Date -->
+                    <DataGridTemplateColumn Width="0.8*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{h:Loc Column_DeliveryDate}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding RequestedDeliveryDate}" VerticalAlignment="Center"
+                                           Margin="12,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Produced -->
+                    <DataGridTemplateColumn Width="0.7*">
+                        <DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Right" />
+                            </Style>
+                        </DataGridTemplateColumn.HeaderStyle>
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{h:Loc Column_Produced}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ProgressText}" VerticalAlignment="Center"
+                                           HorizontalAlignment="Right" Margin="0,0,12,0"
+                                           Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Status badge -->
+                    <DataGridTemplateColumn Width="0.8*">
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{h:Loc Column_Status}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="4" Padding="8,4" HorizontalAlignment="Left"
+                                        Margin="12,0" VerticalAlignment="Center">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="{Binding StatusColor, Converter={StaticResource HexToColor}}" Opacity="0.15" />
+                                    </Border.Background>
+                                    <TextBlock Text="{Binding Status, Converter={StaticResource StatusConverter}}" FontSize="12" FontWeight="Medium">
+                                        <TextBlock.Foreground>
+                                            <SolidColorBrush Color="{Binding StatusColor, Converter={StaticResource HexToColor}}" />
+                                        </TextBlock.Foreground>
+                                    </TextBlock>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- Action menu -->
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{DynamicResource ActionMenuButton}"
+                                        Click="ActionMenu_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+
+        <!-- Drawer -->
+        <controls:DrawerPanel IsOpen="{Binding IsDrawerOpen}"
+                              CloseCommand="{Binding CancelDrawerCommand}"
+                              DrawerWidth="600">
+            <controls:DrawerPanel.DrawerContent>
+                <DockPanel>
+                    <!-- Header -->
+                    <TextBlock Text="{Binding DrawerTitle}" Style="{DynamicResource DrawerTitle}"
+                               DockPanel.Dock="Top" Margin="24,20,24,0" />
+
+                    <!-- Footer -->
+                    <StackPanel DockPanel.Dock="Bottom" Margin="24,0,24,20">
+                        <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
+                                   FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="{h:Loc Button_Save}"
+                                    Style="{DynamicResource PrimaryButton}"
+                                    Command="{Binding SaveCommand}" Margin="0,0,8,0"
+                                    Visibility="{Binding IsDraftMode, Converter={StaticResource BoolToVis}}" />
+                            <Button Content="{h:Loc Button_Cancel}"
+                                    Style="{DynamicResource SecondaryButton}"
+                                    Command="{Binding CancelDrawerCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Scrollable content -->
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="24,12,24,12" Padding="0,0,12,0">
+                        <StackPanel>
+                            <!-- SECTION 1: Order Info -->
+                            <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}">
+                                <Expander.Header>
+                                    <TextBlock Text="{h:Loc Section_OrderInfo}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <Grid Margin="0,8,0,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="140" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Row 0: PO Number -->
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{h:Loc Field_PoNumber}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Center" Margin="0,0,12,8" />
+                                    <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                             Text="{Binding EditPoNumber, UpdateSourceTrigger=PropertyChanged}"
+                                             IsEnabled="{Binding IsDraftMode}" />
+
+                                    <!-- Row 1: Supplier -->
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{h:Loc Field_SelectSupplier}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Center" Margin="0,0,12,8" />
+                                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding SupplierOptions}"
+                                              SelectedItem="{Binding EditSelectedSupplier}"
+                                              DisplayMemberPath="SupplierName"
+                                              IsEnabled="{Binding IsDraftMode}" />
+
+                                    <!-- Row 2: Product -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Field_SelectProduct}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Center" Margin="0,0,12,8" />
+                                    <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding ProductOptions}"
+                                              SelectedItem="{Binding EditSelectedProduct}"
+                                              DisplayMemberPath="ProductName"
+                                              IsEnabled="{Binding IsDraftMode}" />
+
+                                    <!-- Row 3: Quantity -->
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{h:Loc Field_Quantity}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Center" Margin="0,0,12,8" />
+                                    <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                             Text="{Binding EditQuantity, UpdateSourceTrigger=PropertyChanged}"
+                                             IsEnabled="{Binding IsDraftMode}" />
+
+                                    <!-- Row 4: Requested Delivery Date -->
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{h:Loc Label_RequestedDelivery}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Center" Margin="0,0,12,8" />
+                                    <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
+                                             Text="{Binding EditRequestedDeliveryDate, UpdateSourceTrigger=PropertyChanged}"
+                                             IsEnabled="{Binding IsDraftMode}" />
+
+                                    <!-- Row 5: Status (read-only badge, only in edit mode) -->
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="{h:Loc Field_Status}"
+                                               Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                                               VerticalAlignment="Center" Margin="0,0,12,8"
+                                               Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}" />
+                                    <Border Grid.Row="5" Grid.Column="1" CornerRadius="4" Padding="8,4"
+                                            HorizontalAlignment="Left" Margin="0,0,0,8"
+                                            Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="{Binding SelectedOrder.StatusColor, Converter={StaticResource HexToColor}}" Opacity="0.15" />
+                                        </Border.Background>
+                                        <TextBlock Text="{Binding SelectedOrder.Status, Converter={StaticResource StatusConverter}}" FontSize="12" FontWeight="Medium">
+                                            <TextBlock.Foreground>
+                                                <SolidColorBrush Color="{Binding SelectedOrder.StatusColor, Converter={StaticResource HexToColor}}" />
+                                            </TextBlock.Foreground>
+                                        </TextBlock>
+                                    </Border>
+                                </Grid>
+                            </Expander>
+
+                            <!-- SECTION 2: Order Lines (only in edit mode) -->
+                            <Expander Style="{DynamicResource SectionExpander}"
+                                      Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{h:Loc Section_OrderLines}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,8">
+                                    <DataGrid ItemsSource="{Binding OrderLines}"
+                                              Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" CanUserDeleteRows="False"
+                                              Margin="0,0,0,8">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding ItemNumber}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_ItemNumber}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding Size}" Width="75">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Size}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding ColorBrand}" Width="0.8*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Color}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding Quantity}" Width="60">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Quantity}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.HeaderStyle>
+                                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                    </Style>
+                                                </DataGridTextColumn.HeaderStyle>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        <Setter Property="Margin" Value="0,0,12,0" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <!-- Remove button (only in draft) -->
+                                            <DataGridTemplateColumn Width="Auto">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="✕" FontSize="11" Padding="4,2"
+                                                                Style="{DynamicResource SecondaryButton}"
+                                                                Command="{Binding DataContext.RemoveLineCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                CommandParameter="{Binding}"
+                                                                Visibility="{Binding DataContext.IsDraftMode, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource BoolToVis}}" />
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <!-- Total -->
+                                    <TextBlock Margin="0,0,0,8" FontSize="12"
+                                               Foreground="{DynamicResource TextSecondaryBrush}">
+                                        <Run Text="{h:Loc Label_Total}" />
+                                        <Run Text=": " />
+                                        <Run Text="{Binding TotalLineQuantity, Mode=OneWay}" FontWeight="SemiBold" />
+                                    </TextBlock>
+
+                                    <!-- Add line controls (draft only) -->
+                                    <StackPanel Orientation="Horizontal"
+                                                Visibility="{Binding IsDraftMode, Converter={StaticResource BoolToVis}}">
+                                        <ComboBox ItemsSource="{Binding AvailableVariants}"
+                                                  SelectedItem="{Binding SelectedVariant}"
+                                                  Width="200" Margin="0,0,8,0">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock>
+                                                        <Run Text="{Binding ItemNumber}" />
+                                                        <Run Text=" – " />
+                                                        <Run Text="{Binding Size}" />
+                                                        <Run Text=" " />
+                                                        <Run Text="{Binding ColorBrand}" />
+                                                    </TextBlock>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBox Text="{Binding NewLineQuantity, UpdateSourceTrigger=PropertyChanged}"
+                                                 Style="{DynamicResource FormTextBox}" Width="60" Margin="0,0,8,0" />
+                                        <Button Content="{h:Loc Button_AddLine}"
+                                                Style="{DynamicResource SecondaryButton}"
+                                                Command="{Binding AddLineCommand}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Expander>
+
+                            <!-- SECTION 3: Batches (only in edit mode, read-only) -->
+                            <Expander Style="{DynamicResource SectionExpander}"
+                                      Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
+                                <Expander.Header>
+                                    <TextBlock Text="{h:Loc Label_BatchesInPo}"
+                                               Style="{DynamicResource SectionHeader}" />
+                                </Expander.Header>
+                                <StackPanel Margin="0,8,0,8">
+                                    <!-- No batches message -->
+                                    <TextBlock Text="{h:Loc Label_NoBatches}"
+                                               FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"
+                                               Margin="0,0,0,8">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HasBatches}" Value="False">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
+                                    <!-- Batch list -->
+                                    <DataGrid ItemsSource="{Binding OrderBatches}"
+                                              Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" CanUserDeleteRows="False"
+                                              Visibility="{Binding HasBatches, Converter={StaticResource BoolToVis}}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding BatchNumber}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_BatchNumber}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding FacilityName}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Facility}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding Quantity}" Width="60">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Quantity}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.HeaderStyle>
+                                                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                    </Style>
+                                                </DataGridTextColumn.HeaderStyle>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="HorizontalAlignment" Value="Right" />
+                                                        <Setter Property="Margin" Value="0,0,12,0" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTemplateColumn Width="80">
+                                                <DataGridTemplateColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Status}" />
+                                                </DataGridTemplateColumn.Header>
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Border CornerRadius="4" Padding="6,2" HorizontalAlignment="Left"
+                                                                Margin="12,0" VerticalAlignment="Center">
+                                                            <Border.Background>
+                                                                <SolidColorBrush Color="{Binding StatusColor, Converter={StaticResource HexToColor}}" Opacity="0.15" />
+                                                            </Border.Background>
+                                                            <TextBlock Text="{Binding Status, Converter={StaticResource StatusConverter}}" FontSize="11" FontWeight="Medium">
+                                                                <TextBlock.Foreground>
+                                                                    <SolidColorBrush Color="{Binding StatusColor, Converter={StaticResource HexToColor}}" />
+                                                                </TextBlock.Foreground>
+                                                            </TextBlock>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+                            </Expander>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </controls:DrawerPanel.DrawerContent>
+        </controls:DrawerPanel>
+    </Grid>
+</UserControl>

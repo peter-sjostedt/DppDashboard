@@ -2,10 +2,14 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:HospitexDPP.ViewModels"
-             xmlns:views="clr-namespace:HospitexDPP.Views">
+             xmlns:views="clr-namespace:HospitexDPP.Views"
+             xmlns:h="clr-namespace:HospitexDPP.Helpers">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:BrandProductsViewModel}">
             <views:BrandProductsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BrandPurchaseOrdersViewModel}">
+            <views:BrandPurchaseOrdersView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:BrandBatchesViewModel}">
             <views:BrandBatchesView />
@@ -22,7 +26,7 @@
                 Padding="16,8">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                    <TextBlock Text="{DynamicResource Settings_Language}"
+                    <TextBlock Text="{h:Loc Settings_Language}"
                                Foreground="{DynamicResource TextSecondaryBrush}"
                                VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12" />
                     <Button Content="SV" Style="{DynamicResource SecondaryButton}"
@@ -46,13 +50,16 @@
                 <Style TargetType="TabItem" BasedOn="{StaticResource AdminTab}" />
             </TabControl.Resources>
 
-            <TabItem Header="{DynamicResource Tab_Products}">
+            <TabItem Header="{h:Loc Tab_Products}">
                 <ContentControl Content="{Binding ProductsTab}" />
             </TabItem>
-            <TabItem Header="{DynamicResource Tab_Batches}">
+            <TabItem Header="{h:Loc Tab_PurchaseOrders}">
+                <ContentControl Content="{Binding PurchaseOrdersTab}" />
+            </TabItem>
+            <TabItem Header="{h:Loc Tab_Batches}">
                 <ContentControl Content="{Binding BatchesTab}" />
             </TabItem>
-            <TabItem Header="{DynamicResource Tab_BrandSuppliers}">
+            <TabItem Header="{h:Loc Tab_BrandSuppliers}">
                 <ContentControl Content="{Binding SuppliersTab}" />
             </TabItem>
         </TabControl>

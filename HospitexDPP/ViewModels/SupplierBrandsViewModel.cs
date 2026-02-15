@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Windows;
 using System.Windows.Input;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -620,7 +620,7 @@ namespace HospitexDPP.ViewModels
                 Debug.WriteLine($"[SupplierBrands] OpenProductDrawer error: {ex.Message}");
             }
 
-            DrawerTitle = Application.Current.TryFindResource("Drawer_ProductDetail") as string ?? "Produktdetaljer";
+            DrawerTitle = Strings.Drawer_ProductDetail;
             SetDrawerMode(SupplierBrandDrawerMode.ProductDetail);
         }
 

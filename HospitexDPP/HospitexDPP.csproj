@@ -16,4 +16,19 @@
     <Resource Include="DPP-2.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Resources\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <EmbeddedResource Update="Resources\Strings.sv.resx">
+      <DependentUpon>Strings.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

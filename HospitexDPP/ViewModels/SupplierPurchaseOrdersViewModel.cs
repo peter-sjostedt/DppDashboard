@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Windows;
 using System.Windows.Input;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -28,11 +28,11 @@ namespace HospitexDPP.ViewModels
 
         public static List<PoStatusFilterOption> All => new()
         {
-            new() { Label = Application.Current.TryFindResource("Status_Draft") as string ?? "Utkast", Value = "draft" },
-            new() { Label = Application.Current.TryFindResource("Status_Sent") as string ?? "Skickad", Value = "sent" },
-            new() { Label = Application.Current.TryFindResource("Status_Accepted") as string ?? "Accepterad", Value = "accepted" },
-            new() { Label = Application.Current.TryFindResource("Status_Fulfilled") as string ?? "Levererad", Value = "fulfilled" },
-            new() { Label = Application.Current.TryFindResource("Status_Cancelled") as string ?? "Avbruten", Value = "cancelled" },
+            new() { Label = Strings.Status_Draft, Value = "draft" },
+            new() { Label = Strings.Status_Sent, Value = "sent" },
+            new() { Label = Strings.Status_Accepted, Value = "accepted" },
+            new() { Label = Strings.Status_Fulfilled, Value = "fulfilled" },
+            new() { Label = Strings.Status_Cancelled, Value = "cancelled" },
         };
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -322,6 +322,7 @@ namespace HospitexDPP.ViewModels
                 opt.PropertyChanged += OnFilterChanged;
             }
             OnPropertyChanged(nameof(StatusFilterOptions));
+            OnPropertyChanged(nameof(SelectedDetail));
             ApplyFilter();
         }
 

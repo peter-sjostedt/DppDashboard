@@ -12,6 +12,7 @@ namespace HospitexDPP
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            LanguageService.Initialize();
 
             var mainWindow = new MainWindow
             {

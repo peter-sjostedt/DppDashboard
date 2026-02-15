@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using HospitexDPP.Helpers;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.ViewModels;
 
 namespace HospitexDPP.Views
@@ -31,7 +32,7 @@ namespace HospitexDPP.Views
 
             var editItem = new MenuItem
             {
-                Header = Application.Current.TryFindResource("Action_Edit") as string ?? "Redigera",
+                Header = Strings.Action_Edit,
                 Command = vm.EditBatchCommand,
                 CommandParameter = batch
             };
@@ -39,7 +40,7 @@ namespace HospitexDPP.Views
 
             var materialsItem = new MenuItem
             {
-                Header = Application.Current.TryFindResource("Drawer_ManageMaterials") as string ?? "Hantera material",
+                Header = Strings.Drawer_ManageMaterials,
                 Command = vm.ManageMaterialsCommand,
                 CommandParameter = batch
             };
@@ -47,7 +48,7 @@ namespace HospitexDPP.Views
 
             var itemsItem = new MenuItem
             {
-                Header = Application.Current.TryFindResource("Drawer_ViewItems") as string ?? "Artiklar",
+                Header = Strings.Drawer_ViewItems,
                 Command = vm.ViewItemsCommand,
                 CommandParameter = batch
             };
@@ -57,7 +58,7 @@ namespace HospitexDPP.Views
 
             var deleteItem = new MenuItem
             {
-                Header = Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Header = Strings.Action_Delete,
                 Command = vm.DeleteBatchCommand,
                 CommandParameter = batch
             };

@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Tab_Brands" xml:space="preserve">
+    <value>Brands</value>
+  </data>
+  <data name="Tab_Suppliers" xml:space="preserve">
+    <value>Suppliers</value>
+  </data>
+  <data name="Tab_Relations" xml:space="preserve">
+    <value>Relations</value>
+  </data>
+  <data name="Button_Add" xml:space="preserve">
+    <value>+ Add</value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Button_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Button_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Button_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Search_Placeholder" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="Status_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Status_Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="Value_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Value_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Category_Clothing" xml:space="preserve">
+    <value>Clothing</value>
+  </data>
+  <data name="Category_Accessories" xml:space="preserve">
+    <value>Accessories</value>
+  </data>
+  <data name="Category_Footwear" xml:space="preserve">
+    <value>Footwear</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="ProductGroup_Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="ProductGroup_Bottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="LineConcept_ActiveWear" xml:space="preserve">
+    <value>Active Wear</value>
+  </data>
+  <data name="LineConcept_Maternity" xml:space="preserve">
+    <value>Maternity</value>
+  </data>
+  <data name="LineConcept_ProtectiveWear" xml:space="preserve">
+    <value>Protective Wear</value>
+  </data>
+  <data name="LineConcept_SleepWear" xml:space="preserve">
+    <value>Sleep Wear</value>
+  </data>
+  <data name="LineConcept_Healthcare" xml:space="preserve">
+    <value>Healthcare</value>
+  </data>
+  <data name="TypeItem_Jacket" xml:space="preserve">
+    <value>Jacket</value>
+  </data>
+  <data name="TypeItem_Pants" xml:space="preserve">
+    <value>Pants</value>
+  </data>
+  <data name="TypeItem_Blouse" xml:space="preserve">
+    <value>Blouse</value>
+  </data>
+  <data name="TypeItem_Sweater" xml:space="preserve">
+    <value>Sweater</value>
+  </data>
+  <data name="TypeItem_Tunic" xml:space="preserve">
+    <value>Tunic</value>
+  </data>
+  <data name="TypeItem_LabCoat" xml:space="preserve">
+    <value>Lab coat</value>
+  </data>
+  <data name="TypeItem_PatientGown" xml:space="preserve">
+    <value>Patient gown</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="Gender_Unisex" xml:space="preserve">
+    <value>Unisex</value>
+  </data>
+  <data name="Market_MassMarket" xml:space="preserve">
+    <value>mass-market</value>
+  </data>
+  <data name="Market_MidPrice" xml:space="preserve">
+    <value>mid-price</value>
+  </data>
+  <data name="Market_Premium" xml:space="preserve">
+    <value>premium</value>
+  </data>
+  <data name="Market_Luxury" xml:space="preserve">
+    <value>luxury</value>
+  </data>
+  <data name="Water_None" xml:space="preserve">
+    <value>No Water properties</value>
+  </data>
+  <data name="Water_Waterproof" xml:space="preserve">
+    <value>Waterproof</value>
+  </data>
+  <data name="Water_Repellent" xml:space="preserve">
+    <value>Water Repellent</value>
+  </data>
+  <data name="Water_Resistant" xml:space="preserve">
+    <value>Water Resistant</value>
+  </data>
+  <data name="Season_SP" xml:space="preserve">
+    <value>SP</value>
+  </data>
+  <data name="Season_SU" xml:space="preserve">
+    <value>SU</value>
+  </data>
+  <data name="Component_BodyFabric" xml:space="preserve">
+    <value>Body fabric</value>
+  </data>
+  <data name="Component_Trim" xml:space="preserve">
+    <value>Trim</value>
+  </data>
+  <data name="Component_Lining" xml:space="preserve">
+    <value>Lining fabric</value>
+  </data>
+  <data name="Material_Textile" xml:space="preserve">
+    <value>Textile</value>
+  </data>
+  <data name="Material_Leather" xml:space="preserve">
+    <value>Leather</value>
+  </data>
+  <data name="Material_Rubber" xml:space="preserve">
+    <value>Rubber</value>
+  </data>
+  <data name="CircularStrategy_MaterialCyclability" xml:space="preserve">
+    <value>Material Cyclability</value>
+  </data>
+  <data name="CircularStrategy_MonoCycle" xml:space="preserve">
+    <value>Mono Cycle</value>
+  </data>
+  <data name="CircularStrategy_Disassembly" xml:space="preserve">
+    <value>Disassembly</value>
+  </data>
+  <data name="CircularStrategy_Longevity" xml:space="preserve">
+    <value>Longevity</value>
+  </data>
+  <data name="CircularStrategy_PhysicalDurability" xml:space="preserve">
+    <value>Physical Durability</value>
+  </data>
+  <data name="DataCarrier_RFID" xml:space="preserve">
+    <value>RFID thread</value>
+  </data>
+  <data name="DataCarrier_NFC" xml:space="preserve">
+    <value>NFC chip</value>
+  </data>
+  <data name="DataCarrier_QR" xml:space="preserve">
+    <value>QR code</value>
+  </data>
+  <data name="Filter_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Filter_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Filter_Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="Empty_NoBrands" xml:space="preserve">
+    <value>No brands yet</value>
+  </data>
+  <data name="Empty_NoBrandsDesc" xml:space="preserve">
+    <value>Add your first brand to get started.</value>
+  </data>
+  <data name="Empty_NoSuppliers" xml:space="preserve">
+    <value>No suppliers yet</value>
+  </data>
+  <data name="Empty_NoSuppliersDesc" xml:space="preserve">
+    <value>Add your first supplier to get started.</value>
+  </data>
+  <data name="Empty_NoRelations" xml:space="preserve">
+    <value>No relations yet</value>
+  </data>
+  <data name="Empty_NoRelationsDesc" xml:space="preserve">
+    <value>Link brands to suppliers to get started.</value>
+  </data>
+  <data name="Confirm_Delete" xml:space="preserve">
+    <value>Are you sure you want to delete?</value>
+  </data>
+  <data name="Confirm_RegenerateKey" xml:space="preserve">
+    <value>The current key will stop working immediately. Continue?</value>
+  </data>
+  <data name="Label_ApiKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="Label_Copied" xml:space="preserve">
+    <value>Copied!</value>
+  </data>
+  <data name="Button_ShowKey" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Button_HideKey" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Button_CopyKey" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Button_RegenerateKey" xml:space="preserve">
+    <value>Regenerate key</value>
+  </data>
+  <data name="Column_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Column_Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Column_Suppliers" xml:space="preserve">
+    <value>Suppliers</value>
+  </data>
+  <data name="Column_Brands" xml:space="preserve">
+    <value>Brands</value>
+  </data>
+  <data name="Column_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Column_Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="Column_Materials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="Column_Updated" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Column_Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Column_Supplier" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="Column_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Field_BrandName" xml:space="preserve">
+    <value>Brand name *</value>
+  </data>
+  <data name="Field_LogoUrl" xml:space="preserve">
+    <value>Logo URL</value>
+  </data>
+  <data name="Field_SubBrand" xml:space="preserve">
+    <value>Sub-brand</value>
+  </data>
+  <data name="Field_ParentCompany" xml:space="preserve">
+    <value>Parent company</value>
+  </data>
+  <data name="Field_Trader" xml:space="preserve">
+    <value>Trader</value>
+  </data>
+  <data name="Field_TraderLocation" xml:space="preserve">
+    <value>Trader location</value>
+  </data>
+  <data name="Field_Lei" xml:space="preserve">
+    <value>LEI</value>
+  </data>
+  <data name="Field_Gs1" xml:space="preserve">
+    <value>GS1 Company Prefix</value>
+  </data>
+  <data name="Field_SupplierName" xml:space="preserve">
+    <value>Supplier name *</value>
+  </data>
+  <data name="Field_SupplierLocation" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Field_FacilityRegistry" xml:space="preserve">
+    <value>Facility Registry</value>
+  </data>
+  <data name="Field_FacilityIdentifier" xml:space="preserve">
+    <value>Facility Identifier</value>
+  </data>
+  <data name="Field_OperatorRegistry" xml:space="preserve">
+    <value>Operator Registry</value>
+  </data>
+  <data name="Field_OperatorIdentifier" xml:space="preserve">
+    <value>Operator Identifier</value>
+  </data>
+  <data name="Field_CountryConfection" xml:space="preserve">
+    <value>Country - Confection</value>
+  </data>
+  <data name="Field_CountryDyeing" xml:space="preserve">
+    <value>Country - Dyeing</value>
+  </data>
+  <data name="Field_CountryWeaving" xml:space="preserve">
+    <value>Country - Weaving</value>
+  </data>
+  <data name="Field_SelectBrand" xml:space="preserve">
+    <value>Select brand</value>
+  </data>
+  <data name="Field_SelectSupplier" xml:space="preserve">
+    <value>Select supplier</value>
+  </data>
+  <data name="Drawer_NewBrand" xml:space="preserve">
+    <value>New brand</value>
+  </data>
+  <data name="Drawer_EditBrand" xml:space="preserve">
+    <value>Edit brand</value>
+  </data>
+  <data name="Drawer_NewSupplier" xml:space="preserve">
+    <value>New supplier</value>
+  </data>
+  <data name="Drawer_EditSupplier" xml:space="preserve">
+    <value>Edit supplier</value>
+  </data>
+  <data name="Drawer_NewRelation" xml:space="preserve">
+    <value>New relation</value>
+  </data>
+  <data name="Drawer_ApiKey" xml:space="preserve">
+    <value>API Key</value>
+  </data>
+  <data name="Action_AddSupplier" xml:space="preserve">
+    <value>Add supplier</value>
+  </data>
+  <data name="Action_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Action_ViewApiKey" xml:space="preserve">
+    <value>View API key</value>
+  </data>
+  <data name="Action_RegenerateKey" xml:space="preserve">
+    <value>Regenerate key</value>
+  </data>
+  <data name="Action_Deactivate" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="Action_Activate" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="Action_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="StatusBar_Role" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="StatusBar_Brands" xml:space="preserve">
+    <value>{0} brands</value>
+  </data>
+  <data name="StatusBar_Suppliers" xml:space="preserve">
+    <value>{0} suppliers</value>
+  </data>
+  <data name="Msg_Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="Msg_Deleting" xml:space="preserve">
+    <value>Deleting...</value>
+  </data>
+  <data name="Msg_Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Msg_NoResponse" xml:space="preserve">
+    <value>No response from server</value>
+  </data>
+  <data name="Msg_Error" xml:space="preserve">
+    <value>Error: {0}</value>
+  </data>
+  <data name="Msg_SelectProduct" xml:space="preserve">
+    <value>Select a product</value>
+  </data>
+  <data name="Msg_InvalidCount" xml:space="preserve">
+    <value>Enter a valid count</value>
+  </data>
+  <data name="Field_Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Field_Supplier" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="Field_SafetyInfo" xml:space="preserve">
+    <value>Safety information</value>
+  </data>
+  <data name="Section_BatchMaterials" xml:space="preserve">
+    <value>Batch materials</value>
+  </data>
+  <data name="Section_MaterialInfo" xml:space="preserve">
+    <value>Material information</value>
+  </data>
+  <data name="Menu_File" xml:space="preserve">
+    <value>_File</value>
+  </data>
+  <data name="Menu_Connect" xml:space="preserve">
+    <value>_Connect</value>
+  </data>
+  <data name="Menu_Disconnect" xml:space="preserve">
+    <value>_Disconnect</value>
+  </data>
+  <data name="Menu_Exit" xml:space="preserve">
+    <value>E_xit</value>
+  </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>_Help</value>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>_About Hospitex DPP...</value>
+  </data>
+  <data name="Search_Brands" xml:space="preserve">
+    <value>Search brands...</value>
+  </data>
+  <data name="Search_Suppliers" xml:space="preserve">
+    <value>Search suppliers...</value>
+  </data>
+  <data name="Search_Relations" xml:space="preserve">
+    <value>Search relations...</value>
+  </data>
+  <data name="Relations_NoSuppliers" xml:space="preserve">
+    <value>No suppliers linked</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_Swedish" xml:space="preserve">
+    <value>Svenska</value>
+  </data>
+  <data name="Settings_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Tab_Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="Tab_Batches" xml:space="preserve">
+    <value>Batches</value>
+  </data>
+  <data name="Tab_BrandSuppliers" xml:space="preserve">
+    <value>Suppliers</value>
+  </data>
+  <data name="Search_Products" xml:space="preserve">
+    <value>Search products...</value>
+  </data>
+  <data name="Search_Batches" xml:space="preserve">
+    <value>Search batches...</value>
+  </data>
+  <data name="Search_BrandSuppliers" xml:space="preserve">
+    <value>Search suppliers...</value>
+  </data>
+  <data name="Empty_NoProducts" xml:space="preserve">
+    <value>No products yet</value>
+  </data>
+  <data name="Empty_NoProductsDesc" xml:space="preserve">
+    <value>Add your first product to get started.</value>
+  </data>
+  <data name="Empty_NoBatches" xml:space="preserve">
+    <value>No batches yet</value>
+  </data>
+  <data name="Empty_NoBatchesDesc" xml:space="preserve">
+    <value>Create your first batch to get started.</value>
+  </data>
+  <data name="Empty_NoBrandSuppliers" xml:space="preserve">
+    <value>No suppliers linked</value>
+  </data>
+  <data name="Empty_NoBrandSuppliersDesc" xml:space="preserve">
+    <value>Contact your admin to link suppliers.</value>
+  </data>
+  <data name="StatusBar_BrandRole" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="StatusBar_Products" xml:space="preserve">
+    <value>{0} products</value>
+  </data>
+  <data name="StatusBar_Batches" xml:space="preserve">
+    <value>{0} batches</value>
+  </data>
+  <data name="Column_ArticleNumber" xml:space="preserve">
+    <value>Article Number</value>
+  </data>
+  <data name="Column_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Column_Variants" xml:space="preserve">
+    <value>Variants</value>
+  </data>
+  <data name="Column_SKU" xml:space="preserve">
+    <value>SKU</value>
+  </data>
+  <data name="Column_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Column_Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Column_BatchNumber" xml:space="preserve">
+    <value>Batch Number</value>
+  </data>
+  <data name="Column_PoNumber" xml:space="preserve">
+    <value>PO Number</value>
+  </data>
+  <data name="Column_Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Column_ProductionDate" xml:space="preserve">
+    <value>Production Date</value>
+  </data>
+  <data name="Column_Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Column_UniqueProductId" xml:space="preserve">
+    <value>Unique Product ID</value>
+  </data>
+  <data name="Column_SerialNumber" xml:space="preserve">
+    <value>Serial Number</value>
+  </data>
+  <data name="Column_Sgtin" xml:space="preserve">
+    <value>SGTIN</value>
+  </data>
+  <data name="Column_Tid" xml:space="preserve">
+    <value>TID</value>
+  </data>
+  <data name="Column_ItemStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Column_ItemNumber" xml:space="preserve">
+    <value>Item No.</value>
+  </data>
+  <data name="Column_ColorBrand" xml:space="preserve">
+    <value>Color (brand)</value>
+  </data>
+  <data name="Column_Gtin" xml:space="preserve">
+    <value>GTIN</value>
+  </data>
+  <data name="Column_Component" xml:space="preserve">
+    <value>Component</value>
+  </data>
+  <data name="Column_Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Column_ContentName" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="Column_Fiber" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+  <data name="Column_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="Column_Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="Column_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Column_Recycled" xml:space="preserve">
+    <value>Recycled</value>
+  </data>
+  <data name="Column_Certification" xml:space="preserve">
+    <value>Certification</value>
+  </data>
+  <data name="Column_CertificationId" xml:space="preserve">
+    <value>Cert ID</value>
+  </data>
+  <data name="Column_ValidUntil" xml:space="preserve">
+    <value>Valid until</value>
+  </data>
+  <data name="Column_Sequence" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Column_ProcessStep" xml:space="preserve">
+    <value>Process Step</value>
+  </data>
+  <data name="Column_Batch" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="Drawer_NewProduct" xml:space="preserve">
+    <value>New product</value>
+  </data>
+  <data name="Drawer_EditProduct" xml:space="preserve">
+    <value>Edit product</value>
+  </data>
+  <data name="Drawer_NewBatch" xml:space="preserve">
+    <value>New batch</value>
+  </data>
+  <data name="Drawer_EditBatch" xml:space="preserve">
+    <value>Edit batch</value>
+  </data>
+  <data name="Drawer_ManageMaterials" xml:space="preserve">
+    <value>Manage materials</value>
+  </data>
+  <data name="Drawer_ViewItems" xml:space="preserve">
+    <value>View items</value>
+  </data>
+  <data name="Drawer_MaterialDetail" xml:space="preserve">
+    <value>Material details</value>
+  </data>
+  <data name="Section_ProductInfo" xml:space="preserve">
+    <value>Product Info</value>
+  </data>
+  <data name="Section_Variants" xml:space="preserve">
+    <value>Variants</value>
+  </data>
+  <data name="Section_Components" xml:space="preserve">
+    <value>Components</value>
+  </data>
+  <data name="Section_Care" xml:space="preserve">
+    <value>Care</value>
+  </data>
+  <data name="Section_Compliance" xml:space="preserve">
+    <value>Compliance</value>
+  </data>
+  <data name="Section_Circularity" xml:space="preserve">
+    <value>Circularity</value>
+  </data>
+  <data name="Section_Sustainability" xml:space="preserve">
+    <value>Sustainability</value>
+  </data>
+  <data name="Section_BasicInfo" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+  <data name="Section_Compositions" xml:space="preserve">
+    <value>Compositions</value>
+  </data>
+  <data name="Section_Certifications" xml:space="preserve">
+    <value>Certifications</value>
+  </data>
+  <data name="Section_MaterialCertifications" xml:space="preserve">
+    <value>Certifications</value>
+  </data>
+  <data name="Section_SupplyChain" xml:space="preserve">
+    <value>Supply Chain</value>
+  </data>
+  <data name="Field_ProductName" xml:space="preserve">
+    <value>Product name *</value>
+  </data>
+  <data name="Field_GtinType" xml:space="preserve">
+    <value>GTIN type</value>
+  </data>
+  <data name="Field_Gtin" xml:space="preserve">
+    <value>GTIN</value>
+  </data>
+  <data name="Field_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Field_PhotoUrl" xml:space="preserve">
+    <value>Photo URL</value>
+  </data>
+  <data name="Field_ArticleNumber" xml:space="preserve">
+    <value>Article number</value>
+  </data>
+  <data name="Field_CommodityCodeSystem" xml:space="preserve">
+    <value>Commodity code system</value>
+  </data>
+  <data name="Field_CommodityCodeNumber" xml:space="preserve">
+    <value>Commodity code number</value>
+  </data>
+  <data name="Field_YearOfSale" xml:space="preserve">
+    <value>Year of sale</value>
+  </data>
+  <data name="Field_SeasonOfSale" xml:space="preserve">
+    <value>Season of sale</value>
+  </data>
+  <data name="Field_PriceCurrency" xml:space="preserve">
+    <value>Price currency</value>
+  </data>
+  <data name="Field_Msrp" xml:space="preserve">
+    <value>MSRP</value>
+  </data>
+  <data name="Field_ResalePrice" xml:space="preserve">
+    <value>Resale price</value>
+  </data>
+  <data name="Field_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Field_ProductGroup" xml:space="preserve">
+    <value>Product group</value>
+  </data>
+  <data name="Field_TypeLineConcept" xml:space="preserve">
+    <value>Type/Line/Concept</value>
+  </data>
+  <data name="Field_TypeItem" xml:space="preserve">
+    <value>Type/Item</value>
+  </data>
+  <data name="Field_AgeGroup" xml:space="preserve">
+    <value>Age group</value>
+  </data>
+  <data name="Field_Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="Field_MarketSegment" xml:space="preserve">
+    <value>Market segment</value>
+  </data>
+  <data name="Field_WaterProperties" xml:space="preserve">
+    <value>Water properties</value>
+  </data>
+  <data name="Field_NetWeight" xml:space="preserve">
+    <value>Net weight</value>
+  </data>
+  <data name="Field_WeightUnit" xml:space="preserve">
+    <value>Weight unit</value>
+  </data>
+  <data name="Field_DataCarrierType" xml:space="preserve">
+    <value>Data carrier type</value>
+  </data>
+  <data name="Field_DataCarrierMaterial" xml:space="preserve">
+    <value>Data carrier material</value>
+  </data>
+  <data name="Field_DataCarrierLocation" xml:space="preserve">
+    <value>Data carrier location</value>
+  </data>
+  <data name="Field_ItemNumber" xml:space="preserve">
+    <value>Item number</value>
+  </data>
+  <data name="Field_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Field_SizeCountryCode" xml:space="preserve">
+    <value>Size country code</value>
+  </data>
+  <data name="Field_ColorBrand" xml:space="preserve">
+    <value>Color (brand)</value>
+  </data>
+  <data name="Field_ColorGeneral" xml:space="preserve">
+    <value>Color (general)</value>
+  </data>
+  <data name="Field_Component" xml:space="preserve">
+    <value>Component</value>
+  </data>
+  <data name="Field_Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Field_Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="Field_Percentage" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
+  <data name="Field_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Field_CareImageUrl" xml:space="preserve">
+    <value>Care image URL</value>
+  </data>
+  <data name="Field_CareText" xml:space="preserve">
+    <value>Care text</value>
+  </data>
+  <data name="Field_SafetyInformation" xml:space="preserve">
+    <value>Safety information</value>
+  </data>
+  <data name="Field_HarmfulSubstances" xml:space="preserve">
+    <value>Harmful substances</value>
+  </data>
+  <data name="Field_HarmfulSubstancesInfo" xml:space="preserve">
+    <value>Harmful substances info</value>
+  </data>
+  <data name="Field_Certifications" xml:space="preserve">
+    <value>Certifications</value>
+  </data>
+  <data name="Field_CertificationsValidation" xml:space="preserve">
+    <value>Certifications validation</value>
+  </data>
+  <data name="Field_ChemicalComplianceStandard" xml:space="preserve">
+    <value>Chemical compliance standard</value>
+  </data>
+  <data name="Field_ChemicalComplianceValidation" xml:space="preserve">
+    <value>Chemical compliance validation</value>
+  </data>
+  <data name="Field_ChemicalComplianceLink" xml:space="preserve">
+    <value>Chemical compliance link</value>
+  </data>
+  <data name="Field_Microfibers" xml:space="preserve">
+    <value>Microfibers</value>
+  </data>
+  <data name="Field_TraceabilityProvider" xml:space="preserve">
+    <value>Traceability provider</value>
+  </data>
+  <data name="Field_Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="Field_Recyclability" xml:space="preserve">
+    <value>Recyclability</value>
+  </data>
+  <data name="Field_TakeBackInstructions" xml:space="preserve">
+    <value>Take-back instructions</value>
+  </data>
+  <data name="Field_RecyclingInstructions" xml:space="preserve">
+    <value>Recycling instructions</value>
+  </data>
+  <data name="Field_DisassemblyInstructionsSorters" xml:space="preserve">
+    <value>Disassembly (sorters)</value>
+  </data>
+  <data name="Field_DisassemblyInstructionsUser" xml:space="preserve">
+    <value>Disassembly (user)</value>
+  </data>
+  <data name="Field_CircularDesignStrategy" xml:space="preserve">
+    <value>Circular design strategy</value>
+  </data>
+  <data name="Field_CircularDesignDescription" xml:space="preserve">
+    <value>Circular design description</value>
+  </data>
+  <data name="Field_RepairInstructions" xml:space="preserve">
+    <value>Repair instructions</value>
+  </data>
+  <data name="Field_BrandStatement" xml:space="preserve">
+    <value>Brand statement</value>
+  </data>
+  <data name="Field_StatementLink" xml:space="preserve">
+    <value>Statement link</value>
+  </data>
+  <data name="Field_EnvironmentalFootprint" xml:space="preserve">
+    <value>Environmental footprint</value>
+  </data>
+  <data name="Field_BatchNumber" xml:space="preserve">
+    <value>Batch number *</value>
+  </data>
+  <data name="Field_PoNumber" xml:space="preserve">
+    <value>PO number</value>
+  </data>
+  <data name="Field_SelectProduct" xml:space="preserve">
+    <value>Select product</value>
+  </data>
+  <data name="Field_Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Field_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Field_ProductionDate" xml:space="preserve">
+    <value>Production date</value>
+  </data>
+  <data name="Field_SelectMaterial" xml:space="preserve">
+    <value>Select material</value>
+  </data>
+  <data name="Field_ItemCount" xml:space="preserve">
+    <value>Item count</value>
+  </data>
+  <data name="BatchFilter_Planned" xml:space="preserve">
+    <value>Planned</value>
+  </data>
+  <data name="BatchFilter_InProduction" xml:space="preserve">
+    <value>In Production</value>
+  </data>
+  <data name="BatchFilter_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Button_SaveCare" xml:space="preserve">
+    <value>Save care</value>
+  </data>
+  <data name="Button_SaveCompliance" xml:space="preserve">
+    <value>Save compliance</value>
+  </data>
+  <data name="Button_SaveCircularity" xml:space="preserve">
+    <value>Save circularity</value>
+  </data>
+  <data name="Button_SaveSustainability" xml:space="preserve">
+    <value>Save sustainability</value>
+  </data>
+  <data name="Button_AddVariant" xml:space="preserve">
+    <value>+ Add variant</value>
+  </data>
+  <data name="Button_AddComponent" xml:space="preserve">
+    <value>+ Add component</value>
+  </data>
+  <data name="Button_AddMaterial" xml:space="preserve">
+    <value>+ Add material</value>
+  </data>
+  <data name="Button_GenerateItems" xml:space="preserve">
+    <value>Generate items</value>
+  </data>
+  <data name="Action_Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="Action_ManageMaterials" xml:space="preserve">
+    <value>Manage materials</value>
+  </data>
+  <data name="Action_ViewItems" xml:space="preserve">
+    <value>View items</value>
+  </data>
+  <data name="Action_ViewMaterial" xml:space="preserve">
+    <value>View material</value>
+  </data>
+  <data name="Action_ViewDetails" xml:space="preserve">
+    <value>View details</value>
+  </data>
+  <data name="Action_AcceptOrder" xml:space="preserve">
+    <value>Accept order</value>
+  </data>
+  <data name="Label_NoCompositions" xml:space="preserve">
+    <value>No compositions registered</value>
+  </data>
+  <data name="Label_NoCertifications" xml:space="preserve">
+    <value>No certifications registered</value>
+  </data>
+  <data name="Label_NoSupplyChain" xml:space="preserve">
+    <value>No supply chain registered</value>
+  </data>
+  <data name="Confirm_RemoveMaterial" xml:space="preserve">
+    <value>Remove this material from the batch?</value>
+  </data>
+  <data name="Confirm_DeleteItem" xml:space="preserve">
+    <value>Delete this item?</value>
+  </data>
+  <data name="Tab_SupplierMaterials" xml:space="preserve">
+    <value>Materials</value>
+  </data>
+  <data name="Tab_PurchaseOrders" xml:space="preserve">
+    <value>Purchase Orders</value>
+  </data>
+  <data name="Tab_SupplierBrands" xml:space="preserve">
+    <value>Brands</value>
+  </data>
+  <data name="Search_Materials" xml:space="preserve">
+    <value>Search materials...</value>
+  </data>
+  <data name="Search_SupplierBrands" xml:space="preserve">
+    <value>Search brands...</value>
+  </data>
+  <data name="Empty_NoMaterials" xml:space="preserve">
+    <value>No materials yet</value>
+  </data>
+  <data name="Empty_NoMaterialsDesc" xml:space="preserve">
+    <value>Add your first material to get started.</value>
+  </data>
+  <data name="Empty_NoSupplierBrands" xml:space="preserve">
+    <value>No brands linked</value>
+  </data>
+  <data name="Empty_NoSupplierBrandsDesc" xml:space="preserve">
+    <value>Contact your admin to link brands.</value>
+  </data>
+  <data name="StatusBar_SupplierRole" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="StatusBar_Materials" xml:space="preserve">
+    <value>{0} materials</value>
+  </data>
+  <data name="Column_MaterialName" xml:space="preserve">
+    <value>Material Name</value>
+  </data>
+  <data name="Column_MaterialType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Field_MaterialName" xml:space="preserve">
+    <value>Material name *</value>
+  </data>
+  <data name="Field_MaterialType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Drawer_NewMaterial" xml:space="preserve">
+    <value>New material</value>
+  </data>
+  <data name="Drawer_EditMaterial" xml:space="preserve">
+    <value>Edit material</value>
+  </data>
+  <data name="Drawer_ProductDetail" xml:space="preserve">
+    <value>Product details</value>
+  </data>
+  <data name="Field_ContentName" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+  <data name="Field_ContentValue" xml:space="preserve">
+    <value>Percentage (%)</value>
+  </data>
+  <data name="Field_ContentSource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Field_Recycled" xml:space="preserve">
+    <value>Recycled</value>
+  </data>
+  <data name="Field_RecycledPercentage" xml:space="preserve">
+    <value>Recycled (%)</value>
+  </data>
+  <data name="Field_RecycledInputSource" xml:space="preserve">
+    <value>Recycled source</value>
+  </data>
+  <data name="Button_AddComposition" xml:space="preserve">
+    <value>+ Add fiber</value>
+  </data>
+  <data name="Field_Certification" xml:space="preserve">
+    <value>Certification</value>
+  </data>
+  <data name="Field_CertificationId" xml:space="preserve">
+    <value>Certification ID</value>
+  </data>
+  <data name="Field_ValidUntil" xml:space="preserve">
+    <value>Valid until</value>
+  </data>
+  <data name="Button_AddCertification" xml:space="preserve">
+    <value>+ Add certification</value>
+  </data>
+  <data name="Field_Sequence" xml:space="preserve">
+    <value>Sequence</value>
+  </data>
+  <data name="Field_ProcessStep" xml:space="preserve">
+    <value>Process step</value>
+  </data>
+  <data name="Field_Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Field_FacilityName" xml:space="preserve">
+    <value>Facility</value>
+  </data>
+  <data name="Field_FacilityId" xml:space="preserve">
+    <value>Facility ID</value>
+  </data>
+  <data name="Button_AddSupplyChain" xml:space="preserve">
+    <value>+ Add step</value>
+  </data>
+  <data name="Section_BatchUsages" xml:space="preserve">
+    <value>Used in</value>
+  </data>
+  <data name="Label_NoBatchUsages" xml:space="preserve">
+    <value>Material is not used in any batches</value>
+  </data>
+  <data name="Label_UsedInBatches" xml:space="preserve">
+    <value>Material is used in {0} batches</value>
+  </data>
+  <data name="Confirm_DeleteComposition" xml:space="preserve">
+    <value>Delete this composition?</value>
+  </data>
+  <data name="Confirm_DeleteCertification" xml:space="preserve">
+    <value>Delete this certification?</value>
+  </data>
+  <data name="Confirm_DeleteSupplyChainStep" xml:space="preserve">
+    <value>Delete this step?</value>
+  </data>
+  <data name="Confirm_DeactivateMaterial" xml:space="preserve">
+    <value>Material is used in batches and cannot be deleted. Deactivate it instead?</value>
+  </data>
+  <data name="Search_PurchaseOrders" xml:space="preserve">
+    <value>Search purchase orders...</value>
+  </data>
+  <data name="Column_DeliveryDate" xml:space="preserve">
+    <value>Delivery Date</value>
+  </data>
+  <data name="Column_Batches" xml:space="preserve">
+    <value>Batches</value>
+  </data>
+  <data name="Column_Produced" xml:space="preserve">
+    <value>Produced</value>
+  </data>
+  <data name="Status_Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="Status_Sent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="Status_Accepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="Status_Fulfilled" xml:space="preserve">
+    <value>Fulfilled</value>
+  </data>
+  <data name="Status_Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="Status_Planned" xml:space="preserve">
+    <value>Planned</value>
+  </data>
+  <data name="Status_InProduction" xml:space="preserve">
+    <value>In Production</value>
+  </data>
+  <data name="Status_Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Status_Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="Status_Produced" xml:space="preserve">
+    <value>Produced</value>
+  </data>
+  <data name="Status_Shipped" xml:space="preserve">
+    <value>Shipped</value>
+  </data>
+  <data name="Button_Accept" xml:space="preserve">
+    <value>Accept Order</value>
+  </data>
+  <data name="Empty_NoPurchaseOrders" xml:space="preserve">
+    <value>No purchase orders</value>
+  </data>
+  <data name="Empty_NoPurchaseOrdersDesc" xml:space="preserve">
+    <value>No purchase orders have been sent to you yet.</value>
+  </data>
+  <data name="Label_RequestedDelivery" xml:space="preserve">
+    <value>Requested delivery date</value>
+  </data>
+  <data name="Section_OrderLines" xml:space="preserve">
+    <value>Order lines</value>
+  </data>
+  <data name="Label_Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Label_BatchesInPo" xml:space="preserve">
+    <value>Batches in this order</value>
+  </data>
+  <data name="Label_NoBatches" xml:space="preserve">
+    <value>No batches created yet</value>
+  </data>
+  <data name="Tab_SupplierBatches" xml:space="preserve">
+    <value>Batches</value>
+  </data>
+  <data name="Search_SupplierBatches" xml:space="preserve">
+    <value>Search batches...</value>
+  </data>
+  <data name="Empty_NoSupplierBatches" xml:space="preserve">
+    <value>No batches</value>
+  </data>
+  <data name="Empty_NoSupplierBatchesDesc" xml:space="preserve">
+    <value>Create your first batch under an accepted purchase order.</value>
+  </data>
+  <data name="Column_Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="Column_Facility" xml:space="preserve">
+    <value>Facility</value>
+  </data>
+  <data name="Button_CreateBatch" xml:space="preserve">
+    <value>+ New Batch</value>
+  </data>
+  <data name="Button_BulkCreate" xml:space="preserve">
+    <value>Bulk Register</value>
+  </data>
+  <data name="Label_BatchInfo" xml:space="preserve">
+    <value>Batch Info</value>
+  </data>
+  <data name="Label_FacilityInfo" xml:space="preserve">
+    <value>Facility Info</value>
+  </data>
+  <data name="Label_BatchMaterials" xml:space="preserve">
+    <value>Linked Fabrics</value>
+  </data>
+  <data name="Label_AddMaterial" xml:space="preserve">
+    <value>Add Fabric</value>
+  </data>
+  <data name="Label_Items" xml:space="preserve">
+    <value>Registered Items</value>
+  </data>
+  <data name="Label_SelectPo" xml:space="preserve">
+    <value>Select Purchase Order</value>
+  </data>
+  <data name="Label_FacilityName" xml:space="preserve">
+    <value>Facility Name</value>
+  </data>
+  <data name="Label_FacilityLocation" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Label_CountryConfection" xml:space="preserve">
+    <value>Country of Confection</value>
+  </data>
+  <data name="Label_CountryDyeing" xml:space="preserve">
+    <value>Country of Dyeing</value>
+  </data>
+  <data name="Label_CountryWeaving" xml:space="preserve">
+    <value>Country of Weaving</value>
+  </data>
+  <data name="Label_BulkQuantity" xml:space="preserve">
+    <value>Number of items to create</value>
+  </data>
+  <data name="Label_SerialPrefix" xml:space="preserve">
+    <value>Serial number prefix</value>
+  </data>
+  <data name="Label_SelectVariant" xml:space="preserve">
+    <value>Select variant</value>
+  </data>
+  <data name="Empty_NoSupplierMaterials" xml:space="preserve">
+    <value>No fabrics linked</value>
+  </data>
+  <data name="Empty_NoSupplierItems" xml:space="preserve">
+    <value>No items registered</value>
+  </data>
+  <data name="Confirm_DeleteBatch" xml:space="preserve">
+    <value>Delete this batch? Only possible if no items exist.</value>
+  </data>
+  <data name="Action_MarkCompleted" xml:space="preserve">
+    <value>Mark as completed</value>
+  </data>
+  <data name="Drawer_SupplierNewBatch" xml:space="preserve">
+    <value>New Batch</value>
+  </data>
+  <data name="Drawer_SupplierEditBatch" xml:space="preserve">
+    <value>Edit Batch</value>
+  </data>
+  <data name="Action_SplitBatch" xml:space="preserve">
+    <value>Split Batch</value>
+  </data>
+  <data name="Action_SplitBatchDesc" xml:space="preserve">
+    <value>The current batch will be marked as completed and a new batch will be created with the same settings.</value>
+  </data>
+  <data name="Confirm_SplitBatch" xml:space="preserve">
+    <value>Do you want to split this batch? The current batch will be marked as completed and a new batch will be created with the same facility and fabric settings.</value>
+  </data>
+  <data name="Empty_NoBrandPurchaseOrders" xml:space="preserve">
+    <value>No purchase orders yet</value>
+  </data>
+  <data name="Empty_NoBrandPurchaseOrdersDesc" xml:space="preserve">
+    <value>Create your first purchase order to get started.</value>
+  </data>
+  <data name="Drawer_NewPo" xml:space="preserve">
+    <value>New purchase order</value>
+  </data>
+  <data name="Drawer_EditPo" xml:space="preserve">
+    <value>Edit purchase order</value>
+  </data>
+  <data name="Section_OrderInfo" xml:space="preserve">
+    <value>Order Info</value>
+  </data>
+  <data name="Button_Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Action_Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Action_MarkFulfilled" xml:space="preserve">
+    <value>Mark as fulfilled</value>
+  </data>
+  <data name="Action_CancelOrder" xml:space="preserve">
+    <value>Cancel order</value>
+  </data>
+  <data name="Confirm_CancelOrder" xml:space="preserve">
+    <value>Do you want to cancel this order?</value>
+  </data>
+  <data name="Button_AddLine" xml:space="preserve">
+    <value>+ Add line</value>
+  </data>
+  <data name="StatusBar_PurchaseOrders" xml:space="preserve">
+    <value>{0} orders</value>
+  </data>
+</root>

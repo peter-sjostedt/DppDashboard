@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.ViewModels;
 
 namespace HospitexDPP.Views
@@ -24,7 +25,7 @@ namespace HospitexDPP.Views
 
             menu.Items.Add(new MenuItem
             {
-                Header = TryFindResource("Action_AddSupplier") as string ?? "Lägg till leverantör",
+                Header = Strings.Action_AddSupplier,
                 Command = vm.AddSupplierForBrandCommand,
                 CommandParameter = group
             });
@@ -46,15 +47,15 @@ namespace HospitexDPP.Views
             menu.Items.Add(new MenuItem
             {
                 Header = relation.IsActive == 1
-                    ? (TryFindResource("Action_Deactivate") as string ?? "Inaktivera")
-                    : (TryFindResource("Action_Activate") as string ?? "Aktivera"),
+                    ? Strings.Action_Deactivate
+                    : Strings.Action_Activate,
                 Command = vm.ToggleActiveCommand,
                 CommandParameter = relation
             });
 
             menu.Items.Add(new MenuItem
             {
-                Header = TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Header = Strings.Action_Delete,
                 Command = vm.DeleteCommand,
                 CommandParameter = relation
             });

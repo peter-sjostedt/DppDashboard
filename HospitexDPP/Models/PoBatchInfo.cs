@@ -32,11 +32,5 @@ namespace HospitexDPP.Models
             _ => "#9E9E9E"
         };
 
-        public string StatusDisplay => Status switch
-        {
-            "in_production" => "Produktion",
-            "completed" => "Klar",
-            _ => Status
-        };
     }
 }

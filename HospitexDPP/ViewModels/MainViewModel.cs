@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels

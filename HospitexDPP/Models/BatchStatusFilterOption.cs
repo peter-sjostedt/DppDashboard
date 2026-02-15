@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
+using HospitexDPP.Resources;
 
 namespace HospitexDPP.Models
 {
@@ -17,17 +17,16 @@ namespace HospitexDPP.Models
 
         public string DisplayName => Value switch
         {
-            "planned" => Application.Current.TryFindResource("BatchFilter_Planned") as string ?? "Planerad",
-            "in_production" => Application.Current.TryFindResource("BatchFilter_InProduction") as string ?? "I produktion",
-            "completed" => Application.Current.TryFindResource("BatchFilter_Completed") as string ?? "Klar",
-            _ => Application.Current.TryFindResource("Filter_All") as string ?? "Alla"
+            "planned" => Strings.BatchFilter_Planned,
+            "in_production" => Strings.BatchFilter_InProduction,
+            "completed" => Strings.BatchFilter_Completed,
+            _ => Strings.Filter_All
         };
 
         public override string ToString() => DisplayName;
 
         public static List<BatchStatusFilterOption> All => new()
         {
-            new() { Value = "planned" },
             new() { Value = "in_production" },
             new() { Value = "completed" }
         };

@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using System.Windows;
+using HospitexDPP.Resources;
 
 namespace HospitexDPP.Models
 {
@@ -15,8 +15,7 @@ namespace HospitexDPP.Models
         {
             get
             {
-                var template = Application.Current.TryFindResource("StatusBar_Products") as string ?? "{0} produkter";
-                return $"({string.Format(template, ProductCount)})";
+                return $"({string.Format(Strings.StatusBar_Products, ProductCount)})";
             }
         }
     }

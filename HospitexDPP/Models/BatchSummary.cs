@@ -1,5 +1,4 @@
 using System.Text.Json.Serialization;
-using System.Windows;
 
 namespace HospitexDPP.Models
 {
@@ -49,14 +48,6 @@ namespace HospitexDPP.Models
 
         [JsonPropertyName("updated_at")]
         public string? UpdatedAt { get; set; }
-
-        public string StatusDisplay => Status switch
-        {
-            "planned" => Application.Current.TryFindResource("BatchFilter_Planned") as string ?? "Planerad",
-            "in_production" => Application.Current.TryFindResource("BatchFilter_InProduction") as string ?? "I produktion",
-            "completed" => Application.Current.TryFindResource("BatchFilter_Completed") as string ?? "Klar",
-            _ => Status ?? ""
-        };
 
         public string StatusColor => Status switch
         {

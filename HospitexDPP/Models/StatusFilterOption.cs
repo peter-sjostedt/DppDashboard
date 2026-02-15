@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
+using HospitexDPP.Resources;
 
 namespace HospitexDPP.Models
 {
@@ -17,9 +17,9 @@ namespace HospitexDPP.Models
 
         public string DisplayName => Value switch
         {
-            "active" => Application.Current.TryFindResource("Filter_Active") as string ?? "Aktiva",
-            "inactive" => Application.Current.TryFindResource("Filter_Inactive") as string ?? "Inaktiva",
-            _ => Application.Current.TryFindResource("Filter_All") as string ?? "Alla"
+            "active" => Strings.Filter_Active,
+            "inactive" => Strings.Filter_Inactive,
+            _ => Strings.Filter_All
         };
 
         public override string ToString() => DisplayName;

@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -122,9 +123,9 @@ namespace HospitexDPP.ViewModels
         {
             get => _drawerMode switch
             {
-                SupplierDrawerMode.New => Application.Current.TryFindResource("Drawer_NewSupplier") as string ?? "Ny leverantör",
-                SupplierDrawerMode.Edit => Application.Current.TryFindResource("Drawer_EditSupplier") as string ?? "Redigera leverantör",
-                SupplierDrawerMode.ApiKey => Application.Current.TryFindResource("Drawer_ApiKey") as string ?? "API-nyckel",
+                SupplierDrawerMode.New => Strings.Drawer_NewSupplier,
+                SupplierDrawerMode.Edit => Strings.Drawer_EditSupplier,
+                SupplierDrawerMode.ApiKey => Strings.Drawer_ApiKey,
                 _ => string.Empty
             };
         }
@@ -292,7 +293,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -338,7 +339,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -354,10 +355,10 @@ namespace HospitexDPP.ViewModels
         {
             if (supplier == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 $"{confirmText}\n\n{supplier.SupplierName}",
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -419,11 +420,10 @@ namespace HospitexDPP.ViewModels
         {
             if (supplier == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_RegenerateKey") as string
-                ?? "Nuvarande nyckel slutar fungera omedelbart. Fortsätt?";
+            var confirmText = Strings.Confirm_RegenerateKey;
             var result = MessageBox.Show(
                 confirmText,
-                Application.Current.TryFindResource("Action_RegenerateKey") as string ?? "Generera ny nyckel",
+                Strings.Action_RegenerateKey,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -468,6 +468,7 @@ namespace HospitexDPP.ViewModels
                 opt.PropertyChanged += OnFilterChanged;
             }
             OnPropertyChanged(nameof(StatusFilterOptions));
+            OnPropertyChanged(nameof(DrawerTitle));
             ApplyFilter();
         }
 

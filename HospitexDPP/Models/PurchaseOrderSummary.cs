@@ -38,6 +38,9 @@ namespace HospitexDPP.Models
         [JsonPropertyName("brand_name")]
         public string? BrandName { get; set; }
 
+        [JsonPropertyName("supplier_name")]
+        public string? SupplierName { get; set; }
+
         [JsonPropertyName("product_name")]
         public string? ProductName { get; set; }
 
@@ -47,16 +50,8 @@ namespace HospitexDPP.Models
         [JsonPropertyName("produced_quantity")]
         public int? ProducedQuantity { get; set; }
 
-        // UI helpers
-        public string StatusDisplay => Status switch
-        {
-            "draft" => "Utkast",
-            "sent" => "Skickad",
-            "accepted" => "Accepterad",
-            "fulfilled" => "Levererad",
-            "cancelled" => "Avbruten",
-            _ => Status
-        };
+        [JsonPropertyName("delivered_quantity")]
+        public int? DeliveredQuantity { get; set; }
 
         public string StatusColor => Status switch
         {

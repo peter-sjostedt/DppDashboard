@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using HospitexDPP.Helpers;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 
 namespace HospitexDPP.Views
 {
@@ -32,7 +33,7 @@ namespace HospitexDPP.Views
             // View details
             var viewItem = new MenuItem
             {
-                Header = Application.Current.TryFindResource("Action_ViewDetails") as string ?? "Visa detaljer"
+                Header = Strings.Action_ViewDetails
             };
             viewItem.Click += (_, _) =>
             {
@@ -46,7 +47,7 @@ namespace HospitexDPP.Views
             {
                 var completeItem = new MenuItem
                 {
-                    Header = Application.Current.TryFindResource("Action_MarkCompleted") as string ?? "Markera som klar"
+                    Header = Strings.Action_MarkCompleted
                 };
                 completeItem.Click += (_, _) =>
                 {
@@ -58,7 +59,7 @@ namespace HospitexDPP.Views
                 // Split batch (only if in_production)
                 var splitItem = new MenuItem
                 {
-                    Header = Application.Current.TryFindResource("Action_SplitBatch") as string ?? "Splittra batch"
+                    Header = Strings.Action_SplitBatch
                 };
                 splitItem.Click += (_, _) =>
                 {
@@ -73,7 +74,7 @@ namespace HospitexDPP.Views
             {
                 var deleteItem = new MenuItem
                 {
-                    Header = Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort"
+                    Header = Strings.Action_Delete
                 };
                 deleteItem.Click += (_, _) =>
                 {

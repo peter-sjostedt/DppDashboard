@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:HospitexDPP.Controls"
              xmlns:conv="clr-namespace:HospitexDPP.Converters"
+             xmlns:h="clr-namespace:HospitexDPP.Helpers"
              x:Name="RelationsRoot">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -16,7 +17,7 @@
             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
                 <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource SearchTextBox}"
-                         Tag="{DynamicResource Search_Relations}"
+                         Tag="{h:Loc Search_Relations}"
                          Margin="0,0,12,0" />
                 <ItemsControl Style="{DynamicResource FilterToggleBar}"
                               ItemsSource="{Binding StatusFilterOptions}"
@@ -24,8 +25,8 @@
             </DockPanel>
 
             <!-- Empty state -->
-            <controls:EmptyState Title="{DynamicResource Empty_NoRelations}"
-                                 Description="{DynamicResource Empty_NoRelationsDesc}">
+            <controls:EmptyState Title="{h:Loc Empty_NoRelations}"
+                                 Description="{h:Loc Empty_NoRelationsDesc}">
                 <controls:EmptyState.Style>
                     <Style TargetType="controls:EmptyState">
                         <Setter Property="Visibility" Value="Collapsed" />
@@ -68,7 +69,7 @@
                                     </Expander.Header>
                                     <StackPanel>
                                         <!-- Empty state for this brand -->
-                                        <TextBlock Text="{DynamicResource Relations_NoSuppliers}"
+                                        <TextBlock Text="{h:Loc Relations_NoSuppliers}"
                                                    Foreground="{DynamicResource TextSecondaryBrush}"
                                                    FontSize="12" FontStyle="Italic"
                                                    Margin="40,8,12,12">
@@ -154,10 +155,10 @@
                         <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
                                    FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="{DynamicResource Button_Create}"
+                            <Button Content="{h:Loc Button_Create}"
                                     Style="{DynamicResource PrimaryButton}"
                                     Command="{Binding SaveCommand}" Margin="0,0,8,0" />
-                            <Button Content="{DynamicResource Button_Cancel}"
+                            <Button Content="{h:Loc Button_Cancel}"
                                     Style="{DynamicResource SecondaryButton}"
                                     Command="{Binding CancelDrawerCommand}" />
                         </StackPanel>
@@ -170,7 +171,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="{DynamicResource Field_SelectSupplier}"
+                        <TextBlock Grid.Column="0" Text="{h:Loc Field_SelectSupplier}"
                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                    VerticalAlignment="Center" Margin="0,0,12,0" />
                         <ComboBox Grid.Column="1"

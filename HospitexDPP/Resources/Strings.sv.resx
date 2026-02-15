@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Tab_Brands" xml:space="preserve">
+    <value>Varumärken</value>
+  </data>
+  <data name="Tab_Suppliers" xml:space="preserve">
+    <value>Leverantörer</value>
+  </data>
+  <data name="Tab_Relations" xml:space="preserve">
+    <value>Relationer</value>
+  </data>
+  <data name="Button_Add" xml:space="preserve">
+    <value>+ Lägg till</value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Button_Delete" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="Button_Edit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="Button_Create" xml:space="preserve">
+    <value>Skapa</value>
+  </data>
+  <data name="Button_Close" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="Search_Placeholder" xml:space="preserve">
+    <value>Sök...</value>
+  </data>
+  <data name="Status_Active" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="Status_Inactive" xml:space="preserve">
+    <value>Inaktiv</value>
+  </data>
+  <data name="Value_Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="Value_No" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="Category_Clothing" xml:space="preserve">
+    <value>Kläder</value>
+  </data>
+  <data name="Category_Accessories" xml:space="preserve">
+    <value>Accessoarer</value>
+  </data>
+  <data name="Category_Footwear" xml:space="preserve">
+    <value>Skor</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Övrigt</value>
+  </data>
+  <data name="ProductGroup_Top" xml:space="preserve">
+    <value>Överdel</value>
+  </data>
+  <data name="ProductGroup_Bottom" xml:space="preserve">
+    <value>Underdel</value>
+  </data>
+  <data name="LineConcept_ActiveWear" xml:space="preserve">
+    <value>Aktivkläder</value>
+  </data>
+  <data name="LineConcept_Maternity" xml:space="preserve">
+    <value>Mammakläder</value>
+  </data>
+  <data name="LineConcept_ProtectiveWear" xml:space="preserve">
+    <value>Skyddskläder</value>
+  </data>
+  <data name="LineConcept_SleepWear" xml:space="preserve">
+    <value>Sovkläder</value>
+  </data>
+  <data name="LineConcept_Healthcare" xml:space="preserve">
+    <value>Vårdkläder</value>
+  </data>
+  <data name="TypeItem_Jacket" xml:space="preserve">
+    <value>Jacka</value>
+  </data>
+  <data name="TypeItem_Pants" xml:space="preserve">
+    <value>Byxa</value>
+  </data>
+  <data name="TypeItem_Blouse" xml:space="preserve">
+    <value>Blus</value>
+  </data>
+  <data name="TypeItem_Sweater" xml:space="preserve">
+    <value>Tröja</value>
+  </data>
+  <data name="TypeItem_Tunic" xml:space="preserve">
+    <value>Tunika</value>
+  </data>
+  <data name="TypeItem_LabCoat" xml:space="preserve">
+    <value>Labbrock</value>
+  </data>
+  <data name="TypeItem_PatientGown" xml:space="preserve">
+    <value>Patientskjorta</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>Herr</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>Dam</value>
+  </data>
+  <data name="Gender_Unisex" xml:space="preserve">
+    <value>Unisex</value>
+  </data>
+  <data name="Market_MassMarket" xml:space="preserve">
+    <value>Massmarknad</value>
+  </data>
+  <data name="Market_MidPrice" xml:space="preserve">
+    <value>Mellanpris</value>
+  </data>
+  <data name="Market_Premium" xml:space="preserve">
+    <value>Premium</value>
+  </data>
+  <data name="Market_Luxury" xml:space="preserve">
+    <value>Lyx</value>
+  </data>
+  <data name="Water_None" xml:space="preserve">
+    <value>Inga vattenegenskaper</value>
+  </data>
+  <data name="Water_Waterproof" xml:space="preserve">
+    <value>Vattentät</value>
+  </data>
+  <data name="Water_Repellent" xml:space="preserve">
+    <value>Vattenavvisande</value>
+  </data>
+  <data name="Water_Resistant" xml:space="preserve">
+    <value>Vattenresistent</value>
+  </data>
+  <data name="Season_SP" xml:space="preserve">
+    <value>Vår</value>
+  </data>
+  <data name="Season_SU" xml:space="preserve">
+    <value>Sommar</value>
+  </data>
+  <data name="Component_BodyFabric" xml:space="preserve">
+    <value>Huvudtyg</value>
+  </data>
+  <data name="Component_Trim" xml:space="preserve">
+    <value>Beslagning</value>
+  </data>
+  <data name="Component_Lining" xml:space="preserve">
+    <value>Fodertyg</value>
+  </data>
+  <data name="Material_Textile" xml:space="preserve">
+    <value>Textil</value>
+  </data>
+  <data name="Material_Leather" xml:space="preserve">
+    <value>Läder</value>
+  </data>
+  <data name="Material_Rubber" xml:space="preserve">
+    <value>Gummi</value>
+  </data>
+  <data name="CircularStrategy_MaterialCyclability" xml:space="preserve">
+    <value>Materialåtervinning</value>
+  </data>
+  <data name="CircularStrategy_MonoCycle" xml:space="preserve">
+    <value>Monocykel</value>
+  </data>
+  <data name="CircularStrategy_Disassembly" xml:space="preserve">
+    <value>Demontering</value>
+  </data>
+  <data name="CircularStrategy_Longevity" xml:space="preserve">
+    <value>Långlivad</value>
+  </data>
+  <data name="CircularStrategy_PhysicalDurability" xml:space="preserve">
+    <value>Fysisk hållbarhet</value>
+  </data>
+  <data name="DataCarrier_RFID" xml:space="preserve">
+    <value>RFID-tråd</value>
+  </data>
+  <data name="DataCarrier_NFC" xml:space="preserve">
+    <value>NFC-chip</value>
+  </data>
+  <data name="DataCarrier_QR" xml:space="preserve">
+    <value>QR-kod</value>
+  </data>
+  <data name="Filter_All" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="Filter_Active" xml:space="preserve">
+    <value>Aktiva</value>
+  </data>
+  <data name="Filter_Inactive" xml:space="preserve">
+    <value>Inaktiva</value>
+  </data>
+  <data name="Empty_NoBrands" xml:space="preserve">
+    <value>Inga varumärken ännu</value>
+  </data>
+  <data name="Empty_NoBrandsDesc" xml:space="preserve">
+    <value>Lägg till ditt första varumärke för att komma igång.</value>
+  </data>
+  <data name="Empty_NoSuppliers" xml:space="preserve">
+    <value>Inga leverantörer ännu</value>
+  </data>
+  <data name="Empty_NoSuppliersDesc" xml:space="preserve">
+    <value>Lägg till din första leverantör för att komma igång.</value>
+  </data>
+  <data name="Empty_NoRelations" xml:space="preserve">
+    <value>Inga relationer ännu</value>
+  </data>
+  <data name="Empty_NoRelationsDesc" xml:space="preserve">
+    <value>Koppla varumärken till leverantörer för att komma igång.</value>
+  </data>
+  <data name="Confirm_Delete" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort?</value>
+  </data>
+  <data name="Confirm_RegenerateKey" xml:space="preserve">
+    <value>Nuvarande nyckel slutar fungera omedelbart. Fortsätt?</value>
+  </data>
+  <data name="Label_ApiKey" xml:space="preserve">
+    <value>API-nyckel</value>
+  </data>
+  <data name="Label_Copied" xml:space="preserve">
+    <value>Kopierad!</value>
+  </data>
+  <data name="Button_ShowKey" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="Button_HideKey" xml:space="preserve">
+    <value>Dölj</value>
+  </data>
+  <data name="Button_CopyKey" xml:space="preserve">
+    <value>Kopiera</value>
+  </data>
+  <data name="Button_RegenerateKey" xml:space="preserve">
+    <value>Generera ny nyckel</value>
+  </data>
+  <data name="Column_Name" xml:space="preserve">
+    <value>Namn</value>
+  </data>
+  <data name="Column_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="Column_Suppliers" xml:space="preserve">
+    <value>Leverantörer</value>
+  </data>
+  <data name="Column_Brands" xml:space="preserve">
+    <value>Varumärken</value>
+  </data>
+  <data name="Column_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Column_Products" xml:space="preserve">
+    <value>Produkter</value>
+  </data>
+  <data name="Column_Materials" xml:space="preserve">
+    <value>Tyger</value>
+  </data>
+  <data name="Column_Updated" xml:space="preserve">
+    <value>Uppdaterad</value>
+  </data>
+  <data name="Column_Brand" xml:space="preserve">
+    <value>Varumärke</value>
+  </data>
+  <data name="Column_Supplier" xml:space="preserve">
+    <value>Leverantör</value>
+  </data>
+  <data name="Column_Created" xml:space="preserve">
+    <value>Skapad</value>
+  </data>
+  <data name="Field_BrandName" xml:space="preserve">
+    <value>Varumärke *</value>
+  </data>
+  <data name="Field_LogoUrl" xml:space="preserve">
+    <value>Logotyp URL</value>
+  </data>
+  <data name="Field_SubBrand" xml:space="preserve">
+    <value>Undervarumärke</value>
+  </data>
+  <data name="Field_ParentCompany" xml:space="preserve">
+    <value>Moderbolag</value>
+  </data>
+  <data name="Field_Trader" xml:space="preserve">
+    <value>Handlare</value>
+  </data>
+  <data name="Field_TraderLocation" xml:space="preserve">
+    <value>Handlarens plats</value>
+  </data>
+  <data name="Field_Lei" xml:space="preserve">
+    <value>LEI</value>
+  </data>
+  <data name="Field_Gs1" xml:space="preserve">
+    <value>GS1 Company Prefix</value>
+  </data>
+  <data name="Field_SupplierName" xml:space="preserve">
+    <value>Leverantörsnamn *</value>
+  </data>
+  <data name="Field_SupplierLocation" xml:space="preserve">
+    <value>Plats</value>
+  </data>
+  <data name="Field_FacilityRegistry" xml:space="preserve">
+    <value>Anläggningsregister</value>
+  </data>
+  <data name="Field_FacilityIdentifier" xml:space="preserve">
+    <value>Anläggnings-ID</value>
+  </data>
+  <data name="Field_OperatorRegistry" xml:space="preserve">
+    <value>Operatörsregister</value>
+  </data>
+  <data name="Field_OperatorIdentifier" xml:space="preserve">
+    <value>Operatörs-ID</value>
+  </data>
+  <data name="Field_CountryConfection" xml:space="preserve">
+    <value>Land - Konfektion</value>
+  </data>
+  <data name="Field_CountryDyeing" xml:space="preserve">
+    <value>Land - Färgning</value>
+  </data>
+  <data name="Field_CountryWeaving" xml:space="preserve">
+    <value>Land - Vävning</value>
+  </data>
+  <data name="Field_SelectBrand" xml:space="preserve">
+    <value>Välj varumärke</value>
+  </data>
+  <data name="Field_SelectSupplier" xml:space="preserve">
+    <value>Välj leverantör</value>
+  </data>
+  <data name="Drawer_NewBrand" xml:space="preserve">
+    <value>Nytt varumärke</value>
+  </data>
+  <data name="Drawer_EditBrand" xml:space="preserve">
+    <value>Redigera varumärke</value>
+  </data>
+  <data name="Drawer_NewSupplier" xml:space="preserve">
+    <value>Ny leverantör</value>
+  </data>
+  <data name="Drawer_EditSupplier" xml:space="preserve">
+    <value>Redigera leverantör</value>
+  </data>
+  <data name="Drawer_NewRelation" xml:space="preserve">
+    <value>Ny relation</value>
+  </data>
+  <data name="Drawer_ApiKey" xml:space="preserve">
+    <value>API-nyckel</value>
+  </data>
+  <data name="Action_AddSupplier" xml:space="preserve">
+    <value>Lägg till leverantör</value>
+  </data>
+  <data name="Action_Edit" xml:space="preserve">
+    <value>Redigera</value>
+  </data>
+  <data name="Action_ViewApiKey" xml:space="preserve">
+    <value>Visa API-nyckel</value>
+  </data>
+  <data name="Action_RegenerateKey" xml:space="preserve">
+    <value>Generera ny nyckel</value>
+  </data>
+  <data name="Action_Deactivate" xml:space="preserve">
+    <value>Inaktivera</value>
+  </data>
+  <data name="Action_Activate" xml:space="preserve">
+    <value>Aktivera</value>
+  </data>
+  <data name="Action_Delete" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
+  <data name="StatusBar_Role" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="StatusBar_Brands" xml:space="preserve">
+    <value>{0} varumärken</value>
+  </data>
+  <data name="StatusBar_Suppliers" xml:space="preserve">
+    <value>{0} leverantörer</value>
+  </data>
+  <data name="Msg_Saving" xml:space="preserve">
+    <value>Sparar...</value>
+  </data>
+  <data name="Msg_Deleting" xml:space="preserve">
+    <value>Tar bort...</value>
+  </data>
+  <data name="Msg_Loading" xml:space="preserve">
+    <value>Laddar...</value>
+  </data>
+  <data name="Msg_NoResponse" xml:space="preserve">
+    <value>Inget svar från servern</value>
+  </data>
+  <data name="Msg_Error" xml:space="preserve">
+    <value>Fel: {0}</value>
+  </data>
+  <data name="Msg_SelectProduct" xml:space="preserve">
+    <value>Välj en produkt</value>
+  </data>
+  <data name="Msg_InvalidCount" xml:space="preserve">
+    <value>Ange ett giltigt antal</value>
+  </data>
+  <data name="Field_Product" xml:space="preserve">
+    <value>Produkt</value>
+  </data>
+  <data name="Field_Supplier" xml:space="preserve">
+    <value>Leverantör</value>
+  </data>
+  <data name="Field_SafetyInfo" xml:space="preserve">
+    <value>Säkerhetsinformation</value>
+  </data>
+  <data name="Section_BatchMaterials" xml:space="preserve">
+    <value>Batchmaterial</value>
+  </data>
+  <data name="Section_MaterialInfo" xml:space="preserve">
+    <value>Materialinformation</value>
+  </data>
+  <data name="Menu_File" xml:space="preserve">
+    <value>_Arkiv</value>
+  </data>
+  <data name="Menu_Connect" xml:space="preserve">
+    <value>_Anslut</value>
+  </data>
+  <data name="Menu_Disconnect" xml:space="preserve">
+    <value>_Koppla från</value>
+  </data>
+  <data name="Menu_Exit" xml:space="preserve">
+    <value>A_vsluta</value>
+  </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>_Hjälp</value>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>_Om Hospitex DPP...</value>
+  </data>
+  <data name="Search_Brands" xml:space="preserve">
+    <value>Sök varumärken...</value>
+  </data>
+  <data name="Search_Suppliers" xml:space="preserve">
+    <value>Sök leverantörer...</value>
+  </data>
+  <data name="Search_Relations" xml:space="preserve">
+    <value>Sök relationer...</value>
+  </data>
+  <data name="Relations_NoSuppliers" xml:space="preserve">
+    <value>Inga leverantörer kopplade</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Språk</value>
+  </data>
+  <data name="Settings_Swedish" xml:space="preserve">
+    <value>Svenska</value>
+  </data>
+  <data name="Settings_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Tab_Products" xml:space="preserve">
+    <value>Produkter</value>
+  </data>
+  <data name="Tab_Batches" xml:space="preserve">
+    <value>Batchar</value>
+  </data>
+  <data name="Tab_BrandSuppliers" xml:space="preserve">
+    <value>Leverantörer</value>
+  </data>
+  <data name="Search_Products" xml:space="preserve">
+    <value>Sök produkter...</value>
+  </data>
+  <data name="Search_Batches" xml:space="preserve">
+    <value>Sök batchar...</value>
+  </data>
+  <data name="Search_BrandSuppliers" xml:space="preserve">
+    <value>Sök leverantörer...</value>
+  </data>
+  <data name="Empty_NoProducts" xml:space="preserve">
+    <value>Inga produkter ännu</value>
+  </data>
+  <data name="Empty_NoProductsDesc" xml:space="preserve">
+    <value>Lägg till din första produkt för att komma igång.</value>
+  </data>
+  <data name="Empty_NoBatches" xml:space="preserve">
+    <value>Inga batchar ännu</value>
+  </data>
+  <data name="Empty_NoBatchesDesc" xml:space="preserve">
+    <value>Skapa din första batch för att komma igång.</value>
+  </data>
+  <data name="Empty_NoBrandSuppliers" xml:space="preserve">
+    <value>Inga leverantörer kopplade</value>
+  </data>
+  <data name="Empty_NoBrandSuppliersDesc" xml:space="preserve">
+    <value>Kontakta din admin för att koppla leverantörer.</value>
+  </data>
+  <data name="StatusBar_BrandRole" xml:space="preserve">
+    <value>Varumärke</value>
+  </data>
+  <data name="StatusBar_Products" xml:space="preserve">
+    <value>{0} produkter</value>
+  </data>
+  <data name="StatusBar_Batches" xml:space="preserve">
+    <value>{0} batchar</value>
+  </data>
+  <data name="Column_ArticleNumber" xml:space="preserve">
+    <value>Artikelnummer</value>
+  </data>
+  <data name="Column_Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Column_Variants" xml:space="preserve">
+    <value>Varianter</value>
+  </data>
+  <data name="Column_SKU" xml:space="preserve">
+    <value>SKU</value>
+  </data>
+  <data name="Column_Size" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  <data name="Column_Color" xml:space="preserve">
+    <value>Färg</value>
+  </data>
+  <data name="Column_BatchNumber" xml:space="preserve">
+    <value>Batchnummer</value>
+  </data>
+  <data name="Column_PoNumber" xml:space="preserve">
+    <value>PO-nummer</value>
+  </data>
+  <data name="Column_Quantity" xml:space="preserve">
+    <value>Antal</value>
+  </data>
+  <data name="Column_ProductionDate" xml:space="preserve">
+    <value>Produktionsdatum</value>
+  </data>
+  <data name="Column_Product" xml:space="preserve">
+    <value>Produkt</value>
+  </data>
+  <data name="Column_UniqueProductId" xml:space="preserve">
+    <value>Unikt produkt-ID</value>
+  </data>
+  <data name="Column_SerialNumber" xml:space="preserve">
+    <value>Serienummer</value>
+  </data>
+  <data name="Column_Sgtin" xml:space="preserve">
+    <value>SGTIN</value>
+  </data>
+  <data name="Column_Tid" xml:space="preserve">
+    <value>TID</value>
+  </data>
+  <data name="Column_ItemStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Column_ItemNumber" xml:space="preserve">
+    <value>Artnr</value>
+  </data>
+  <data name="Column_ColorBrand" xml:space="preserve">
+    <value>Färg (brand)</value>
+  </data>
+  <data name="Column_Gtin" xml:space="preserve">
+    <value>GTIN</value>
+  </data>
+  <data name="Column_Component" xml:space="preserve">
+    <value>Komponent</value>
+  </data>
+  <data name="Column_Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Column_ContentName" xml:space="preserve">
+    <value>Innehåll</value>
+  </data>
+  <data name="Column_Fiber" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+  <data name="Column_Percentage" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="Column_Share" xml:space="preserve">
+    <value>Andel</value>
+  </data>
+  <data name="Column_Source" xml:space="preserve">
+    <value>Källa</value>
+  </data>
+  <data name="Column_Recycled" xml:space="preserve">
+    <value>Återvunnet</value>
+  </data>
+  <data name="Column_Certification" xml:space="preserve">
+    <value>Certifiering</value>
+  </data>
+  <data name="Column_CertificationId" xml:space="preserve">
+    <value>Cert-ID</value>
+  </data>
+  <data name="Column_ValidUntil" xml:space="preserve">
+    <value>Giltig t.o.m.</value>
+  </data>
+  <data name="Column_Sequence" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="Column_ProcessStep" xml:space="preserve">
+    <value>Processteg</value>
+  </data>
+  <data name="Column_Batch" xml:space="preserve">
+    <value>Batch</value>
+  </data>
+  <data name="Drawer_NewProduct" xml:space="preserve">
+    <value>Ny produkt</value>
+  </data>
+  <data name="Drawer_EditProduct" xml:space="preserve">
+    <value>Redigera produkt</value>
+  </data>
+  <data name="Drawer_NewBatch" xml:space="preserve">
+    <value>Ny batch</value>
+  </data>
+  <data name="Drawer_EditBatch" xml:space="preserve">
+    <value>Redigera batch</value>
+  </data>
+  <data name="Drawer_ManageMaterials" xml:space="preserve">
+    <value>Hantera material</value>
+  </data>
+  <data name="Drawer_ViewItems" xml:space="preserve">
+    <value>Visa artiklar</value>
+  </data>
+  <data name="Drawer_MaterialDetail" xml:space="preserve">
+    <value>Materialdetaljer</value>
+  </data>
+  <data name="Section_ProductInfo" xml:space="preserve">
+    <value>Produktinfo</value>
+  </data>
+  <data name="Section_Variants" xml:space="preserve">
+    <value>Varianter</value>
+  </data>
+  <data name="Section_Components" xml:space="preserve">
+    <value>Komponenter</value>
+  </data>
+  <data name="Section_Care" xml:space="preserve">
+    <value>Skötsel</value>
+  </data>
+  <data name="Section_Compliance" xml:space="preserve">
+    <value>Compliance</value>
+  </data>
+  <data name="Section_Circularity" xml:space="preserve">
+    <value>Cirkularitet</value>
+  </data>
+  <data name="Section_Sustainability" xml:space="preserve">
+    <value>Hållbarhet</value>
+  </data>
+  <data name="Section_BasicInfo" xml:space="preserve">
+    <value>Grundinformation</value>
+  </data>
+  <data name="Section_Compositions" xml:space="preserve">
+    <value>Kompositioner</value>
+  </data>
+  <data name="Section_Certifications" xml:space="preserve">
+    <value>Certifieringar</value>
+  </data>
+  <data name="Section_MaterialCertifications" xml:space="preserve">
+    <value>Certifieringar</value>
+  </data>
+  <data name="Section_SupplyChain" xml:space="preserve">
+    <value>Leveranskedja</value>
+  </data>
+  <data name="Field_ProductName" xml:space="preserve">
+    <value>Produktnamn *</value>
+  </data>
+  <data name="Field_GtinType" xml:space="preserve">
+    <value>GTIN-typ</value>
+  </data>
+  <data name="Field_Gtin" xml:space="preserve">
+    <value>GTIN</value>
+  </data>
+  <data name="Field_Description" xml:space="preserve">
+    <value>Beskrivning</value>
+  </data>
+  <data name="Field_PhotoUrl" xml:space="preserve">
+    <value>Foto URL</value>
+  </data>
+  <data name="Field_ArticleNumber" xml:space="preserve">
+    <value>Artikelnummer</value>
+  </data>
+  <data name="Field_CommodityCodeSystem" xml:space="preserve">
+    <value>Varukodsystem</value>
+  </data>
+  <data name="Field_CommodityCodeNumber" xml:space="preserve">
+    <value>Varukodsnummer</value>
+  </data>
+  <data name="Field_YearOfSale" xml:space="preserve">
+    <value>Försäljningsår</value>
+  </data>
+  <data name="Field_SeasonOfSale" xml:space="preserve">
+    <value>Försäljningssäsong</value>
+  </data>
+  <data name="Field_PriceCurrency" xml:space="preserve">
+    <value>Prisvaluta</value>
+  </data>
+  <data name="Field_Msrp" xml:space="preserve">
+    <value>Rekommenderat pris</value>
+  </data>
+  <data name="Field_ResalePrice" xml:space="preserve">
+    <value>Återförsäljningspris</value>
+  </data>
+  <data name="Field_Category" xml:space="preserve">
+    <value>Kategori</value>
+  </data>
+  <data name="Field_ProductGroup" xml:space="preserve">
+    <value>Produktgrupp</value>
+  </data>
+  <data name="Field_TypeLineConcept" xml:space="preserve">
+    <value>Typ/Linje/Koncept</value>
+  </data>
+  <data name="Field_TypeItem" xml:space="preserve">
+    <value>Typ/Artikel</value>
+  </data>
+  <data name="Field_AgeGroup" xml:space="preserve">
+    <value>Åldersgrupp</value>
+  </data>
+  <data name="Field_Gender" xml:space="preserve">
+    <value>Kön</value>
+  </data>
+  <data name="Field_MarketSegment" xml:space="preserve">
+    <value>Marknadssegment</value>
+  </data>
+  <data name="Field_WaterProperties" xml:space="preserve">
+    <value>Vattenegenskaper</value>
+  </data>
+  <data name="Field_NetWeight" xml:space="preserve">
+    <value>Nettovikt</value>
+  </data>
+  <data name="Field_WeightUnit" xml:space="preserve">
+    <value>Viktenhet</value>
+  </data>
+  <data name="Field_DataCarrierType" xml:space="preserve">
+    <value>Databärartyp</value>
+  </data>
+  <data name="Field_DataCarrierMaterial" xml:space="preserve">
+    <value>Databärarmaterial</value>
+  </data>
+  <data name="Field_DataCarrierLocation" xml:space="preserve">
+    <value>Databärarplats</value>
+  </data>
+  <data name="Field_ItemNumber" xml:space="preserve">
+    <value>Artikelnummer</value>
+  </data>
+  <data name="Field_Size" xml:space="preserve">
+    <value>Storlek</value>
+  </data>
+  <data name="Field_SizeCountryCode" xml:space="preserve">
+    <value>Storleksland</value>
+  </data>
+  <data name="Field_ColorBrand" xml:space="preserve">
+    <value>Färg (varumärke)</value>
+  </data>
+  <data name="Field_ColorGeneral" xml:space="preserve">
+    <value>Färg (generell)</value>
+  </data>
+  <data name="Field_Component" xml:space="preserve">
+    <value>Komponent</value>
+  </data>
+  <data name="Field_Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Field_Content" xml:space="preserve">
+    <value>Innehåll</value>
+  </data>
+  <data name="Field_Percentage" xml:space="preserve">
+    <value>Procent</value>
+  </data>
+  <data name="Field_Source" xml:space="preserve">
+    <value>Källa</value>
+  </data>
+  <data name="Field_CareImageUrl" xml:space="preserve">
+    <value>Skötselbildens URL</value>
+  </data>
+  <data name="Field_CareText" xml:space="preserve">
+    <value>Skötseltext</value>
+  </data>
+  <data name="Field_SafetyInformation" xml:space="preserve">
+    <value>Säkerhetsinformation</value>
+  </data>
+  <data name="Field_HarmfulSubstances" xml:space="preserve">
+    <value>Skadliga ämnen</value>
+  </data>
+  <data name="Field_HarmfulSubstancesInfo" xml:space="preserve">
+    <value>Info skadliga ämnen</value>
+  </data>
+  <data name="Field_Certifications" xml:space="preserve">
+    <value>Certifieringar</value>
+  </data>
+  <data name="Field_CertificationsValidation" xml:space="preserve">
+    <value>Certifieringsvalidering</value>
+  </data>
+  <data name="Field_ChemicalComplianceStandard" xml:space="preserve">
+    <value>Kemisk standard</value>
+  </data>
+  <data name="Field_ChemicalComplianceValidation" xml:space="preserve">
+    <value>Kemisk validering</value>
+  </data>
+  <data name="Field_ChemicalComplianceLink" xml:space="preserve">
+    <value>Kemisk länk</value>
+  </data>
+  <data name="Field_Microfibers" xml:space="preserve">
+    <value>Mikrofibrer</value>
+  </data>
+  <data name="Field_TraceabilityProvider" xml:space="preserve">
+    <value>Spårbarhetsleverantör</value>
+  </data>
+  <data name="Field_Performance" xml:space="preserve">
+    <value>Prestanda</value>
+  </data>
+  <data name="Field_Recyclability" xml:space="preserve">
+    <value>Återvinningsbarhet</value>
+  </data>
+  <data name="Field_TakeBackInstructions" xml:space="preserve">
+    <value>Återlämningsinstruktioner</value>
+  </data>
+  <data name="Field_RecyclingInstructions" xml:space="preserve">
+    <value>Återvinningsinstruktioner</value>
+  </data>
+  <data name="Field_DisassemblyInstructionsSorters" xml:space="preserve">
+    <value>Demontering (sorterare)</value>
+  </data>
+  <data name="Field_DisassemblyInstructionsUser" xml:space="preserve">
+    <value>Demontering (användare)</value>
+  </data>
+  <data name="Field_CircularDesignStrategy" xml:space="preserve">
+    <value>Cirkulär designstrategi</value>
+  </data>
+  <data name="Field_CircularDesignDescription" xml:space="preserve">
+    <value>Cirkulär designbeskrivning</value>
+  </data>
+  <data name="Field_RepairInstructions" xml:space="preserve">
+    <value>Reparationsinstruktioner</value>
+  </data>
+  <data name="Field_BrandStatement" xml:space="preserve">
+    <value>Varumärkesdeklaration</value>
+  </data>
+  <data name="Field_StatementLink" xml:space="preserve">
+    <value>Deklarationslänk</value>
+  </data>
+  <data name="Field_EnvironmentalFootprint" xml:space="preserve">
+    <value>Miljöavtryck</value>
+  </data>
+  <data name="Field_BatchNumber" xml:space="preserve">
+    <value>Batchnummer *</value>
+  </data>
+  <data name="Field_PoNumber" xml:space="preserve">
+    <value>PO-nummer</value>
+  </data>
+  <data name="Field_SelectProduct" xml:space="preserve">
+    <value>Välj produkt</value>
+  </data>
+  <data name="Field_Quantity" xml:space="preserve">
+    <value>Antal</value>
+  </data>
+  <data name="Field_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Field_ProductionDate" xml:space="preserve">
+    <value>Produktionsdatum</value>
+  </data>
+  <data name="Field_SelectMaterial" xml:space="preserve">
+    <value>Välj material</value>
+  </data>
+  <data name="Field_ItemCount" xml:space="preserve">
+    <value>Antal artiklar</value>
+  </data>
+  <data name="BatchFilter_Planned" xml:space="preserve">
+    <value>Planerad</value>
+  </data>
+  <data name="BatchFilter_InProduction" xml:space="preserve">
+    <value>I produktion</value>
+  </data>
+  <data name="BatchFilter_Completed" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="Button_SaveCare" xml:space="preserve">
+    <value>Spara skötsel</value>
+  </data>
+  <data name="Button_SaveCompliance" xml:space="preserve">
+    <value>Spara compliance</value>
+  </data>
+  <data name="Button_SaveCircularity" xml:space="preserve">
+    <value>Spara cirkularitet</value>
+  </data>
+  <data name="Button_SaveSustainability" xml:space="preserve">
+    <value>Spara hållbarhet</value>
+  </data>
+  <data name="Button_AddVariant" xml:space="preserve">
+    <value>+ Lägg till variant</value>
+  </data>
+  <data name="Button_AddComponent" xml:space="preserve">
+    <value>+ Lägg till komponent</value>
+  </data>
+  <data name="Button_AddMaterial" xml:space="preserve">
+    <value>+ Lägg till material</value>
+  </data>
+  <data name="Button_GenerateItems" xml:space="preserve">
+    <value>Generera artiklar</value>
+  </data>
+  <data name="Action_Duplicate" xml:space="preserve">
+    <value>Duplicera</value>
+  </data>
+  <data name="Action_ManageMaterials" xml:space="preserve">
+    <value>Hantera material</value>
+  </data>
+  <data name="Action_ViewItems" xml:space="preserve">
+    <value>Visa artiklar</value>
+  </data>
+  <data name="Action_ViewMaterial" xml:space="preserve">
+    <value>Visa material</value>
+  </data>
+  <data name="Action_ViewDetails" xml:space="preserve">
+    <value>Visa detaljer</value>
+  </data>
+  <data name="Action_AcceptOrder" xml:space="preserve">
+    <value>Acceptera order</value>
+  </data>
+  <data name="Label_NoCompositions" xml:space="preserve">
+    <value>Inga kompositioner registrerade</value>
+  </data>
+  <data name="Label_NoCertifications" xml:space="preserve">
+    <value>Inga certifieringar registrerade</value>
+  </data>
+  <data name="Label_NoSupplyChain" xml:space="preserve">
+    <value>Ingen leveranskedja registrerad</value>
+  </data>
+  <data name="Confirm_RemoveMaterial" xml:space="preserve">
+    <value>Vill du ta bort detta material från batchen?</value>
+  </data>
+  <data name="Confirm_DeleteItem" xml:space="preserve">
+    <value>Vill du ta bort denna artikel?</value>
+  </data>
+  <data name="Tab_SupplierMaterials" xml:space="preserve">
+    <value>Tyger</value>
+  </data>
+  <data name="Tab_PurchaseOrders" xml:space="preserve">
+    <value>Inköpsordrar</value>
+  </data>
+  <data name="Tab_SupplierBrands" xml:space="preserve">
+    <value>Varumärken</value>
+  </data>
+  <data name="Search_Materials" xml:space="preserve">
+    <value>Sök tyger...</value>
+  </data>
+  <data name="Search_SupplierBrands" xml:space="preserve">
+    <value>Sök varumärken...</value>
+  </data>
+  <data name="Empty_NoMaterials" xml:space="preserve">
+    <value>Inga tyger ännu</value>
+  </data>
+  <data name="Empty_NoMaterialsDesc" xml:space="preserve">
+    <value>Lägg till ditt första tyg för att komma igång.</value>
+  </data>
+  <data name="Empty_NoSupplierBrands" xml:space="preserve">
+    <value>Inga varumärken kopplade</value>
+  </data>
+  <data name="Empty_NoSupplierBrandsDesc" xml:space="preserve">
+    <value>Kontakta din admin för att koppla varumärken.</value>
+  </data>
+  <data name="StatusBar_SupplierRole" xml:space="preserve">
+    <value>Leverantör</value>
+  </data>
+  <data name="StatusBar_Materials" xml:space="preserve">
+    <value>{0} tyger</value>
+  </data>
+  <data name="Column_MaterialName" xml:space="preserve">
+    <value>Tygnamn</value>
+  </data>
+  <data name="Column_MaterialType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Field_MaterialName" xml:space="preserve">
+    <value>Tygnamn *</value>
+  </data>
+  <data name="Field_MaterialType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="Drawer_NewMaterial" xml:space="preserve">
+    <value>Nytt tyg</value>
+  </data>
+  <data name="Drawer_EditMaterial" xml:space="preserve">
+    <value>Redigera tyg</value>
+  </data>
+  <data name="Drawer_ProductDetail" xml:space="preserve">
+    <value>Produktdetaljer</value>
+  </data>
+  <data name="Field_ContentName" xml:space="preserve">
+    <value>Fiber</value>
+  </data>
+  <data name="Field_ContentValue" xml:space="preserve">
+    <value>Andel (%)</value>
+  </data>
+  <data name="Field_ContentSource" xml:space="preserve">
+    <value>Källa</value>
+  </data>
+  <data name="Field_Recycled" xml:space="preserve">
+    <value>Återvunnet</value>
+  </data>
+  <data name="Field_RecycledPercentage" xml:space="preserve">
+    <value>Återvunnet (%)</value>
+  </data>
+  <data name="Field_RecycledInputSource" xml:space="preserve">
+    <value>Återvinningskälla</value>
+  </data>
+  <data name="Button_AddComposition" xml:space="preserve">
+    <value>+ Lägg till fiber</value>
+  </data>
+  <data name="Field_Certification" xml:space="preserve">
+    <value>Certifiering</value>
+  </data>
+  <data name="Field_CertificationId" xml:space="preserve">
+    <value>Certifierings-ID</value>
+  </data>
+  <data name="Field_ValidUntil" xml:space="preserve">
+    <value>Giltig till</value>
+  </data>
+  <data name="Button_AddCertification" xml:space="preserve">
+    <value>+ Lägg till certifiering</value>
+  </data>
+  <data name="Field_Sequence" xml:space="preserve">
+    <value>Ordning</value>
+  </data>
+  <data name="Field_ProcessStep" xml:space="preserve">
+    <value>Processteg</value>
+  </data>
+  <data name="Field_Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="Field_FacilityName" xml:space="preserve">
+    <value>Anläggning</value>
+  </data>
+  <data name="Field_FacilityId" xml:space="preserve">
+    <value>Anläggnings-ID</value>
+  </data>
+  <data name="Button_AddSupplyChain" xml:space="preserve">
+    <value>+ Lägg till steg</value>
+  </data>
+  <data name="Section_BatchUsages" xml:space="preserve">
+    <value>Används i</value>
+  </data>
+  <data name="Label_NoBatchUsages" xml:space="preserve">
+    <value>Tyget används inte i några batchar</value>
+  </data>
+  <data name="Label_UsedInBatches" xml:space="preserve">
+    <value>Tyget används i {0} batcher</value>
+  </data>
+  <data name="Confirm_DeleteComposition" xml:space="preserve">
+    <value>Vill du ta bort denna komposition?</value>
+  </data>
+  <data name="Confirm_DeleteCertification" xml:space="preserve">
+    <value>Vill du ta bort denna certifiering?</value>
+  </data>
+  <data name="Confirm_DeleteSupplyChainStep" xml:space="preserve">
+    <value>Vill du ta bort detta steg?</value>
+  </data>
+  <data name="Confirm_DeactivateMaterial" xml:space="preserve">
+    <value>Tyget används i batchar och kan inte tas bort. Vill du inaktivera det istället?</value>
+  </data>
+  <data name="Search_PurchaseOrders" xml:space="preserve">
+    <value>Sök inköpsordrar...</value>
+  </data>
+  <data name="Column_DeliveryDate" xml:space="preserve">
+    <value>Leveransdatum</value>
+  </data>
+  <data name="Column_Batches" xml:space="preserve">
+    <value>Batcher</value>
+  </data>
+  <data name="Column_Produced" xml:space="preserve">
+    <value>Producerat</value>
+  </data>
+  <data name="Status_Draft" xml:space="preserve">
+    <value>Utkast</value>
+  </data>
+  <data name="Status_Sent" xml:space="preserve">
+    <value>Skickad</value>
+  </data>
+  <data name="Status_Accepted" xml:space="preserve">
+    <value>Accepterad</value>
+  </data>
+  <data name="Status_Fulfilled" xml:space="preserve">
+    <value>Levererad</value>
+  </data>
+  <data name="Status_Cancelled" xml:space="preserve">
+    <value>Avbruten</value>
+  </data>
+  <data name="Status_Planned" xml:space="preserve">
+    <value>Planerad</value>
+  </data>
+  <data name="Status_InProduction" xml:space="preserve">
+    <value>I produktion</value>
+  </data>
+  <data name="Status_Completed" xml:space="preserve">
+    <value>Klar</value>
+  </data>
+  <data name="Status_Pending" xml:space="preserve">
+    <value>Väntande</value>
+  </data>
+  <data name="Status_Rejected" xml:space="preserve">
+    <value>Avvisad</value>
+  </data>
+  <data name="Status_Produced" xml:space="preserve">
+    <value>Producerad</value>
+  </data>
+  <data name="Status_Shipped" xml:space="preserve">
+    <value>Skickad</value>
+  </data>
+  <data name="Button_Accept" xml:space="preserve">
+    <value>Acceptera order</value>
+  </data>
+  <data name="Empty_NoPurchaseOrders" xml:space="preserve">
+    <value>Inga inköpsordrar</value>
+  </data>
+  <data name="Empty_NoPurchaseOrdersDesc" xml:space="preserve">
+    <value>Inga inköpsordrar har skickats till dig ännu.</value>
+  </data>
+  <data name="Label_RequestedDelivery" xml:space="preserve">
+    <value>Begärt leveransdatum</value>
+  </data>
+  <data name="Section_OrderLines" xml:space="preserve">
+    <value>Orderrader</value>
+  </data>
+  <data name="Label_Total" xml:space="preserve">
+    <value>Totalt</value>
+  </data>
+  <data name="Label_BatchesInPo" xml:space="preserve">
+    <value>Batcher i denna order</value>
+  </data>
+  <data name="Label_NoBatches" xml:space="preserve">
+    <value>Inga batcher skapade ännu</value>
+  </data>
+  <data name="Tab_SupplierBatches" xml:space="preserve">
+    <value>Batcher</value>
+  </data>
+  <data name="Search_SupplierBatches" xml:space="preserve">
+    <value>Sök batcher...</value>
+  </data>
+  <data name="Empty_NoSupplierBatches" xml:space="preserve">
+    <value>Inga batcher</value>
+  </data>
+  <data name="Empty_NoSupplierBatchesDesc" xml:space="preserve">
+    <value>Skapa din första batch under en accepterad inköpsorder.</value>
+  </data>
+  <data name="Column_Items" xml:space="preserve">
+    <value>Artiklar</value>
+  </data>
+  <data name="Column_Facility" xml:space="preserve">
+    <value>Anläggning</value>
+  </data>
+  <data name="Button_CreateBatch" xml:space="preserve">
+    <value>+ Ny batch</value>
+  </data>
+  <data name="Button_BulkCreate" xml:space="preserve">
+    <value>Bulk-registrera</value>
+  </data>
+  <data name="Label_BatchInfo" xml:space="preserve">
+    <value>Batchinfo</value>
+  </data>
+  <data name="Label_FacilityInfo" xml:space="preserve">
+    <value>Anläggningsinfo</value>
+  </data>
+  <data name="Label_BatchMaterials" xml:space="preserve">
+    <value>Kopplade tyger</value>
+  </data>
+  <data name="Label_AddMaterial" xml:space="preserve">
+    <value>Lägg till tyg</value>
+  </data>
+  <data name="Label_Items" xml:space="preserve">
+    <value>Registrerade artiklar</value>
+  </data>
+  <data name="Label_SelectPo" xml:space="preserve">
+    <value>Välj inköpsorder</value>
+  </data>
+  <data name="Label_FacilityName" xml:space="preserve">
+    <value>Anläggningsnamn</value>
+  </data>
+  <data name="Label_FacilityLocation" xml:space="preserve">
+    <value>Plats</value>
+  </data>
+  <data name="Label_CountryConfection" xml:space="preserve">
+    <value>Konfektionsland</value>
+  </data>
+  <data name="Label_CountryDyeing" xml:space="preserve">
+    <value>Färgningsland</value>
+  </data>
+  <data name="Label_CountryWeaving" xml:space="preserve">
+    <value>Vävningsland</value>
+  </data>
+  <data name="Label_BulkQuantity" xml:space="preserve">
+    <value>Antal artiklar att skapa</value>
+  </data>
+  <data name="Label_SerialPrefix" xml:space="preserve">
+    <value>Serienummerprefix</value>
+  </data>
+  <data name="Label_SelectVariant" xml:space="preserve">
+    <value>Välj variant</value>
+  </data>
+  <data name="Empty_NoSupplierMaterials" xml:space="preserve">
+    <value>Inga tyger kopplade</value>
+  </data>
+  <data name="Empty_NoSupplierItems" xml:space="preserve">
+    <value>Inga artiklar registrerade</value>
+  </data>
+  <data name="Confirm_DeleteBatch" xml:space="preserve">
+    <value>Ta bort denna batch? Kan bara göras om inga artiklar finns.</value>
+  </data>
+  <data name="Action_MarkCompleted" xml:space="preserve">
+    <value>Markera som klar</value>
+  </data>
+  <data name="Drawer_SupplierNewBatch" xml:space="preserve">
+    <value>Ny batch</value>
+  </data>
+  <data name="Drawer_SupplierEditBatch" xml:space="preserve">
+    <value>Redigera batch</value>
+  </data>
+  <data name="Action_SplitBatch" xml:space="preserve">
+    <value>Splittra batch</value>
+  </data>
+  <data name="Action_SplitBatchDesc" xml:space="preserve">
+    <value>Nuvarande batch markeras som klar och en ny batch skapas med samma inställningar.</value>
+  </data>
+  <data name="Confirm_SplitBatch" xml:space="preserve">
+    <value>Vill du splittra denna batch? Den nuvarande batchen markeras som klar och en ny batch skapas med samma anläggnings- och tyginställningar.</value>
+  </data>
+  <data name="Empty_NoBrandPurchaseOrders" xml:space="preserve">
+    <value>Inga inköpsordrar ännu</value>
+  </data>
+  <data name="Empty_NoBrandPurchaseOrdersDesc" xml:space="preserve">
+    <value>Skapa din första inköpsorder för att komma igång.</value>
+  </data>
+  <data name="Drawer_NewPo" xml:space="preserve">
+    <value>Ny inköpsorder</value>
+  </data>
+  <data name="Drawer_EditPo" xml:space="preserve">
+    <value>Redigera inköpsorder</value>
+  </data>
+  <data name="Section_OrderInfo" xml:space="preserve">
+    <value>Orderinfo</value>
+  </data>
+  <data name="Button_Send" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="Action_Send" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="Action_MarkFulfilled" xml:space="preserve">
+    <value>Markera levererad</value>
+  </data>
+  <data name="Action_CancelOrder" xml:space="preserve">
+    <value>Avbryt order</value>
+  </data>
+  <data name="Confirm_CancelOrder" xml:space="preserve">
+    <value>Vill du avbryta denna order?</value>
+  </data>
+  <data name="Button_AddLine" xml:space="preserve">
+    <value>+ Lägg till rad</value>
+  </data>
+  <data name="StatusBar_PurchaseOrders" xml:space="preserve">
+    <value>{0} ordrar</value>
+  </data>
+</root>

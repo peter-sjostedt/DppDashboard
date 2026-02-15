@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using HospitexDPP.Helpers;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 
 namespace HospitexDPP.Views
 {
@@ -31,7 +32,7 @@ namespace HospitexDPP.Views
 
             var editItem = new MenuItem
             {
-                Header = Application.Current.TryFindResource("Action_Edit") as string ?? "Redigera"
+                Header = Strings.Action_Edit
             };
             editItem.Click += (_, _) =>
             {
@@ -43,8 +44,8 @@ namespace HospitexDPP.Views
             var toggleItem = new MenuItem
             {
                 Header = material.IsActive == 1
-                    ? (Application.Current.TryFindResource("Action_Deactivate") as string ?? "Inaktivera")
-                    : (Application.Current.TryFindResource("Action_Activate") as string ?? "Aktivera")
+                    ? Strings.Action_Deactivate
+                    : Strings.Action_Activate
             };
             toggleItem.Click += (_, _) =>
             {
@@ -55,7 +56,7 @@ namespace HospitexDPP.Views
 
             var deleteItem = new MenuItem
             {
-                Header = Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort"
+                Header = Strings.Action_Delete
             };
             deleteItem.Click += (_, _) =>
             {

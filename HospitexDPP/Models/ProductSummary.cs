@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace HospitexDPP.Models
 {
@@ -22,10 +22,14 @@ namespace HospitexDPP.Models
         [JsonPropertyName("_is_active")]
         public int IsActive { get; set; } = 1;
 
+        // NOTE: API GET /api/products does not return variant_count yet.
+        // Needs server-side COUNT + JOIN to include it in list response.
         [JsonPropertyName("variant_count")]
         public int VariantCount { get; set; }
 
         [JsonPropertyName("updated_at")]
         public string? UpdatedAt { get; set; }
+
+        public string VariantCountDisplay => VariantCount.ToString();
     }
 }

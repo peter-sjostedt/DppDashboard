@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using HospitexDPP.Helpers;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 
 namespace HospitexDPP.Views
 {
@@ -31,7 +32,7 @@ namespace HospitexDPP.Views
 
             var viewItem = new MenuItem
             {
-                Header = Application.Current.TryFindResource("Action_ViewDetails") as string ?? "Visa detaljer"
+                Header = Strings.Action_ViewDetails
             };
             viewItem.Click += (_, _) =>
             {

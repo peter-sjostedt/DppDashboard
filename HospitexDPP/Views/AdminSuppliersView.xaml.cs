@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using HospitexDPP.Helpers;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.ViewModels;
 
 namespace HospitexDPP.Views
@@ -34,21 +35,21 @@ namespace HospitexDPP.Views
 
             menu.Items.Add(new MenuItem
             {
-                Header = TryFindResource("Action_Edit") as string ?? "Redigera",
+                Header = Strings.Action_Edit,
                 Command = vm.EditCommand,
                 CommandParameter = supplier
             });
 
             menu.Items.Add(new MenuItem
             {
-                Header = TryFindResource("Action_ViewApiKey") as string ?? "Visa API-nyckel",
+                Header = Strings.Action_ViewApiKey,
                 Command = vm.ShowApiKeyCommand,
                 CommandParameter = supplier
             });
 
             menu.Items.Add(new MenuItem
             {
-                Header = TryFindResource("Action_RegenerateKey") as string ?? "Generera ny nyckel",
+                Header = Strings.Action_RegenerateKey,
                 Command = vm.RegenerateKeyCommand,
                 CommandParameter = supplier
             });
@@ -58,15 +59,15 @@ namespace HospitexDPP.Views
             menu.Items.Add(new MenuItem
             {
                 Header = supplier.IsActive == 1
-                    ? (TryFindResource("Action_Deactivate") as string ?? "Inaktivera")
-                    : (TryFindResource("Action_Activate") as string ?? "Aktivera"),
+                    ? Strings.Action_Deactivate
+                    : Strings.Action_Activate,
                 Command = vm.ToggleActiveCommand,
                 CommandParameter = supplier
             });
 
             menu.Items.Add(new MenuItem
             {
-                Header = TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Header = Strings.Action_Delete,
                 Command = vm.DeleteCommand,
                 CommandParameter = supplier
             });

@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -151,7 +152,7 @@ namespace HospitexDPP.ViewModels
             IsBrandLocked = true;
             StatusMessage = string.Empty;
 
-            var addText = Application.Current.TryFindResource("Action_AddSupplier") as string ?? "Lägg till leverantör";
+            var addText = Strings.Action_AddSupplier;
             DrawerTitle = $"{addText} \u2013 {group.BrandName}";
 
             // Filter out suppliers already linked to this brand
@@ -178,7 +179,7 @@ namespace HospitexDPP.ViewModels
             if (DrawerSelectedBrand == null || DrawerSelectedSupplier == null) return;
 
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -204,7 +205,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -220,10 +221,10 @@ namespace HospitexDPP.ViewModels
         {
             if (relation == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 $"{confirmText}\n\n{relation.BrandName} \u2194 {relation.SupplierName}",
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -292,6 +293,7 @@ namespace HospitexDPP.ViewModels
                 opt.PropertyChanged += OnFilterChanged;
             }
             OnPropertyChanged(nameof(StatusFilterOptions));
+            OnPropertyChanged(nameof(DrawerTitle));
             ApplyFilter();
         }
 

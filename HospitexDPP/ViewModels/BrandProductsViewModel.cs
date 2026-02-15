@@ -5,7 +5,9 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
+using HospitexDPP.Helpers;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -177,8 +179,8 @@ namespace HospitexDPP.ViewModels
         {
             get => _drawerMode switch
             {
-                ProductDrawerMode.New => Application.Current.TryFindResource("Drawer_NewProduct") as string ?? "Ny produkt",
-                ProductDrawerMode.Edit => Application.Current.TryFindResource("Drawer_EditProduct") as string ?? "Redigera produkt",
+                ProductDrawerMode.New => Strings.Drawer_NewProduct,
+                ProductDrawerMode.Edit => Strings.Drawer_EditProduct,
                 _ => string.Empty
             };
         }
@@ -368,6 +370,18 @@ namespace HospitexDPP.ViewModels
         {
             get => _components;
         }
+
+        // Enum ComboBox options
+        public List<EnumOption> CategoryOptions => EnumMappings.GetOptions("Category");
+        public List<EnumOption> ProductGroupOptions => EnumMappings.GetOptions("ProductGroup");
+        public List<EnumOption> LineConceptOptions => EnumMappings.GetOptions("LineConcept");
+        public List<EnumOption> TypeItemOptions => EnumMappings.GetOptions("TypeItem");
+        public List<EnumOption> GenderOptions => EnumMappings.GetOptions("Gender");
+        public List<EnumOption> MarketOptions => EnumMappings.GetOptions("Market");
+        public List<EnumOption> WaterOptions => EnumMappings.GetOptions("Water");
+        public List<EnumOption> SeasonOptions => EnumMappings.GetOptions("Season");
+        public List<EnumOption> DataCarrierOptions => EnumMappings.GetOptions("DataCarrier");
+        public List<EnumOption> CircularStrategyOptions => EnumMappings.GetOptions("CircularStrategy");
 
         // Care edit properties
         public string EditCareImageUrl
@@ -745,7 +759,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveProductAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -805,7 +819,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -820,7 +834,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveCareAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -846,7 +860,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -861,7 +875,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveComplianceAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -893,7 +907,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -908,7 +922,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveCircularityAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -940,7 +954,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -955,7 +969,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveSustainabilityAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -981,7 +995,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -997,10 +1011,10 @@ namespace HospitexDPP.ViewModels
         {
             if (product == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 $"{confirmText}\n\n{product.ProductName}",
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -1240,6 +1254,24 @@ namespace HospitexDPP.ViewModels
                 opt.PropertyChanged += OnFilterChanged;
             }
             OnPropertyChanged(nameof(StatusFilterOptions));
+            OnPropertyChanged(nameof(DrawerTitle));
+            OnPropertyChanged(nameof(EditHarmfulSubstances));
+            OnPropertyChanged(nameof(EditMicrofibers));
+            // Rebuild ComboBox options with new locale
+            OnPropertyChanged(nameof(CategoryOptions));
+            OnPropertyChanged(nameof(ProductGroupOptions));
+            OnPropertyChanged(nameof(LineConceptOptions));
+            OnPropertyChanged(nameof(TypeItemOptions));
+            OnPropertyChanged(nameof(GenderOptions));
+            OnPropertyChanged(nameof(MarketOptions));
+            OnPropertyChanged(nameof(WaterOptions));
+            OnPropertyChanged(nameof(SeasonOptions));
+            OnPropertyChanged(nameof(DataCarrierOptions));
+            OnPropertyChanged(nameof(CircularStrategyOptions));
+            // Refresh Components collection so Component/Material converters re-evaluate
+            var comps = _components.ToList();
+            _components.Clear();
+            foreach (var c in comps) _components.Add(c);
             ApplyFilter();
         }
 

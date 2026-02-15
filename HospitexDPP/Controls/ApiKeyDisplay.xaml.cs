@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using HospitexDPP.Resources;
 
 namespace HospitexDPP.Controls
 {
@@ -43,14 +44,14 @@ namespace HospitexDPP.Controls
             if (string.IsNullOrEmpty(ApiKey))
             {
                 KeyText.Text = "(ingen nyckel)";
-                ToggleBtn.Content = FindResource("Button_ShowKey") as string ?? "Visa";
+                ToggleBtn.Content = Strings.Button_ShowKey;
                 return;
             }
 
             KeyText.Text = _isKeyVisible ? ApiKey : new string('\u2022', 20);
             ToggleBtn.Content = _isKeyVisible
-                ? (FindResource("Button_HideKey") as string ?? "Dölj")
-                : (FindResource("Button_ShowKey") as string ?? "Visa");
+                ? Strings.Button_HideKey
+                : Strings.Button_ShowKey;
         }
 
         private void ToggleVisibility_Click(object sender, RoutedEventArgs e)
@@ -63,7 +64,7 @@ namespace HospitexDPP.Controls
         {
             if (string.IsNullOrEmpty(ApiKey)) return;
             Clipboard.SetText(ApiKey);
-            CopyStatus.Text = FindResource("Label_Copied") as string ?? "Kopierad!";
+            CopyStatus.Text = Strings.Label_Copied;
             await Task.Delay(2000);
             CopyStatus.Text = string.Empty;
         }

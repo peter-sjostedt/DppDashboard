@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -132,10 +133,10 @@ namespace HospitexDPP.ViewModels
         {
             get => _drawerMode switch
             {
-                BatchDrawerMode.NewBatch => Application.Current.TryFindResource("Drawer_NewBatch") as string ?? "Ny batch",
-                BatchDrawerMode.EditBatch => Application.Current.TryFindResource("Drawer_EditBatch") as string ?? "Redigera batch",
-                BatchDrawerMode.ManageMaterials => Application.Current.TryFindResource("Drawer_ManageMaterials") as string ?? "Hantera material",
-                BatchDrawerMode.ViewItems => Application.Current.TryFindResource("Drawer_ViewItems") as string ?? "Artiklar",
+                BatchDrawerMode.NewBatch => Strings.Drawer_NewBatch,
+                BatchDrawerMode.EditBatch => Strings.Drawer_EditBatch,
+                BatchDrawerMode.ManageMaterials => Strings.Drawer_ManageMaterials,
+                BatchDrawerMode.ViewItems => Strings.Drawer_ViewItems,
                 _ => string.Empty
             };
         }
@@ -276,7 +277,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveBatchAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -302,7 +303,7 @@ namespace HospitexDPP.ViewModels
                 {
                     if (EditSelectedProduct == null)
                     {
-                        StatusMessage = Application.Current.TryFindResource("Msg_SelectProduct") as string ?? "Välj en produkt";
+                        StatusMessage = Strings.Msg_SelectProduct;
                         return;
                     }
                     result = await _apiClient.PostWithTenantKeyAsync($"/api/products/{EditSelectedProduct.Id}/batches", payload, tenantKey);
@@ -327,7 +328,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -346,10 +347,10 @@ namespace HospitexDPP.ViewModels
             var tenantKey = App.Session?.BrandKey;
             if (string.IsNullOrEmpty(tenantKey)) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 $"{confirmText}\n\n{batch.BatchNumber}",
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -484,10 +485,10 @@ namespace HospitexDPP.ViewModels
             var tenantKey = App.Session?.BrandKey;
             if (string.IsNullOrEmpty(tenantKey)) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 $"{confirmText}\n\n{material.MaterialName}",
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -559,7 +560,7 @@ namespace HospitexDPP.ViewModels
 
             if (!int.TryParse(GenerateItemCount, out var count) || count < 1)
             {
-                StatusMessage = Application.Current.TryFindResource("Msg_InvalidCount") as string ?? "Ange ett giltigt antal";
+                StatusMessage = Strings.Msg_InvalidCount;
                 return;
             }
 
@@ -601,10 +602,10 @@ namespace HospitexDPP.ViewModels
             var tenantKey = App.Session?.BrandKey;
             if (string.IsNullOrEmpty(tenantKey)) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 $"{confirmText}\n\n{item.UniqueProductId}",
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -645,6 +646,8 @@ namespace HospitexDPP.ViewModels
                 opt.PropertyChanged += OnFilterChanged;
             }
             OnPropertyChanged(nameof(BatchStatusFilterOptions));
+            OnPropertyChanged(nameof(DrawerTitle));
+            OnPropertyChanged(nameof(EditStatus));
             ApplyFilter();
         }
 

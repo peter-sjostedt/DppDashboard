@@ -1,6 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using HospitexDPP.Resources;
+using HospitexDPP.Services;
 
 namespace HospitexDPP.Controls
 {
@@ -14,6 +16,8 @@ namespace HospitexDPP.Controls
         {
             InitializeComponent();
             UpdateVisual();
+            LanguageService.LanguageChanged += UpdateVisual;
+            Unloaded += (_, _) => LanguageService.LanguageChanged -= UpdateVisual;
         }
 
         public int IsActive
@@ -34,14 +38,14 @@ namespace HospitexDPP.Controls
                 BadgeBorder.Background = new SolidColorBrush(Color.FromRgb(0xD1, 0xE7, 0xDD));
                 Dot.Fill = new SolidColorBrush(Color.FromRgb(0x19, 0x87, 0x54));
                 BadgeText.Foreground = new SolidColorBrush(Color.FromRgb(0x0F, 0x5B, 0x32));
-                BadgeText.Text = TryFindResource("Status_Active") as string ?? "Aktiv";
+                BadgeText.Text = Strings.Status_Active;
             }
             else
             {
                 BadgeBorder.Background = new SolidColorBrush(Color.FromRgb(0xE9, 0xEC, 0xEF));
                 Dot.Fill = new SolidColorBrush(Color.FromRgb(0x6C, 0x75, 0x7D));
                 BadgeText.Foreground = new SolidColorBrush(Color.FromRgb(0x49, 0x50, 0x57));
-                BadgeText.Text = TryFindResource("Status_Inactive") as string ?? "Inaktiv";
+                BadgeText.Text = Strings.Status_Inactive;
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -116,8 +117,8 @@ namespace HospitexDPP.ViewModels
         {
             get => _drawerMode switch
             {
-                MaterialDrawerMode.New => Application.Current.TryFindResource("Drawer_NewMaterial") as string ?? "Nytt tyg",
-                MaterialDrawerMode.Edit => Application.Current.TryFindResource("Drawer_EditMaterial") as string ?? "Redigera tyg",
+                MaterialDrawerMode.New => Strings.Drawer_NewMaterial,
+                MaterialDrawerMode.Edit => Strings.Drawer_EditMaterial,
                 _ => string.Empty
             };
         }
@@ -282,7 +283,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveMaterialAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -320,7 +321,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -354,11 +355,10 @@ namespace HospitexDPP.ViewModels
                 if (hasBatchUsage)
                 {
                     // Material is used in batches — offer deactivation instead
-                    var deactivateText = Application.Current.TryFindResource("Confirm_DeactivateMaterial") as string
-                        ?? "Tyget används i batcher och kan inte tas bort. Vill du inaktivera det istället?";
+                    var deactivateText = Strings.Confirm_DeactivateMaterial;
                     var deactivateResult = MessageBox.Show(
                         $"{deactivateText}\n\n{material.MaterialName}",
-                        Application.Current.TryFindResource("Action_Deactivate") as string ?? "Inaktivera",
+                        Strings.Action_Deactivate,
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Warning);
 
@@ -383,10 +383,10 @@ namespace HospitexDPP.ViewModels
                 else
                 {
                     // No batch usage — safe to delete
-                    var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+                    var confirmText = Strings.Confirm_Delete;
                     var result = MessageBox.Show(
                         $"{confirmText}\n\n{material.MaterialName}",
-                        Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                        Strings.Action_Delete,
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Warning);
 
@@ -468,10 +468,10 @@ namespace HospitexDPP.ViewModels
         {
             if (comp == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 confirmText,
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -520,10 +520,10 @@ namespace HospitexDPP.ViewModels
         {
             if (cert == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 confirmText,
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -572,10 +572,10 @@ namespace HospitexDPP.ViewModels
         {
             if (step == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_Delete") as string ?? "Är du säker?";
+            var confirmText = Strings.Confirm_Delete;
             var result = MessageBox.Show(
                 confirmText,
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -774,6 +774,11 @@ namespace HospitexDPP.ViewModels
                 opt.PropertyChanged += OnFilterChanged;
             }
             OnPropertyChanged(nameof(StatusFilterOptions));
+            OnPropertyChanged(nameof(DrawerTitle));
+            // Refresh compositions so RecycledDisplay re-evaluates with new culture
+            var comps = Compositions.ToList();
+            Compositions.Clear();
+            foreach (var c in comps) Compositions.Add(c);
             ApplyFilter();
         }
 

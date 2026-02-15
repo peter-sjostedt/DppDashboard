@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Input;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -155,8 +156,8 @@ namespace HospitexDPP.ViewModels
 
         public string DrawerTitle => _drawerMode switch
         {
-            SupplierBatchDrawerMode.New => Application.Current.TryFindResource("Drawer_SupplierNewBatch") as string ?? "Ny batch",
-            SupplierBatchDrawerMode.Edit => Application.Current.TryFindResource("Drawer_SupplierEditBatch") as string ?? "Redigera batch",
+            SupplierBatchDrawerMode.New => Strings.Drawer_SupplierNewBatch,
+            SupplierBatchDrawerMode.Edit => Strings.Drawer_SupplierEditBatch,
             _ => string.Empty
         };
 
@@ -437,7 +438,7 @@ namespace HospitexDPP.ViewModels
         private async Task SaveBatchAsync()
         {
             IsSaving = true;
-            StatusMessage = Application.Current.TryFindResource("Msg_Saving") as string ?? "Sparar...";
+            StatusMessage = Strings.Msg_Saving;
 
             try
             {
@@ -516,7 +517,7 @@ namespace HospitexDPP.ViewModels
                         return;
                     }
                 }
-                StatusMessage = Application.Current.TryFindResource("Msg_NoResponse") as string ?? "Inget svar från servern";
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
@@ -532,11 +533,10 @@ namespace HospitexDPP.ViewModels
         {
             if (batch == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_DeleteBatch") as string
-                ?? "Ta bort denna batch?";
+            var confirmText = Strings.Confirm_DeleteBatch;
             var result = MessageBox.Show(
                 $"{confirmText}\n\n{batch.BatchNumber}",
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result != MessageBoxResult.Yes) return;
@@ -596,11 +596,10 @@ namespace HospitexDPP.ViewModels
         {
             if (batch == null || batch.Status != "in_production") return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_SplitBatch") as string
-                ?? "Vill du splittra denna batch?";
+            var confirmText = Strings.Confirm_SplitBatch;
             var result = MessageBox.Show(
                 $"{confirmText}\n\n{batch.BatchNumber}",
-                Application.Current.TryFindResource("Action_SplitBatch") as string ?? "Splittra batch",
+                Strings.Action_SplitBatch,
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result != MessageBoxResult.Yes) return;
@@ -735,10 +734,9 @@ namespace HospitexDPP.ViewModels
         {
             if (mat == null) return;
 
-            var confirmText = Application.Current.TryFindResource("Confirm_RemoveMaterial") as string
-                ?? "Ta bort tygkoppling?";
+            var confirmText = Strings.Confirm_RemoveMaterial;
             var result = MessageBox.Show(confirmText,
-                Application.Current.TryFindResource("Action_Delete") as string ?? "Ta bort",
+                Strings.Action_Delete,
                 MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             if (result != MessageBoxResult.Yes) return;
@@ -997,6 +995,8 @@ namespace HospitexDPP.ViewModels
                 opt.PropertyChanged += OnFilterChanged;
             }
             OnPropertyChanged(nameof(StatusFilterOptions));
+            OnPropertyChanged(nameof(DrawerTitle));
+            OnPropertyChanged(nameof(SelectedBatchDetail));
             ApplyFilter();
         }
 

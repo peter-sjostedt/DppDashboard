@@ -39,6 +39,7 @@ namespace HospitexDPP.ViewModels
             ViewMaterialCommand = new RelayCommand(async p => await OpenMaterialDrawer(p as MaterialSummary));
             CancelDrawerCommand = new RelayCommand(_ => CloseDrawer());
 
+            LanguageService.LanguageChanged += OnLanguageChanged;
             _ = LoadSuppliersAsync();
         }
 
@@ -256,6 +257,15 @@ namespace HospitexDPP.ViewModels
             _drawerMode = mode;
             OnPropertyChanged(nameof(IsDrawerOpen));
             OnPropertyChanged(nameof(DrawerTitle));
+        }
+
+        private void OnLanguageChanged()
+        {
+            OnPropertyChanged(nameof(DrawerTitle));
+            // Refresh compositions so RecycledDisplay re-evaluates with new culture
+            var comps = MaterialCompositions.ToList();
+            MaterialCompositions.Clear();
+            foreach (var c in comps) MaterialCompositions.Add(c);
         }
 
         private void OnPropertyChanged([CallerMemberName] string? name = null)

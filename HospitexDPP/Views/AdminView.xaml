@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:HospitexDPP.ViewModels"
-             xmlns:views="clr-namespace:HospitexDPP.Views">
+             xmlns:views="clr-namespace:HospitexDPP.Views"
+             xmlns:h="clr-namespace:HospitexDPP.Helpers">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:AdminBrandsViewModel}">
             <views:AdminBrandsView />
@@ -22,7 +23,7 @@
                 Padding="16,8">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                    <TextBlock Text="{DynamicResource Settings_Language}"
+                    <TextBlock Text="{h:Loc Settings_Language}"
                                Foreground="{DynamicResource TextSecondaryBrush}"
                                VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12" />
                     <Button Content="SV" Style="{DynamicResource SecondaryButton}"
@@ -46,13 +47,13 @@
                 <Style TargetType="TabItem" BasedOn="{StaticResource AdminTab}" />
             </TabControl.Resources>
 
-            <TabItem Header="{DynamicResource Tab_Brands}">
+            <TabItem Header="{h:Loc Tab_Brands}">
                 <ContentControl Content="{Binding BrandsTab}" />
             </TabItem>
-            <TabItem Header="{DynamicResource Tab_Suppliers}">
+            <TabItem Header="{h:Loc Tab_Suppliers}">
                 <ContentControl Content="{Binding SuppliersTab}" />
             </TabItem>
-            <TabItem Header="{DynamicResource Tab_Relations}">
+            <TabItem Header="{h:Loc Tab_Relations}">
                 <ContentControl Content="{Binding RelationsTab}" />
             </TabItem>
         </TabControl>

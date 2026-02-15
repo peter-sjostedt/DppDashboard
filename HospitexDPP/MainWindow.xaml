@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:HospitexDPP.ViewModels"
         xmlns:views="clr-namespace:HospitexDPP.Views"
+        xmlns:h="clr-namespace:HospitexDPP.Helpers"
         Title="Hospitex DPP" Height="768" Width="1024"
         MinHeight="768" MinWidth="1024"
         Icon="dpp.ico"
@@ -25,14 +26,14 @@
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="{DynamicResource Menu_File}">
-                <MenuItem Header="{DynamicResource Menu_Connect}" Command="{Binding ConnectCommand}" />
-                <MenuItem Header="{DynamicResource Menu_Disconnect}" Command="{Binding DisconnectCommand}" />
+            <MenuItem Header="{h:Loc Menu_File}">
+                <MenuItem Header="{h:Loc Menu_Connect}" Command="{Binding ConnectCommand}" />
+                <MenuItem Header="{h:Loc Menu_Disconnect}" Command="{Binding DisconnectCommand}" />
                 <Separator />
-                <MenuItem Header="{DynamicResource Menu_Exit}" Command="{Binding ExitCommand}" />
+                <MenuItem Header="{h:Loc Menu_Exit}" Command="{Binding ExitCommand}" />
             </MenuItem>
-            <MenuItem Header="{DynamicResource Menu_Help}">
-                <MenuItem Header="{DynamicResource Menu_About}" Command="{Binding AboutCommand}" />
+            <MenuItem Header="{h:Loc Menu_Help}">
+                <MenuItem Header="{h:Loc Menu_About}" Command="{Binding AboutCommand}" />
             </MenuItem>
         </Menu>
 

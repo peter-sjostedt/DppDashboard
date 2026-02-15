@@ -1,7 +1,8 @@
 <UserControl x:Class="HospitexDPP.Views.BrandProductsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:controls="clr-namespace:HospitexDPP.Controls">
+             xmlns:controls="clr-namespace:HospitexDPP.Controls"
+             xmlns:h="clr-namespace:HospitexDPP.Helpers">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
@@ -11,13 +12,13 @@
         <DockPanel Margin="24,20">
             <!-- Toolbar -->
             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
-                <Button Content="{DynamicResource Button_Add}"
+                <Button Content="{h:Loc Button_Add}"
                         Style="{DynamicResource PrimaryButton}"
                         DockPanel.Dock="Right"
                         Command="{Binding AddCommand}" />
                 <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource SearchTextBox}"
-                         Tag="{DynamicResource Search_Products}"
+                         Tag="{h:Loc Search_Products}"
                          Margin="0,0,12,0" />
                 <ItemsControl Style="{DynamicResource FilterToggleBar}"
                               ItemsSource="{Binding StatusFilterOptions}"
@@ -25,9 +26,9 @@
             </DockPanel>
 
             <!-- Empty state -->
-            <controls:EmptyState Title="{DynamicResource Empty_NoProducts}"
-                                 Description="{DynamicResource Empty_NoProductsDesc}"
-                                 ActionText="{DynamicResource Button_Add}"
+            <controls:EmptyState Title="{h:Loc Empty_NoProducts}"
+                                 Description="{h:Loc Empty_NoProductsDesc}"
+                                 ActionText="{h:Loc Button_Add}"
                                  ActionCommand="{Binding AddCommand}">
                 <controls:EmptyState.Style>
                     <Style TargetType="controls:EmptyState">
@@ -51,13 +52,15 @@
                     <!-- Name + Article number -->
                     <DataGridTemplateColumn Width="2*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Name}" />
+                            <TextBlock Text="{h:Loc Column_Name}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel VerticalAlignment="Center" Margin="12,0">
                                     <TextBlock Text="{Binding ProductName}" FontWeight="SemiBold"
-                                               Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                               Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
+                                               TextTrimming="CharacterEllipsis"
+                                               ToolTip="{Binding ProductName}" />
                                     <TextBlock Text="{Binding ArticleNumber}"
                                                Foreground="{DynamicResource TextSecondaryBrush}" FontSize="11">
                                         <TextBlock.Style>
@@ -82,12 +85,14 @@
                     <!-- Category -->
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Category}" />
+                            <TextBlock Text="{h:Loc Column_Category}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Category}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                <TextBlock Text="{Binding Category, Converter={StaticResource EnumConverter}, ConverterParameter=Category}" VerticalAlignment="Center"
+                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
+                                           TextTrimming="CharacterEllipsis"
+                                           ToolTip="{Binding Category, Converter={StaticResource EnumConverter}, ConverterParameter=Category}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -95,7 +100,7 @@
                     <!-- Status -->
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Status}" />
+                            <TextBlock Text="{h:Loc Column_Status}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -112,11 +117,11 @@
                             </Style>
                         </DataGridTemplateColumn.HeaderStyle>
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Variants}" />
+                            <TextBlock Text="{h:Loc Column_Variants}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding VariantCount}" VerticalAlignment="Center"
+                                <TextBlock Text="{Binding VariantCountDisplay}" VerticalAlignment="Center"
                                            HorizontalAlignment="Right" Margin="0,0,12,0"
                                            Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                             </DataTemplate>
@@ -126,7 +131,7 @@
                     <!-- Updated -->
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.Header>
-                            <TextBlock Text="{DynamicResource Column_Updated}" />
+                            <TextBlock Text="{h:Loc Column_Updated}" />
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -164,10 +169,10 @@
                         <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource DangerBrush}"
                                    FontSize="12" Margin="0,0,0,8" TextWrapping="Wrap" />
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="{DynamicResource Button_Save}"
+                            <Button Content="{h:Loc Button_Save}"
                                     Style="{DynamicResource PrimaryButton}"
                                     Command="{Binding SaveCommand}" Margin="0,0,8,0" />
-                            <Button Content="{DynamicResource Button_Cancel}"
+                            <Button Content="{h:Loc Button_Cancel}"
                                     Style="{DynamicResource SecondaryButton}"
                                     Command="{Binding CancelDrawerCommand}" />
                         </StackPanel>
@@ -179,7 +184,7 @@
                             <!-- SECTION 1: Product Info -->
                             <Expander IsExpanded="True" Style="{DynamicResource SectionExpander}">
                                 <Expander.Header>
-                                    <TextBlock Text="{DynamicResource Section_ProductInfo}"
+                                    <TextBlock Text="{h:Loc Section_ProductInfo}"
                                                Style="{DynamicResource SectionHeader}" />
                                 </Expander.Header>
                                 <Grid Margin="0,8,0,8">
@@ -219,28 +224,28 @@
                                     </Grid.RowDefinitions>
 
                                     <!-- Row 0: Product Name -->
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_ProductName}"
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{h:Loc Field_ProductName}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditProductName, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 1: GTIN Type -->
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_GtinType}"
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{h:Loc Field_GtinType}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditGtinType, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 2: GTIN -->
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_Gtin}"
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Field_Gtin}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditGtin, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 3: Description -->
-                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Field_Description}"
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Text="{h:Loc Field_Description}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Top" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
@@ -248,154 +253,172 @@
                                              TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" />
 
                                     <!-- Row 4: Photo URL -->
-                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource Field_PhotoUrl}"
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Text="{h:Loc Field_PhotoUrl}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditPhotoUrl, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 5: Article Number -->
-                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource Field_ArticleNumber}"
+                                    <TextBlock Grid.Row="5" Grid.Column="0" Text="{h:Loc Field_ArticleNumber}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditArticleNumber, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 6: Commodity Code System -->
-                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource Field_CommodityCodeSystem}"
+                                    <TextBlock Grid.Row="6" Grid.Column="0" Text="{h:Loc Field_CommodityCodeSystem}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditCommodityCodeSystem, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 7: Commodity Code Number -->
-                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource Field_CommodityCodeNumber}"
+                                    <TextBlock Grid.Row="7" Grid.Column="0" Text="{h:Loc Field_CommodityCodeNumber}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="7" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditCommodityCodeNumber, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 8: Year of Sale -->
-                                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{DynamicResource Field_YearOfSale}"
+                                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{h:Loc Field_YearOfSale}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="8" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditYearOfSale, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 9: Season of Sale -->
-                                    <TextBlock Grid.Row="9" Grid.Column="0" Text="{DynamicResource Field_SeasonOfSale}"
+                                    <TextBlock Grid.Row="9" Grid.Column="0" Text="{h:Loc Field_SeasonOfSale}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="9" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditSeasonOfSale, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="9" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding SeasonOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditSeasonOfSale}" IsEditable="True" />
 
                                     <!-- Row 10: Price Currency -->
-                                    <TextBlock Grid.Row="10" Grid.Column="0" Text="{DynamicResource Field_PriceCurrency}"
+                                    <TextBlock Grid.Row="10" Grid.Column="0" Text="{h:Loc Field_PriceCurrency}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="10" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditPriceCurrency, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 11: MSRP -->
-                                    <TextBlock Grid.Row="11" Grid.Column="0" Text="{DynamicResource Field_Msrp}"
+                                    <TextBlock Grid.Row="11" Grid.Column="0" Text="{h:Loc Field_Msrp}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="11" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditMsrp, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 12: Resale Price -->
-                                    <TextBlock Grid.Row="12" Grid.Column="0" Text="{DynamicResource Field_ResalePrice}"
+                                    <TextBlock Grid.Row="12" Grid.Column="0" Text="{h:Loc Field_ResalePrice}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="12" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditResalePrice, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 13: Category -->
-                                    <TextBlock Grid.Row="13" Grid.Column="0" Text="{DynamicResource Field_Category}"
+                                    <TextBlock Grid.Row="13" Grid.Column="0" Text="{h:Loc Field_Category}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="13" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditCategory, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="13" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding CategoryOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditCategory}" IsEditable="True" />
 
                                     <!-- Row 14: Product Group -->
-                                    <TextBlock Grid.Row="14" Grid.Column="0" Text="{DynamicResource Field_ProductGroup}"
+                                    <TextBlock Grid.Row="14" Grid.Column="0" Text="{h:Loc Field_ProductGroup}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="14" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditProductGroup, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="14" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding ProductGroupOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditProductGroup}" IsEditable="True" />
 
                                     <!-- Row 15: Type/Line/Concept -->
-                                    <TextBlock Grid.Row="15" Grid.Column="0" Text="{DynamicResource Field_TypeLineConcept}"
+                                    <TextBlock Grid.Row="15" Grid.Column="0" Text="{h:Loc Field_TypeLineConcept}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="15" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditTypeLineConcept, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="15" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding LineConceptOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditTypeLineConcept}" IsEditable="True" />
 
                                     <!-- Row 16: Type Item -->
-                                    <TextBlock Grid.Row="16" Grid.Column="0" Text="{DynamicResource Field_TypeItem}"
+                                    <TextBlock Grid.Row="16" Grid.Column="0" Text="{h:Loc Field_TypeItem}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="16" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditTypeItem, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="16" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding TypeItemOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditTypeItem}" IsEditable="True" />
 
                                     <!-- Row 17: Age Group -->
-                                    <TextBlock Grid.Row="17" Grid.Column="0" Text="{DynamicResource Field_AgeGroup}"
+                                    <TextBlock Grid.Row="17" Grid.Column="0" Text="{h:Loc Field_AgeGroup}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="17" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditAgeGroup, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 18: Gender -->
-                                    <TextBlock Grid.Row="18" Grid.Column="0" Text="{DynamicResource Field_Gender}"
+                                    <TextBlock Grid.Row="18" Grid.Column="0" Text="{h:Loc Field_Gender}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="18" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditGender, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="18" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding GenderOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditGender}" IsEditable="True" />
 
                                     <!-- Row 19: Market Segment -->
-                                    <TextBlock Grid.Row="19" Grid.Column="0" Text="{DynamicResource Field_MarketSegment}"
+                                    <TextBlock Grid.Row="19" Grid.Column="0" Text="{h:Loc Field_MarketSegment}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="19" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditMarketSegment, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="19" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding MarketOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditMarketSegment}" IsEditable="True" />
 
                                     <!-- Row 20: Water Properties -->
-                                    <TextBlock Grid.Row="20" Grid.Column="0" Text="{DynamicResource Field_WaterProperties}"
+                                    <TextBlock Grid.Row="20" Grid.Column="0" Text="{h:Loc Field_WaterProperties}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="20" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditWaterProperties, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="20" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding WaterOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditWaterProperties}" IsEditable="True" />
 
                                     <!-- Row 21: Net Weight -->
-                                    <TextBlock Grid.Row="21" Grid.Column="0" Text="{DynamicResource Field_NetWeight}"
+                                    <TextBlock Grid.Row="21" Grid.Column="0" Text="{h:Loc Field_NetWeight}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="21" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditNetWeight, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 22: Weight Unit -->
-                                    <TextBlock Grid.Row="22" Grid.Column="0" Text="{DynamicResource Field_WeightUnit}"
+                                    <TextBlock Grid.Row="22" Grid.Column="0" Text="{h:Loc Field_WeightUnit}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="22" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditWeightUnit, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 23: Data Carrier Type -->
-                                    <TextBlock Grid.Row="23" Grid.Column="0" Text="{DynamicResource Field_DataCarrierType}"
+                                    <TextBlock Grid.Row="23" Grid.Column="0" Text="{h:Loc Field_DataCarrierType}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
-                                    <TextBox Grid.Row="23" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                             Text="{Binding EditDataCarrierType, UpdateSourceTrigger=PropertyChanged}" />
+                                    <ComboBox Grid.Row="23" Grid.Column="1" Margin="0,0,0,8"
+                                              ItemsSource="{Binding DataCarrierOptions}"
+                                              DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                              SelectedValue="{Binding EditDataCarrierType}" IsEditable="True" />
 
                                     <!-- Row 24: Data Carrier Material -->
-                                    <TextBlock Grid.Row="24" Grid.Column="0" Text="{DynamicResource Field_DataCarrierMaterial}"
+                                    <TextBlock Grid.Row="24" Grid.Column="0" Text="{h:Loc Field_DataCarrierMaterial}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="24" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                              Text="{Binding EditDataCarrierMaterial, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <!-- Row 25: Data Carrier Location -->
-                                    <TextBlock Grid.Row="25" Grid.Column="0" Text="{DynamicResource Field_DataCarrierLocation}"
+                                    <TextBlock Grid.Row="25" Grid.Column="0" Text="{h:Loc Field_DataCarrierLocation}"
                                                Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                VerticalAlignment="Center" Margin="0,0,12,8" />
                                     <TextBox Grid.Row="25" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
@@ -403,7 +426,7 @@
 
                                     <!-- Row 26: IsActive checkbox (only in edit mode) -->
                                     <CheckBox Grid.Row="26" Grid.Column="1"
-                                              Content="{DynamicResource Status_Active}"
+                                              Content="{h:Loc Status_Active}"
                                               IsChecked="{Binding EditIsActive}"
                                               Visibility="{Binding ShowIsActive, Converter={StaticResource BoolToVis}}"
                                               Margin="0,4,0,0" />
@@ -414,19 +437,74 @@
                             <Expander Style="{DynamicResource SectionExpander}"
                                       Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
                                 <Expander.Header>
-                                    <TextBlock Text="{DynamicResource Section_Variants}"
+                                    <TextBlock Text="{h:Loc Section_Variants}"
                                                Style="{DynamicResource SectionHeader}" />
                                 </Expander.Header>
                                 <StackPanel Margin="0,8,0,8">
                                     <DataGrid ItemsSource="{Binding Variants}"
                                               Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" CanUserDeleteRows="False"
                                               Margin="0,0,0,8">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Artnr" Binding="{Binding ItemNumber}" Width="*" />
-                                            <DataGridTextColumn Header="Storlek" Binding="{Binding Size}" Width="80" />
-                                            <DataGridTextColumn Header="Färg (brand)" Binding="{Binding ColorBrand}" Width="*" />
-                                            <DataGridTextColumn Header="Färg" Binding="{Binding ColorGeneral}" Width="80" />
-                                            <DataGridTextColumn Header="GTIN" Binding="{Binding Gtin}" Width="*" />
+                                            <DataGridTextColumn Binding="{Binding ItemNumber}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_ItemNumber}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding Size}" Width="70">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Size}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding ColorBrand}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_ColorBrand}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding ColorGeneral}" Width="65">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Color}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding Gtin}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Gtin}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
                                             <DataGridTemplateColumn Width="Auto">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
@@ -439,7 +517,7 @@
                                             </DataGridTemplateColumn>
                                         </DataGrid.Columns>
                                     </DataGrid>
-                                    <Button Content="{DynamicResource Button_AddVariant}"
+                                    <Button Content="{h:Loc Button_AddVariant}"
                                             Style="{DynamicResource SecondaryButton}"
                                             Command="{Binding AddVariantCommand}"
                                             HorizontalAlignment="Left" />
@@ -450,18 +528,56 @@
                             <Expander Style="{DynamicResource SectionExpander}"
                                       Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
                                 <Expander.Header>
-                                    <TextBlock Text="{DynamicResource Section_Components}"
+                                    <TextBlock Text="{h:Loc Section_Components}"
                                                Style="{DynamicResource SectionHeader}" />
                                 </Expander.Header>
                                 <StackPanel Margin="0,8,0,8">
                                     <DataGrid ItemsSource="{Binding Components}"
                                               Style="{DynamicResource InlineDataGrid}"
+                                              AutoGenerateColumns="False"
+                                              CanUserAddRows="False" CanUserDeleteRows="False"
                                               Margin="0,0,0,8">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Komponent" Binding="{Binding Component}" Width="*" />
-                                            <DataGridTextColumn Header="Material" Binding="{Binding Material}" Width="*" />
-                                            <DataGridTextColumn Header="Innehåll" Binding="{Binding ContentName}" Width="*" />
-                                            <DataGridTextColumn Header="%" Binding="{Binding ContentValue}" Width="50">
+                                            <DataGridTextColumn Binding="{Binding Component, Converter={StaticResource EnumConverter}, ConverterParameter=Component}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Component}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding Material, Converter={StaticResource EnumConverter}, ConverterParameter=Material}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Material}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding ContentName}" Width="*">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_ContentName}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                                        <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
+                                            <DataGridTextColumn Binding="{Binding ContentValue}" Width="50">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Percentage}" />
+                                                </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.HeaderStyle>
                                                     <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
                                                         <Setter Property="HorizontalContentAlignment" Value="Right" />
@@ -474,7 +590,16 @@
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
-                                            <DataGridTextColumn Header="Källa" Binding="{Binding ContentSource}" Width="80" />
+                                            <DataGridTextColumn Binding="{Binding ContentSource}" Width="80">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="{h:Loc Column_Source}" />
+                                                </DataGridTextColumn.Header>
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="12,0" />
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                            </DataGridTextColumn>
                                             <DataGridTemplateColumn Width="Auto">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
@@ -487,7 +612,7 @@
                                             </DataGridTemplateColumn>
                                         </DataGrid.Columns>
                                     </DataGrid>
-                                    <Button Content="{DynamicResource Button_AddComponent}"
+                                    <Button Content="{h:Loc Button_AddComponent}"
                                             Style="{DynamicResource SecondaryButton}"
                                             Command="{Binding AddComponentCommand}"
                                             HorizontalAlignment="Left" />
@@ -498,7 +623,7 @@
                             <Expander Style="{DynamicResource SectionExpander}"
                                       Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
                                 <Expander.Header>
-                                    <TextBlock Text="{DynamicResource Section_Care}"
+                                    <TextBlock Text="{h:Loc Section_Care}"
                                                Style="{DynamicResource SectionHeader}" />
                                 </Expander.Header>
                                 <StackPanel Margin="0,8,0,8">
@@ -513,27 +638,27 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_CareImageUrl}"
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{h:Loc Field_CareImageUrl}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditCareImageUrl, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_CareText}"
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{h:Loc Field_CareText}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditCareText, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" />
 
-                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_SafetyInfo}"
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Field_SafetyInfo}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditSafetyInfo, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" />
                                     </Grid>
-                                    <Button Content="{DynamicResource Button_SaveCare}"
+                                    <Button Content="{h:Loc Button_SaveCare}"
                                             Style="{DynamicResource PrimaryButton}"
                                             Command="{Binding SaveCareCommand}"
                                             HorizontalAlignment="Left" Margin="0,8,0,0" />
@@ -544,7 +669,7 @@
                             <Expander Style="{DynamicResource SectionExpander}"
                                       Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
                                 <Expander.Header>
-                                    <TextBlock Text="{DynamicResource Section_Compliance}"
+                                    <TextBlock Text="{h:Loc Section_Compliance}"
                                                Style="{DynamicResource SectionHeader}" />
                                 </Expander.Header>
                                 <StackPanel Margin="0,8,0,8">
@@ -565,61 +690,61 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_HarmfulSubstances}"
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{h:Loc Field_HarmfulSubstances}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                                 Text="{Binding EditHarmfulSubstances, UpdateSourceTrigger=PropertyChanged}" />
+                                                 Text="{Binding EditHarmfulSubstances, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource YesNoConverter}}" />
 
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_HarmfulSubstancesInfo}"
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{h:Loc Field_HarmfulSubstancesInfo}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditHarmfulSubstancesInfo, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_Certifications}"
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Field_Certifications}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditCertifications, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Field_CertificationsValidation}"
+                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{h:Loc Field_CertificationsValidation}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditCertificationsValidation, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource Field_ChemicalComplianceStandard}"
+                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{h:Loc Field_ChemicalComplianceStandard}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditChemicalComplianceStandard, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource Field_ChemicalComplianceValidation}"
+                                        <TextBlock Grid.Row="5" Grid.Column="0" Text="{h:Loc Field_ChemicalComplianceValidation}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditChemicalComplianceValidation, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource Field_ChemicalComplianceLink}"
+                                        <TextBlock Grid.Row="6" Grid.Column="0" Text="{h:Loc Field_ChemicalComplianceLink}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditChemicalComplianceLink, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource Field_Microfibers}"
+                                        <TextBlock Grid.Row="7" Grid.Column="0" Text="{h:Loc Field_Microfibers}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="7" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                                 Text="{Binding EditMicrofibers, UpdateSourceTrigger=PropertyChanged}" />
+                                                 Text="{Binding EditMicrofibers, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource YesNoConverter}}" />
 
-                                        <TextBlock Grid.Row="8" Grid.Column="0" Text="{DynamicResource Field_TraceabilityProvider}"
+                                        <TextBlock Grid.Row="8" Grid.Column="0" Text="{h:Loc Field_TraceabilityProvider}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="8" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditTraceabilityProvider, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <Button Content="{DynamicResource Button_SaveCompliance}"
+                                    <Button Content="{h:Loc Button_SaveCompliance}"
                                             Style="{DynamicResource PrimaryButton}"
                                             Command="{Binding SaveComplianceCommand}"
                                             HorizontalAlignment="Left" Margin="0,8,0,0" />
@@ -630,7 +755,7 @@
                             <Expander Style="{DynamicResource SectionExpander}"
                                       Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
                                 <Expander.Header>
-                                    <TextBlock Text="{DynamicResource Section_Circularity}"
+                                    <TextBlock Text="{h:Loc Section_Circularity}"
                                                Style="{DynamicResource SectionHeader}" />
                                 </Expander.Header>
                                 <StackPanel Margin="0,8,0,8">
@@ -651,67 +776,69 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_Performance}"
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{h:Loc Field_Performance}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditPerformance, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_Recyclability}"
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{h:Loc Field_Recyclability}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditRecyclability, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_TakeBackInstructions}"
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Field_TakeBackInstructions}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditTakeBackInstructions, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="48" />
 
-                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource Field_RecyclingInstructions}"
+                                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{h:Loc Field_RecyclingInstructions}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditRecyclingInstructions, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="48" />
 
-                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource Field_DisassemblyInstructionsSorters}"
+                                        <TextBlock Grid.Row="4" Grid.Column="0" Text="{h:Loc Field_DisassemblyInstructionsSorters}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="4" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditDisassemblyInstructionsSorters, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="48" />
 
-                                        <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource Field_DisassemblyInstructionsUser}"
+                                        <TextBlock Grid.Row="5" Grid.Column="0" Text="{h:Loc Field_DisassemblyInstructionsUser}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="5" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditDisassemblyInstructionsUser, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="48" />
 
-                                        <TextBlock Grid.Row="6" Grid.Column="0" Text="{DynamicResource Field_CircularDesignStrategy}"
+                                        <TextBlock Grid.Row="6" Grid.Column="0" Text="{h:Loc Field_CircularDesignStrategy}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
-                                        <TextBox Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                                 Text="{Binding EditCircularDesignStrategy, UpdateSourceTrigger=PropertyChanged}" />
+                                        <ComboBox Grid.Row="6" Grid.Column="1" Margin="0,0,0,8"
+                                                  ItemsSource="{Binding CircularStrategyOptions}"
+                                                  DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                                  SelectedValue="{Binding EditCircularDesignStrategy}" IsEditable="True" />
 
-                                        <TextBlock Grid.Row="7" Grid.Column="0" Text="{DynamicResource Field_CircularDesignDescription}"
+                                        <TextBlock Grid.Row="7" Grid.Column="0" Text="{h:Loc Field_CircularDesignDescription}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="7" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditCircularDesignDescription, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="48" />
 
-                                        <TextBlock Grid.Row="8" Grid.Column="0" Text="{DynamicResource Field_RepairInstructions}"
+                                        <TextBlock Grid.Row="8" Grid.Column="0" Text="{h:Loc Field_RepairInstructions}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="8" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditRepairInstructions, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="48" />
                                     </Grid>
-                                    <Button Content="{DynamicResource Button_SaveCircularity}"
+                                    <Button Content="{h:Loc Button_SaveCircularity}"
                                             Style="{DynamicResource PrimaryButton}"
                                             Command="{Binding SaveCircularityCommand}"
                                             HorizontalAlignment="Left" Margin="0,8,0,0" />
@@ -722,7 +849,7 @@
                             <Expander Style="{DynamicResource SectionExpander}"
                                       Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}">
                                 <Expander.Header>
-                                    <TextBlock Text="{DynamicResource Section_Sustainability}"
+                                    <TextBlock Text="{h:Loc Section_Sustainability}"
                                                Style="{DynamicResource SectionHeader}" />
                                 </Expander.Header>
                                 <StackPanel Margin="0,8,0,8">
@@ -737,26 +864,26 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource Field_BrandStatement}"
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{h:Loc Field_BrandStatement}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Top" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditBrandStatement, UpdateSourceTrigger=PropertyChanged}"
                                                  TextWrapping="Wrap" AcceptsReturn="True" MinHeight="60" />
 
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource Field_StatementLink}"
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{h:Loc Field_StatementLink}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditStatementLink, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource Field_EnvironmentalFootprint}"
+                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Field_EnvironmentalFootprint}"
                                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                                    VerticalAlignment="Center" Margin="0,0,12,8" />
                                         <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
                                                  Text="{Binding EditEnvironmentalFootprint, UpdateSourceTrigger=PropertyChanged}" />
                                     </Grid>
-                                    <Button Content="{DynamicResource Button_SaveSustainability}"
+                                    <Button Content="{h:Loc Button_SaveSustainability}"
                                             Style="{DynamicResource PrimaryButton}"
                                             Command="{Binding SaveSustainabilityCommand}"
                                             HorizontalAlignment="Left" Margin="0,8,0,0" />

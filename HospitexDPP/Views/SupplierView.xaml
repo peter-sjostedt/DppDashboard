@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:HospitexDPP.ViewModels"
-             xmlns:views="clr-namespace:HospitexDPP.Views">
+             xmlns:views="clr-namespace:HospitexDPP.Views"
+             xmlns:h="clr-namespace:HospitexDPP.Helpers">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:SupplierMaterialsViewModel}">
             <views:SupplierMaterialsView />
@@ -25,7 +26,7 @@
                 Padding="16,8">
             <DockPanel>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                    <TextBlock Text="{DynamicResource Settings_Language}"
+                    <TextBlock Text="{h:Loc Settings_Language}"
                                Foreground="{DynamicResource TextSecondaryBrush}"
                                VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12" />
                     <Button Content="SV" Style="{DynamicResource SecondaryButton}"
@@ -49,16 +50,16 @@
                 <Style TargetType="TabItem" BasedOn="{StaticResource AdminTab}" />
             </TabControl.Resources>
 
-            <TabItem Header="{DynamicResource Tab_SupplierMaterials}">
+            <TabItem Header="{h:Loc Tab_SupplierMaterials}">
                 <ContentControl Content="{Binding MaterialsTab}" />
             </TabItem>
-            <TabItem Header="{DynamicResource Tab_PurchaseOrders}">
+            <TabItem Header="{h:Loc Tab_PurchaseOrders}">
                 <ContentControl Content="{Binding PurchaseOrdersTab}" />
             </TabItem>
-            <TabItem Header="{DynamicResource Tab_SupplierBatches}">
+            <TabItem Header="{h:Loc Tab_SupplierBatches}">
                 <ContentControl Content="{Binding BatchesTab}" />
             </TabItem>
-            <TabItem Header="{DynamicResource Tab_SupplierBrands}">
+            <TabItem Header="{h:Loc Tab_SupplierBrands}">
                 <ContentControl Content="{Binding BrandsTab}" />
             </TabItem>
         </TabControl>
