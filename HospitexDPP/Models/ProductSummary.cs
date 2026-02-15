@@ -22,9 +22,7 @@ namespace HospitexDPP.Models
         [JsonPropertyName("_is_active")]
         public int IsActive { get; set; } = 1;
 
-        // NOTE: API GET /api/products does not return variant_count yet.
-        // Needs server-side COUNT + JOIN to include it in list response.
-        [JsonPropertyName("variant_count")]
+        // API list endpoint doesn't return this; loaded client-side via /variants per product.
         public int VariantCount { get; set; }
 
         [JsonPropertyName("updated_at")]

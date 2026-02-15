@@ -1211,6 +1211,32 @@ namespace HospitexDPP.ViewModels
 
             ApplyFilter();
             OnDataChanged?.Invoke();
+
+            // Load variant counts in parallel (API list endpoint doesn't include them)
+            await LoadVariantCountsAsync();
+        }
+
+        private async Task LoadVariantCountsAsync()
+        {
+            var brandKey = App.Session!.BrandKey!;
+            var tasks = _allProducts.Select(async product =>
+            {
+                try
+                {
+                    var json = await _apiClient.GetWithTenantKeyAsync($"/api/products/{product.Id}/variants", brandKey);
+                    if (json != null)
+                    {
+                        using var doc = JsonDocument.Parse(json);
+                        if (doc.RootElement.TryGetProperty("data", out var arr) && arr.ValueKind == JsonValueKind.Array)
+                            product.VariantCount = arr.GetArrayLength();
+                    }
+                }
+                catch { /* variant count stays 0 */ }
+            });
+
+            await Task.WhenAll(tasks);
+            // Refresh the DataGrid to show updated counts
+            ApplyFilter();
         }
 
         private async Task ReloadProductsAsync()
@@ -1257,6 +1283,17 @@ namespace HospitexDPP.ViewModels
             OnPropertyChanged(nameof(DrawerTitle));
             OnPropertyChanged(nameof(EditHarmfulSubstances));
             OnPropertyChanged(nameof(EditMicrofibers));
+            // Save ComboBox values before rebuilding options (WPF clears SelectedValue on ItemsSource change)
+            var savedCategory = _editCategory;
+            var savedProductGroup = _editProductGroup;
+            var savedLineConcept = _editTypeLineConcept;
+            var savedTypeItem = _editTypeItem;
+            var savedGender = _editGender;
+            var savedMarket = _editMarketSegment;
+            var savedWater = _editWaterProperties;
+            var savedSeason = _editSeasonOfSale;
+            var savedDataCarrier = _editDataCarrierType;
+            var savedCircular = _editCircularDesignStrategy;
             // Rebuild ComboBox options with new locale
             OnPropertyChanged(nameof(CategoryOptions));
             OnPropertyChanged(nameof(ProductGroupOptions));
@@ -1268,6 +1305,27 @@ namespace HospitexDPP.ViewModels
             OnPropertyChanged(nameof(SeasonOptions));
             OnPropertyChanged(nameof(DataCarrierOptions));
             OnPropertyChanged(nameof(CircularStrategyOptions));
+            // Restore ComboBox values
+            _editCategory = savedCategory;
+            _editProductGroup = savedProductGroup;
+            _editTypeLineConcept = savedLineConcept;
+            _editTypeItem = savedTypeItem;
+            _editGender = savedGender;
+            _editMarketSegment = savedMarket;
+            _editWaterProperties = savedWater;
+            _editSeasonOfSale = savedSeason;
+            _editDataCarrierType = savedDataCarrier;
+            _editCircularDesignStrategy = savedCircular;
+            OnPropertyChanged(nameof(EditCategory));
+            OnPropertyChanged(nameof(EditProductGroup));
+            OnPropertyChanged(nameof(EditTypeLineConcept));
+            OnPropertyChanged(nameof(EditTypeItem));
+            OnPropertyChanged(nameof(EditGender));
+            OnPropertyChanged(nameof(EditMarketSegment));
+            OnPropertyChanged(nameof(EditWaterProperties));
+            OnPropertyChanged(nameof(EditSeasonOfSale));
+            OnPropertyChanged(nameof(EditDataCarrierType));
+            OnPropertyChanged(nameof(EditCircularDesignStrategy));
             // Refresh Components collection so Component/Material converters re-evaluate
             var comps = _components.ToList();
             _components.Clear();
