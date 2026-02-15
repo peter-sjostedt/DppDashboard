@@ -1,4 +1,4 @@
-﻿<Window x:Class="HospitexDPP.MainWindow"
+<Window x:Class="HospitexDPP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:HospitexDPP.ViewModels"
@@ -25,17 +25,61 @@
     </Window.Resources>
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="{h:Loc Menu_File}">
-                <MenuItem Header="{h:Loc Menu_Connect}" Command="{Binding ConnectCommand}" />
-                <MenuItem Header="{h:Loc Menu_Disconnect}" Command="{Binding DisconnectCommand}" />
-                <Separator />
-                <MenuItem Header="{h:Loc Menu_Exit}" Command="{Binding ExitCommand}" />
-            </MenuItem>
-            <MenuItem Header="{h:Loc Menu_Help}">
-                <MenuItem Header="{h:Loc Menu_About}" Command="{Binding AboutCommand}" />
-            </MenuItem>
-        </Menu>
+        <!-- Toolbar replacing menu bar -->
+        <Border DockPanel.Dock="Top" Background="{DynamicResource SurfaceBrush}"
+                BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1"
+                Padding="12,6">
+            <DockPanel>
+                <!-- Right: settings button -->
+                <Button DockPanel.Dock="Right" Click="SettingsButton_Click"
+                        Background="Transparent" BorderThickness="0"
+                        Padding="8,4" Cursor="Hand" VerticalAlignment="Center">
+                    <TextBlock Text="&#x2699;" FontSize="18" Foreground="{DynamicResource TextSecondaryBrush}" />
+                </Button>
+
+                <!-- Left: logo + app name -->
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="/DPP-2.png" Width="24" Height="24" Stretch="Uniform" />
+                    <TextBlock Text="Hospitex DPP" FontWeight="SemiBold" FontSize="14"
+                               Foreground="{DynamicResource TextPrimaryBrush}"
+                               VerticalAlignment="Center" Margin="8,0,0,0" />
+                </StackPanel>
+
+                <!-- Center: role switcher (only visible in dual-role mode) -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Visibility="{Binding IsDualRole, Converter={StaticResource BoolToVisibility}}">
+                    <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                            CornerRadius="6" Padding="2" SnapsToDevicePixels="True">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Command="{Binding SwitchToBrandCommand}"
+                                    Content="{Binding BrandLabel}">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource RoleSwitchButton}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsBrandActive}" Value="True">
+                                                <Setter Property="Tag" Value="Active" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button Command="{Binding SwitchToSupplierCommand}"
+                                    Content="{Binding SupplierLabel}">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource RoleSwitchButton}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSupplierActive}" Value="True">
+                                                <Setter Property="Tag" Value="Active" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+        </Border>
 
         <ContentControl Content="{Binding CurrentView}" />
     </DockPanel>

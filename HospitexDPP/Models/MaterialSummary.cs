@@ -27,5 +27,9 @@ namespace HospitexDPP.Models
 
         [JsonPropertyName("updated_at")]
         public string? UpdatedAt { get; set; }
+
+        // Computed client-side from certifications: "ok", "expiring", "expired", "none"
+        [JsonIgnore]
+        public string CertStatus { get; set; } = "none";
     }
 }

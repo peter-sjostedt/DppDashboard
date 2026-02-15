@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -10,6 +10,10 @@ namespace HospitexDPP.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private object _currentView = null!;
+        private BrandViewModel? _brandVm;
+        private SupplierViewModel? _supplierVm;
+        private bool _isDualRole;
+        private bool _isBrandActive;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -18,7 +22,9 @@ namespace HospitexDPP.ViewModels
             ConnectCommand = new RelayCommand(_ => NavigateToLogin(), _ => !App.ApiClient.IsAuthenticated);
             DisconnectCommand = new RelayCommand(_ => Disconnect(), _ => App.ApiClient.IsAuthenticated);
             ExitCommand = new RelayCommand(_ => Application.Current.Shutdown());
-            AboutCommand = new RelayCommand(_ => MessageBox.Show("Hospitex DPP v1.0\nDigital Product Passport för textil", "Om Hospitex DPP"));
+            AboutCommand = new RelayCommand(_ => MessageBox.Show($"Hospitex DPP v{App.Version}\nDigital Product Passport för textil", "Om Hospitex DPP"));
+            SwitchToBrandCommand = new RelayCommand(_ => IsBrandActive = true);
+            SwitchToSupplierCommand = new RelayCommand(_ => IsBrandActive = false);
 
             CurrentView = new LoginViewModel(OnLoginSuccess);
         }
@@ -28,6 +34,31 @@ namespace HospitexDPP.ViewModels
             get => _currentView;
             set { _currentView = value; OnPropertyChanged(); }
         }
+
+        public bool IsDualRole
+        {
+            get => _isDualRole;
+            set { _isDualRole = value; OnPropertyChanged(); }
+        }
+
+        public bool IsBrandActive
+        {
+            get => _isBrandActive;
+            set
+            {
+                if (_isBrandActive == value) return;
+                _isBrandActive = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsSupplierActive));
+                if (_isDualRole)
+                    CurrentView = _isBrandActive ? (object)_brandVm! : _supplierVm!;
+            }
+        }
+
+        public bool IsSupplierActive => !IsBrandActive;
+
+        public string BrandLabel => App.Session?.BrandName ?? "Brand";
+        public string SupplierLabel => App.Session?.SupplierName ?? "Supplier";
 
         public string SessionInfo
         {
@@ -46,22 +77,49 @@ namespace HospitexDPP.ViewModels
         public ICommand DisconnectCommand { get; }
         public ICommand ExitCommand { get; }
         public ICommand AboutCommand { get; }
+        public ICommand SwitchToBrandCommand { get; }
+        public ICommand SwitchToSupplierCommand { get; }
 
         private void OnLoginSuccess()
         {
             RefreshSessionProperties();
+
+            _brandVm = null;
+            _supplierVm = null;
+            _isBrandActive = false;
+
             if (App.Session!.IsAdmin)
+            {
+                IsDualRole = false;
                 CurrentView = new AdminViewModel();
-            else if (App.Session.IsBrand)
-                CurrentView = new BrandViewModel();
-            else if (App.Session.IsSupplier)
-                CurrentView = new SupplierViewModel();
+                return;
+            }
+
+            if (App.Session.IsBrand)
+                _brandVm = new BrandViewModel();
+            if (App.Session.IsSupplier)
+                _supplierVm = new SupplierViewModel();
+
+            IsDualRole = _brandVm != null && _supplierVm != null;
+
+            if (IsDualRole)
+            {
+                // Setter also sets CurrentView
+                IsBrandActive = true;
+            }
+            else
+            {
+                CurrentView = (object?)_brandVm ?? _supplierVm!;
+            }
         }
 
         private void Disconnect()
         {
             App.ApiClient.Logout();
             App.Session = null;
+            _brandVm = null;
+            _supplierVm = null;
+            IsDualRole = false;
 
             // Clear saved keys but preserve language preference
             var settings = SettingsService.Load();
@@ -80,6 +138,8 @@ namespace HospitexDPP.ViewModels
         private void RefreshSessionProperties()
         {
             OnPropertyChanged(nameof(SessionInfo));
+            OnPropertyChanged(nameof(BrandLabel));
+            OnPropertyChanged(nameof(SupplierLabel));
             CommandManager.InvalidateRequerySuggested();
         }
 

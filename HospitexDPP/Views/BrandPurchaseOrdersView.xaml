@@ -21,7 +21,7 @@
                 <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource SearchTextBox}"
                          Tag="{h:Loc Search_PurchaseOrders}"
-                         Margin="0,0,12,0" />
+                         Margin="0,0,6,0" />
                 <ItemsControl Style="{DynamicResource FilterToggleBar}"
                               ItemsSource="{Binding StatusFilterOptions}"
                               HorizontalAlignment="Left" />
@@ -59,7 +59,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding PoNumber}" FontWeight="SemiBold"
-                                           VerticalAlignment="Center" Margin="12,0"
+                                           VerticalAlignment="Center" Margin="6,0"
                                            Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
                                            TextTrimming="CharacterEllipsis"
                                            ToolTip="{Binding PoNumber}" />
@@ -75,7 +75,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding SupplierName}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
+                                           Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
                                            TextTrimming="CharacterEllipsis"
                                            ToolTip="{Binding SupplierName}" />
                             </DataTemplate>
@@ -90,7 +90,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding ProductName}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
+                                           Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
                                            TextTrimming="CharacterEllipsis"
                                            ToolTip="{Binding ProductName}" />
                             </DataTemplate>
@@ -110,7 +110,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Quantity}" VerticalAlignment="Center"
-                                           HorizontalAlignment="Right" Margin="0,0,12,0"
+                                           HorizontalAlignment="Right" Margin="0,0,6,0"
                                            Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -124,7 +124,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding RequestedDeliveryDate}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                                           Margin="6,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -142,7 +142,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding ProgressText}" VerticalAlignment="Center"
-                                           HorizontalAlignment="Right" Margin="0,0,12,0"
+                                           HorizontalAlignment="Right" Margin="0,0,6,0"
                                            Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -156,7 +156,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Border CornerRadius="4" Padding="8,4" HorizontalAlignment="Left"
-                                        Margin="12,0" VerticalAlignment="Center">
+                                        Margin="6,0" VerticalAlignment="Center">
                                     <Border.Background>
                                         <SolidColorBrush Color="{Binding StatusColor, Converter={StaticResource HexToColor}}" Opacity="0.15" />
                                     </Border.Background>
@@ -315,7 +315,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                                                         <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
                                                     </Style>
@@ -327,7 +327,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -337,7 +337,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                                                         <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
                                                     </Style>
@@ -355,7 +355,7 @@
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="HorizontalAlignment" Value="Right" />
-                                                        <Setter Property="Margin" Value="0,0,12,0" />
+                                                        <Setter Property="Margin" Value="0,0,6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -446,7 +446,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                                                         <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
                                                     </Style>
@@ -458,7 +458,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                         <Setter Property="TextTrimming" Value="CharacterEllipsis" />
                                                         <Setter Property="ToolTip" Value="{Binding Text, RelativeSource={RelativeSource Self}}" />
                                                     </Style>
@@ -476,7 +476,7 @@
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="HorizontalAlignment" Value="Right" />
-                                                        <Setter Property="Margin" Value="0,0,12,0" />
+                                                        <Setter Property="Margin" Value="0,0,6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -487,7 +487,7 @@
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <Border CornerRadius="4" Padding="6,2" HorizontalAlignment="Left"
-                                                                Margin="12,0" VerticalAlignment="Center">
+                                                                Margin="6,0" VerticalAlignment="Center">
                                                             <Border.Background>
                                                                 <SolidColorBrush Color="{Binding StatusColor, Converter={StaticResource HexToColor}}" Opacity="0.15" />
                                                             </Border.Background>

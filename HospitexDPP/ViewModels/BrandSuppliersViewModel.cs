@@ -1,11 +1,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using HospitexDPP.Models;
+using HospitexDPP.Resources;
 using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
@@ -22,6 +24,7 @@ namespace HospitexDPP.ViewModels
         private readonly ApiClient _apiClient;
         private List<SupplierMaterialGroup> _allGroups = new();
         private string _searchText = string.Empty;
+        private List<CertFilterOption> _certFilterOptions = CertFilterOption.All;
         private MaterialViewDrawerMode _drawerMode = MaterialViewDrawerMode.None;
         private MaterialSummary? _selectedMaterial;
         private string _drawerTitle = string.Empty;
@@ -32,6 +35,8 @@ namespace HospitexDPP.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        public Action? OnDataChanged;
+
         public BrandSuppliersViewModel()
         {
             _apiClient = App.ApiClient;
@@ -39,6 +44,8 @@ namespace HospitexDPP.ViewModels
             ViewMaterialCommand = new RelayCommand(async p => await OpenMaterialDrawer(p as MaterialSummary));
             CancelDrawerCommand = new RelayCommand(_ => CloseDrawer());
 
+            foreach (var opt in _certFilterOptions)
+                opt.PropertyChanged += OnCertFilterChanged;
             LanguageService.LanguageChanged += OnLanguageChanged;
             _ = LoadSuppliersAsync();
         }
@@ -54,6 +61,27 @@ namespace HospitexDPP.ViewModels
                 OnPropertyChanged();
                 ApplyFilter();
             }
+        }
+
+        public List<CertFilterOption> CertFilterOptions
+        {
+            get => _certFilterOptions;
+            private set { _certFilterOptions = value; OnPropertyChanged(); }
+        }
+
+        public int TotalCount => _allGroups.Sum(g => g.Materials.Count);
+
+        private void OnCertFilterChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CertFilterOption.IsSelected))
+                ApplyFilter();
+        }
+
+        /// <summary>Set cert filter programmatically (from dashboard card).</summary>
+        public void SetCertFilter(string certStatus)
+        {
+            foreach (var opt in _certFilterOptions)
+                opt.IsSelected = opt.Value == certStatus;
         }
 
         public bool IsDrawerOpen => _drawerMode != MaterialViewDrawerMode.None;
@@ -144,6 +172,52 @@ namespace HospitexDPP.ViewModels
             }
 
             ApplyFilter();
+            OnDataChanged?.Invoke();
+
+            // Load cert statuses in background
+            await LoadCertStatusesAsync();
+        }
+
+        private async Task LoadCertStatusesAsync()
+        {
+            var brandKey = App.Session?.BrandKey;
+            if (string.IsNullOrEmpty(brandKey)) return;
+
+            var allMaterials = _allGroups.SelectMany(g => g.Materials).ToList();
+            if (allMaterials.Count == 0) return;
+
+            var threshold = DateTime.Now.AddDays(30);
+            var tasks = allMaterials.Select(async mat =>
+            {
+                try
+                {
+                    var json = await _apiClient.GetWithTenantKeyAsync($"/api/materials/{mat.Id}/certifications", brandKey);
+                    if (json == null) { mat.CertStatus = "none"; return; }
+                    using var doc = JsonDocument.Parse(json);
+                    if (!doc.RootElement.TryGetProperty("data", out var arr) || arr.ValueKind != JsonValueKind.Array || arr.GetArrayLength() == 0)
+                    { mat.CertStatus = "none"; return; }
+
+                    var hasExpired = false;
+                    var hasExpiring = false;
+                    foreach (var cert in arr.EnumerateArray())
+                    {
+                        if (cert.TryGetProperty("valid_until", out var vu) && vu.ValueKind == JsonValueKind.String)
+                        {
+                            if (DateTime.TryParse(vu.GetString(), CultureInfo.InvariantCulture, DateTimeStyles.None, out var date))
+                            {
+                                if (date < DateTime.Now) hasExpired = true;
+                                else if (date <= threshold) hasExpiring = true;
+                            }
+                        }
+                    }
+
+                    mat.CertStatus = hasExpired ? "expired" : hasExpiring ? "expiring" : "ok";
+                }
+                catch { mat.CertStatus = "none"; }
+            });
+
+            await Task.WhenAll(tasks);
+            ApplyFilter();
         }
 
         private void ApplyFilter()
@@ -151,21 +225,37 @@ namespace HospitexDPP.ViewModels
             GroupedSuppliers.Clear();
 
             var filter = _searchText.Trim();
+            var activeCertFilters = _certFilterOptions.Where(o => o.IsSelected).Select(o => o.Value).ToHashSet();
 
             foreach (var group in _allGroups)
             {
-                if (string.IsNullOrEmpty(filter))
+                var matchingMaterials = group.Materials.AsEnumerable();
+
+                if (!string.IsNullOrEmpty(filter))
                 {
-                    GroupedSuppliers.Add(group);
-                    continue;
+                    var nameMatch = group.SupplierName.Contains(filter, StringComparison.OrdinalIgnoreCase);
+                    if (!nameMatch)
+                        matchingMaterials = matchingMaterials.Where(m =>
+                            m.MaterialName.Contains(filter, StringComparison.OrdinalIgnoreCase));
                 }
 
-                var nameMatch = group.SupplierName.Contains(filter, StringComparison.OrdinalIgnoreCase);
-                var materialMatch = group.Materials.Any(m =>
-                    m.MaterialName.Contains(filter, StringComparison.OrdinalIgnoreCase));
+                if (activeCertFilters.Count > 0)
+                    matchingMaterials = matchingMaterials.Where(m => activeCertFilters.Contains(m.CertStatus));
 
-                if (nameMatch || materialMatch)
-                    GroupedSuppliers.Add(group);
+                var filteredList = matchingMaterials.ToList();
+                if (filteredList.Count > 0 || (string.IsNullOrEmpty(filter) && activeCertFilters.Count == 0))
+                {
+                    var filteredGroup = new SupplierMaterialGroup
+                    {
+                        SupplierId = group.SupplierId,
+                        SupplierName = group.SupplierName,
+                        SupplierLocation = group.SupplierLocation,
+                        Materials = activeCertFilters.Count > 0 || !string.IsNullOrEmpty(filter)
+                            ? new ObservableCollection<MaterialSummary>(filteredList)
+                            : group.Materials
+                    };
+                    GroupedSuppliers.Add(filteredGroup);
+                }
             }
 
             OnPropertyChanged(nameof(HasSuppliers));
@@ -261,11 +351,23 @@ namespace HospitexDPP.ViewModels
 
         private void OnLanguageChanged()
         {
+            var selectedCertValues = _certFilterOptions.Where(o => o.IsSelected).Select(o => o.Value).ToHashSet();
+            foreach (var opt in _certFilterOptions)
+                opt.PropertyChanged -= OnCertFilterChanged;
+            _certFilterOptions = CertFilterOption.All;
+            foreach (var opt in _certFilterOptions)
+            {
+                opt.IsSelected = selectedCertValues.Contains(opt.Value);
+                opt.PropertyChanged += OnCertFilterChanged;
+            }
+            OnPropertyChanged(nameof(CertFilterOptions));
+
             OnPropertyChanged(nameof(DrawerTitle));
             // Refresh compositions so RecycledDisplay re-evaluates with new culture
             var comps = MaterialCompositions.ToList();
             MaterialCompositions.Clear();
             foreach (var c in comps) MaterialCompositions.Add(c);
+            ApplyFilter();
         }
 
         private void OnPropertyChanged([CallerMemberName] string? name = null)

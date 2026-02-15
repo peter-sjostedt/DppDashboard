@@ -25,6 +25,7 @@ namespace HospitexDPP.ViewModels
         private List<ProductSummary> _allProducts = new();
         private string _searchText = string.Empty;
         private List<StatusFilterOption> _statusFilterOptions = StatusFilterOption.All;
+        private List<CompletenessFilterOption> _completenessFilterOptions = CompletenessFilterOption.All;
 
         private ProductSummary? _selectedProduct;
         private ProductDrawerMode _drawerMode = ProductDrawerMode.None;
@@ -130,6 +131,8 @@ namespace HospitexDPP.ViewModels
             }
             foreach (var opt in _statusFilterOptions)
                 opt.PropertyChanged += OnFilterChanged;
+            foreach (var opt in _completenessFilterOptions)
+                opt.PropertyChanged += OnCompletenessFilterChanged;
             LanguageService.LanguageChanged += OnLanguageChanged;
             _ = LoadProductsAsync();
         }
@@ -142,6 +145,12 @@ namespace HospitexDPP.ViewModels
             private set { _statusFilterOptions = value; OnPropertyChanged(); }
         }
 
+        public List<CompletenessFilterOption> CompletenessFilterOptions
+        {
+            get => _completenessFilterOptions;
+            private set { _completenessFilterOptions = value; OnPropertyChanged(); }
+        }
+
         private void OnFilterChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(StatusFilterOption.IsSelected))
@@ -150,6 +159,19 @@ namespace HospitexDPP.ViewModels
                 var sel = _statusFilterOptions.Where(o => o.IsSelected).Select(o => o.Value);
                 SettingsService.SaveFilter("brand_products", string.Join(",", sel));
             }
+        }
+
+        private void OnCompletenessFilterChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(CompletenessFilterOption.IsSelected))
+                ApplyFilter();
+        }
+
+        /// <summary>Set completeness filter programmatically (from dashboard card).</summary>
+        public void SetCompletenessFilter(string status)
+        {
+            foreach (var opt in _completenessFilterOptions)
+                opt.IsSelected = opt.Value == status;
         }
 
         public string SearchText
@@ -1237,6 +1259,39 @@ namespace HospitexDPP.ViewModels
             await Task.WhenAll(tasks);
             // Refresh the DataGrid to show updated counts
             ApplyFilter();
+
+            // Load completeness statuses in background
+            await LoadCompletenessStatusesAsync();
+        }
+
+        private async Task LoadCompletenessStatusesAsync()
+        {
+            var brandKey = App.Session?.BrandKey;
+            if (string.IsNullOrEmpty(brandKey) || _allProducts.Count == 0) return;
+
+            var tasks = _allProducts.Select(async product =>
+            {
+                try
+                {
+                    var json = await _apiClient.GetWithTenantKeyAsync($"/api/products/{product.Id}", brandKey);
+                    if (json == null) { product.CompletenessStatus = "incomplete"; return; }
+                    using var doc = JsonDocument.Parse(json);
+                    if (!doc.RootElement.TryGetProperty("data", out var data)) { product.CompletenessStatus = "incomplete"; return; }
+
+                    var hasCare = data.TryGetProperty("care_information", out var care) && care.ValueKind != JsonValueKind.Null;
+                    var hasCompliance = data.TryGetProperty("compliance_information", out var comp) && comp.ValueKind != JsonValueKind.Null;
+                    var hasComponents = data.TryGetProperty("components", out var comps) && comps.ValueKind == JsonValueKind.Array && comps.GetArrayLength() > 0;
+
+                    // Variant count already loaded
+                    var hasVariants = product.VariantCount > 0;
+
+                    product.CompletenessStatus = (hasCare && hasCompliance && hasComponents && hasVariants) ? "complete" : "incomplete";
+                }
+                catch { product.CompletenessStatus = "incomplete"; }
+            });
+
+            await Task.WhenAll(tasks);
+            ApplyFilter();
         }
 
         private async Task ReloadProductsAsync()
@@ -1262,6 +1317,10 @@ namespace HospitexDPP.ViewModels
                     (activeFilters.Contains("active") && p.IsActive == 1) ||
                     (activeFilters.Contains("inactive") && p.IsActive != 1));
 
+            var completenessFilters = _completenessFilterOptions.Where(o => o.IsSelected).Select(o => o.Value).ToHashSet();
+            if (completenessFilters.Count > 0)
+                filtered = filtered.Where(p => completenessFilters.Contains(p.CompletenessStatus));
+
             foreach (var p in filtered)
                 Products.Add(p);
 
@@ -1280,6 +1339,18 @@ namespace HospitexDPP.ViewModels
                 opt.PropertyChanged += OnFilterChanged;
             }
             OnPropertyChanged(nameof(StatusFilterOptions));
+
+            var selectedCompleteness = _completenessFilterOptions.Where(o => o.IsSelected).Select(o => o.Value).ToHashSet();
+            foreach (var opt in _completenessFilterOptions)
+                opt.PropertyChanged -= OnCompletenessFilterChanged;
+            _completenessFilterOptions = CompletenessFilterOption.All;
+            foreach (var opt in _completenessFilterOptions)
+            {
+                opt.IsSelected = selectedCompleteness.Contains(opt.Value);
+                opt.PropertyChanged += OnCompletenessFilterChanged;
+            }
+            OnPropertyChanged(nameof(CompletenessFilterOptions));
+
             OnPropertyChanged(nameof(DrawerTitle));
             OnPropertyChanged(nameof(EditHarmfulSubstances));
             OnPropertyChanged(nameof(EditMicrofibers));

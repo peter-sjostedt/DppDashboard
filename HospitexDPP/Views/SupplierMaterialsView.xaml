@@ -20,9 +20,13 @@
                          Style="{DynamicResource SearchTextBox}"
                          Tag="{h:Loc Search_Materials}"
                          Margin="0,0,12,0" />
-                <ItemsControl Style="{DynamicResource FilterToggleBar}"
-                              ItemsSource="{Binding StatusFilterOptions}"
-                              HorizontalAlignment="Left" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <ItemsControl Style="{DynamicResource FilterToggleBar}"
+                                  ItemsSource="{Binding StatusFilterOptions}" />
+                    <ItemsControl Style="{DynamicResource FilterToggleBar}"
+                                  ItemsSource="{Binding CertFilterOptions}"
+                                  Margin="12,0,0,0" />
+                </StackPanel>
             </DockPanel>
 
             <!-- Empty state -->
@@ -55,7 +59,7 @@
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel VerticalAlignment="Center" Margin="12,0">
+                                <StackPanel VerticalAlignment="Center" Margin="6,0">
                                     <TextBlock Text="{Binding MaterialName}" FontWeight="SemiBold"
                                                Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                     <TextBlock Text="{Binding Description}"
@@ -87,7 +91,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding MaterialType}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                           Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -99,7 +103,7 @@
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <controls:StatusBadge IsActive="{Binding IsActive}" Margin="12,0" />
+                                <controls:StatusBadge IsActive="{Binding IsActive}" Margin="6,0" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -112,7 +116,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding UpdatedAt}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                                           Margin="6,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -225,7 +229,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -241,7 +245,7 @@
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="HorizontalAlignment" Value="Right" />
-                                                        <Setter Property="Margin" Value="0,0,12,0" />
+                                                        <Setter Property="Margin" Value="0,0,6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -251,7 +255,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -261,7 +265,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -304,7 +308,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -314,7 +318,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -324,7 +328,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -370,7 +374,7 @@
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="HorizontalAlignment" Value="Right" />
-                                                        <Setter Property="Margin" Value="0,0,12,0" />
+                                                        <Setter Property="Margin" Value="0,0,6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -380,7 +384,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -390,7 +394,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -400,7 +404,7 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
@@ -465,17 +469,17 @@
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
-                                            <DataGridTextColumn Binding="{Binding Component}" Width="*">
+                                            <DataGridTextColumn Binding="{Binding Component, Converter={StaticResource EnumConverter}, ConverterParameter=Component}" Width="*">
                                                 <DataGridTextColumn.Header>
                                                     <TextBlock Text="{h:Loc Column_Component}" />
                                                 </DataGridTextColumn.Header>
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
-                                                        <Setter Property="Margin" Value="12,0" />
+                                                        <Setter Property="Margin" Value="6,0" />
                                                     </Style>
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>

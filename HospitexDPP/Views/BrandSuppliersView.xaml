@@ -10,11 +10,15 @@
     <Grid>
         <!-- Main content -->
         <DockPanel Margin="24,20">
-            <!-- Toolbar: search only (read-only view, no add button) -->
+            <!-- Toolbar: search + cert filter -->
             <DockPanel DockPanel.Dock="Top" Margin="0,0,0,16">
                 <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource SearchTextBox}"
-                         Tag="{h:Loc Search_Suppliers}" />
+                         Tag="{h:Loc Search_Suppliers}"
+                         Margin="0,0,12,0" />
+                <ItemsControl Style="{DynamicResource FilterToggleBar}"
+                              ItemsSource="{Binding CertFilterOptions}"
+                              HorizontalAlignment="Left" />
             </DockPanel>
 
             <!-- Empty state -->
@@ -202,7 +206,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -218,7 +222,7 @@
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
                                                     <Setter Property="HorizontalAlignment" Value="Right" />
-                                                    <Setter Property="Margin" Value="0,0,12,0" />
+                                                    <Setter Property="Margin" Value="0,0,6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -228,7 +232,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -238,7 +242,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -264,7 +268,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -274,7 +278,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -284,7 +288,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -310,7 +314,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -320,7 +324,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>
@@ -330,7 +334,7 @@
                                             </DataGridTextColumn.Header>
                                             <DataGridTextColumn.ElementStyle>
                                                 <Style TargetType="TextBlock">
-                                                    <Setter Property="Margin" Value="12,0" />
+                                                    <Setter Property="Margin" Value="6,0" />
                                                 </Style>
                                             </DataGridTextColumn.ElementStyle>
                                         </DataGridTextColumn>

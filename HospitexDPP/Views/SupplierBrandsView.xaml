@@ -80,7 +80,7 @@
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding ProductName}" VerticalAlignment="Center"
-                                                                   Margin="12,0" FontWeight="SemiBold"
+                                                                   Margin="6,0" FontWeight="SemiBold"
                                                                    Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -91,8 +91,10 @@
                                                 </DataGridTemplateColumn.Header>
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock Text="{Binding Category}" VerticalAlignment="Center"
-                                                                   Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                        <TextBlock Text="{Binding Category, Converter={StaticResource EnumConverter}, ConverterParameter=Category}" VerticalAlignment="Center"
+                                                                   Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13"
+                                                                   TextTrimming="CharacterEllipsis"
+                                                                   ToolTip="{Binding Category, Converter={StaticResource EnumConverter}, ConverterParameter=Category}" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -108,7 +110,7 @@
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding VariantCount}" VerticalAlignment="Center"
-                                                                   HorizontalAlignment="Right" Margin="0,0,12,0"
+                                                                   HorizontalAlignment="Right" Margin="0,0,6,0"
                                                                    Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
@@ -183,7 +185,7 @@
                                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding DetailArticleNumber}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
 
                                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Field_Category}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,6" />
-                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DetailCategory}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding DetailCategory, Converter={StaticResource EnumConverter}, ConverterParameter=Category}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,6" />
 
                                     <TextBlock Grid.Row="3" Grid.Column="0" Text="{h:Loc Field_Description}" Style="{DynamicResource FormLabel}" TextAlignment="Right" VerticalAlignment="Top" Margin="0,0,12,6" />
                                     <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DetailDescription}" FontSize="13" Foreground="{DynamicResource TextPrimaryBrush}" TextWrapping="Wrap" Margin="0,0,0,6" />
@@ -227,7 +229,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ItemNumber}" VerticalAlignment="Center"
-                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                               Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -238,7 +240,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Size}" VerticalAlignment="Center"
-                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                               Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -249,7 +251,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ColorBrand}" VerticalAlignment="Center"
-                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                               Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -260,7 +262,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Gtin}" VerticalAlignment="Center"
-                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                               Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -283,8 +285,8 @@
                                             </DataGridTemplateColumn.Header>
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Component}" VerticalAlignment="Center"
-                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                    <TextBlock Text="{Binding Component, Converter={StaticResource EnumConverter}, ConverterParameter=Component}" VerticalAlignment="Center"
+                                                               Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -294,8 +296,8 @@
                                             </DataGridTemplateColumn.Header>
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Material}" VerticalAlignment="Center"
-                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                    <TextBlock Text="{Binding Material, Converter={StaticResource EnumConverter}, ConverterParameter=Material}" VerticalAlignment="Center"
+                                                               Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -306,7 +308,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ContentName}" VerticalAlignment="Center"
-                                                               Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                                               Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>
                                         </DataGridTemplateColumn>
@@ -322,7 +324,7 @@
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ContentValue}" VerticalAlignment="Center"
-                                                               HorizontalAlignment="Right" Margin="0,0,12,0"
+                                                               HorizontalAlignment="Right" Margin="0,0,6,0"
                                                                Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                                 </DataTemplate>
                                             </DataGridTemplateColumn.CellTemplate>

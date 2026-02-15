@@ -1282,4 +1282,115 @@
   <data name="StatusBar_PurchaseOrders" xml:space="preserve">
     <value>{0} orders</value>
   </data>
+  <data name="Splash_Tagline" xml:space="preserve">
+    <value>Digital Product Passport Platform</value>
+  </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Menu_Logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="Tab_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Dashboard_Welcome" xml:space="preserve">
+    <value>Welcome, {0}</value>
+  </data>
+  <data name="Dashboard_NoActions" xml:space="preserve">
+    <value>Everything under control</value>
+  </data>
+  <data name="Dashboard_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Dashboard_RejectedOrders" xml:space="preserve">
+    <value>Orders to handle</value>
+  </data>
+  <data name="Dashboard_RejectedOrders_Desc" xml:space="preserve">
+    <value>{0} rejected orders</value>
+  </data>
+  <data name="Dashboard_CompletedBatches" xml:space="preserve">
+    <value>Batches to review</value>
+  </data>
+  <data name="Dashboard_CompletedBatches_Desc" xml:space="preserve">
+    <value>{0} completed batches</value>
+  </data>
+  <data name="Dashboard_IncompleteProducts" xml:space="preserve">
+    <value>Incomplete product data</value>
+  </data>
+  <data name="Dashboard_IncompleteProducts_Desc" xml:space="preserve">
+    <value>{0} products with missing data</value>
+  </data>
+  <data name="Dashboard_ReadyForExport" xml:space="preserve">
+    <value>Ready for DPP export</value>
+  </data>
+  <data name="Dashboard_ReadyForExport_Desc" xml:space="preserve">
+    <value>{0} products ready to export</value>
+  </data>
+  <data name="Dashboard_ExpiringCerts" xml:space="preserve">
+    <value>Expiring certifications</value>
+  </data>
+  <data name="Dashboard_ExpiringCerts_Desc" xml:space="preserve">
+    <value>{0} expiring within 30 days</value>
+  </data>
+  <data name="Dashboard_ExpiredCerts" xml:space="preserve">
+    <value>Expired certifications</value>
+  </data>
+  <data name="Dashboard_ExpiredCerts_Desc" xml:space="preserve">
+    <value>{0} expired</value>
+  </data>
+  <data name="Dashboard_PendingOrders" xml:space="preserve">
+    <value>Orders to handle</value>
+  </data>
+  <data name="Dashboard_PendingOrders_Desc" xml:space="preserve">
+    <value>{0} pending orders</value>
+  </data>
+  <data name="Dashboard_BatchesNoMaterials" xml:space="preserve">
+    <value>Batches without materials</value>
+  </data>
+  <data name="Dashboard_BatchesNoMaterials_Desc" xml:space="preserve">
+    <value>{0} missing material links</value>
+  </data>
+  <data name="Dashboard_BatchesNoItems" xml:space="preserve">
+    <value>Batches without items</value>
+  </data>
+  <data name="Dashboard_BatchesNoItems_Desc" xml:space="preserve">
+    <value>{0} with no items registered</value>
+  </data>
+  <data name="Dashboard_IncompleteMaterials" xml:space="preserve">
+    <value>Incomplete materials</value>
+  </data>
+  <data name="Dashboard_IncompleteMaterials_Desc" xml:space="preserve">
+    <value>{0} materials without compositions</value>
+  </data>
+  <data name="CertFilter_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="CertFilter_Ok" xml:space="preserve">
+    <value>Valid</value>
+  </data>
+  <data name="CertFilter_Expiring" xml:space="preserve">
+    <value>Expiring</value>
+  </data>
+  <data name="CertFilter_Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+  <data name="CertFilter_None" xml:space="preserve">
+    <value>No certs</value>
+  </data>
+  <data name="CompletenessFilter_Complete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="CompletenessFilter_Incomplete" xml:space="preserve">
+    <value>Incomplete</value>
+  </data>
+  <data name="Role_Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Role_Supplier" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="Menu_Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
 </root>

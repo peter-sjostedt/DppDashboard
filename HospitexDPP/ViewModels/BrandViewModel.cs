@@ -1,7 +1,5 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
 {
@@ -10,6 +8,7 @@ namespace HospitexDPP.ViewModels
         private int _productCount;
         private int _batchCount;
         private int _poCount;
+        private int _selectedTabIndex;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -19,24 +18,29 @@ namespace HospitexDPP.ViewModels
             PurchaseOrdersTab = new BrandPurchaseOrdersViewModel();
             BatchesTab = new BrandBatchesViewModel();
             SuppliersTab = new BrandSuppliersViewModel();
+            DashboardTab = new BrandDashboardViewModel(NavigateToTab, ProductsTab, SuppliersTab, PurchaseOrdersTab, BatchesTab);
 
             ProductsTab.OnDataChanged = () => ProductCount = ProductsTab.TotalCount;
             PurchaseOrdersTab.OnDataChanged = () => PoCount = PurchaseOrdersTab.TotalCount;
             BatchesTab.OnDataChanged = () => BatchCount = BatchesTab.TotalCount;
-
-            SetLanguageCommand = new RelayCommand(lang =>
-            {
-                var code = lang as string ?? "sv";
-                LanguageService.SetLanguage(code);
-            });
         }
 
+        public BrandDashboardViewModel DashboardTab { get; }
         public BrandProductsViewModel ProductsTab { get; }
         public BrandPurchaseOrdersViewModel PurchaseOrdersTab { get; }
         public BrandBatchesViewModel BatchesTab { get; }
         public BrandSuppliersViewModel SuppliersTab { get; }
 
-        public ICommand SetLanguageCommand { get; }
+        public int SelectedTabIndex
+        {
+            get => _selectedTabIndex;
+            set { _selectedTabIndex = value; OnPropertyChanged(); }
+        }
+
+        public void NavigateToTab(int index)
+        {
+            SelectedTabIndex = index;
+        }
 
         public int ProductCount
         {

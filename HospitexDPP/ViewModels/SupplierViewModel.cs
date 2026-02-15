@@ -1,7 +1,5 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using HospitexDPP.Services;
 
 namespace HospitexDPP.ViewModels
 {
@@ -11,6 +9,7 @@ namespace HospitexDPP.ViewModels
         private int _brandCount;
         private int _poCount;
         private int _batchCount;
+        private int _selectedTabIndex;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -20,25 +19,30 @@ namespace HospitexDPP.ViewModels
             PurchaseOrdersTab = new SupplierPurchaseOrdersViewModel();
             BatchesTab = new SupplierBatchesViewModel();
             BrandsTab = new SupplierBrandsViewModel();
+            DashboardTab = new SupplierDashboardViewModel(NavigateToTab, MaterialsTab, PurchaseOrdersTab, BatchesTab);
 
             MaterialsTab.OnDataChanged = () => MaterialCount = MaterialsTab.TotalCount;
             PurchaseOrdersTab.OnDataChanged = () => PoCount = PurchaseOrdersTab.TotalCount;
             BatchesTab.OnDataChanged = () => BatchCount = BatchesTab.TotalCount;
             BrandsTab.OnDataChanged = () => BrandCount = BrandsTab.TotalCount;
-
-            SetLanguageCommand = new RelayCommand(lang =>
-            {
-                var code = lang as string ?? "sv";
-                LanguageService.SetLanguage(code);
-            });
         }
 
+        public SupplierDashboardViewModel DashboardTab { get; }
         public SupplierMaterialsViewModel MaterialsTab { get; }
         public SupplierPurchaseOrdersViewModel PurchaseOrdersTab { get; }
         public SupplierBatchesViewModel BatchesTab { get; }
         public SupplierBrandsViewModel BrandsTab { get; }
 
-        public ICommand SetLanguageCommand { get; }
+        public int SelectedTabIndex
+        {
+            get => _selectedTabIndex;
+            set { _selectedTabIndex = value; OnPropertyChanged(); }
+        }
+
+        public void NavigateToTab(int index)
+        {
+            SelectedTabIndex = index;
+        }
 
         public int MaterialCount
         {

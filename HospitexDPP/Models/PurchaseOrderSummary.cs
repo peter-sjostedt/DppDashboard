@@ -48,10 +48,10 @@ namespace HospitexDPP.Models
         public int? BatchCount { get; set; }
 
         [JsonPropertyName("produced_quantity")]
-        public int? ProducedQuantity { get; set; }
+        public string? ProducedQuantity { get; set; }
 
         [JsonPropertyName("delivered_quantity")]
-        public int? DeliveredQuantity { get; set; }
+        public string? DeliveredQuantity { get; set; }
 
         public string StatusColor => Status switch
         {
@@ -64,6 +64,6 @@ namespace HospitexDPP.Models
         };
 
         public bool CanAccept => Status == "sent";
-        public string ProgressText => $"{ProducedQuantity ?? 0} / {Quantity ?? 0}";
+        public string ProgressText => $"{ProducedQuantity ?? "0"} / {Quantity ?? 0}";
     }
 }

@@ -57,7 +57,7 @@
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel VerticalAlignment="Center" Margin="12,0">
+                                <StackPanel VerticalAlignment="Center" Margin="6,0">
                                     <TextBlock Text="{Binding SupplierName}" FontWeight="SemiBold"
                                                Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                                     <TextBlock Text="{Binding SupplierLocation}"
@@ -89,7 +89,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding BrandCount}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
+                                           Margin="6,0" Foreground="{DynamicResource TextPrimaryBrush}" FontSize="13" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -101,7 +101,7 @@
                         </DataGridTemplateColumn.Header>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <controls:StatusBadge IsActive="{Binding IsActive}" Margin="12,0" />
+                                <controls:StatusBadge IsActive="{Binding IsActive}" Margin="6,0" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -114,7 +114,7 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding UpdatedAt}" VerticalAlignment="Center"
-                                           Margin="12,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
+                                           Margin="6,0" Foreground="{DynamicResource TextSecondaryBrush}" FontSize="12" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

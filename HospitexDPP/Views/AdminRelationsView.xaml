@@ -18,7 +18,7 @@
                 <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource SearchTextBox}"
                          Tag="{h:Loc Search_Relations}"
-                         Margin="0,0,12,0" />
+                         Margin="0,0,6,0" />
                 <ItemsControl Style="{DynamicResource FilterToggleBar}"
                               ItemsSource="{Binding StatusFilterOptions}"
                               HorizontalAlignment="Left" />
@@ -173,7 +173,7 @@
 
                         <TextBlock Grid.Column="0" Text="{h:Loc Field_SelectSupplier}"
                                    Style="{DynamicResource FormLabel}" TextAlignment="Right"
-                                   VerticalAlignment="Center" Margin="0,0,12,0" />
+                                   VerticalAlignment="Center" Margin="0,0,6,0" />
                         <ComboBox Grid.Column="1"
                                   ItemsSource="{Binding FilteredSupplierOptions}"
                                   SelectedItem="{Binding DrawerSelectedSupplier}"

@@ -538,6 +538,51 @@ namespace HospitexDPP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string CertFilter_All {
+            get {
+                return ResourceManager.GetString("CertFilter_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expired.
+        /// </summary>
+        public static string CertFilter_Expired {
+            get {
+                return ResourceManager.GetString("CertFilter_Expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiring.
+        /// </summary>
+        public static string CertFilter_Expiring {
+            get {
+                return ResourceManager.GetString("CertFilter_Expiring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No certs.
+        /// </summary>
+        public static string CertFilter_None {
+            get {
+                return ResourceManager.GetString("CertFilter_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string CertFilter_Ok {
+            get {
+                return ResourceManager.GetString("CertFilter_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disassembly.
         /// </summary>
         public static string CircularStrategy_Disassembly {
@@ -1042,6 +1087,24 @@ namespace HospitexDPP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        public static string CompletenessFilter_Complete {
+            get {
+                return ResourceManager.GetString("CompletenessFilter_Complete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incomplete.
+        /// </summary>
+        public static string CompletenessFilter_Incomplete {
+            get {
+                return ResourceManager.GetString("CompletenessFilter_Incomplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Body fabric.
         /// </summary>
         public static string Component_BodyFabric {
@@ -1164,6 +1227,213 @@ namespace HospitexDPP.Resources {
         public static string Confirm_SplitBatch {
             get {
                 return ResourceManager.GetString("Confirm_SplitBatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batches without items.
+        /// </summary>
+        public static string Dashboard_BatchesNoItems {
+            get {
+                return ResourceManager.GetString("Dashboard_BatchesNoItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} with no items registered.
+        /// </summary>
+        public static string Dashboard_BatchesNoItems_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_BatchesNoItems_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batches without materials.
+        /// </summary>
+        public static string Dashboard_BatchesNoMaterials {
+            get {
+                return ResourceManager.GetString("Dashboard_BatchesNoMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} missing material links.
+        /// </summary>
+        public static string Dashboard_BatchesNoMaterials_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_BatchesNoMaterials_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batches to review.
+        /// </summary>
+        public static string Dashboard_CompletedBatches {
+            get {
+                return ResourceManager.GetString("Dashboard_CompletedBatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} completed batches.
+        /// </summary>
+        public static string Dashboard_CompletedBatches_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_CompletedBatches_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expired certifications.
+        /// </summary>
+        public static string Dashboard_ExpiredCerts {
+            get {
+                return ResourceManager.GetString("Dashboard_ExpiredCerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} expired.
+        /// </summary>
+        public static string Dashboard_ExpiredCerts_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_ExpiredCerts_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiring certifications.
+        /// </summary>
+        public static string Dashboard_ExpiringCerts {
+            get {
+                return ResourceManager.GetString("Dashboard_ExpiringCerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} expiring within 30 days.
+        /// </summary>
+        public static string Dashboard_ExpiringCerts_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_ExpiringCerts_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incomplete materials.
+        /// </summary>
+        public static string Dashboard_IncompleteMaterials {
+            get {
+                return ResourceManager.GetString("Dashboard_IncompleteMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} materials without compositions.
+        /// </summary>
+        public static string Dashboard_IncompleteMaterials_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_IncompleteMaterials_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incomplete product data.
+        /// </summary>
+        public static string Dashboard_IncompleteProducts {
+            get {
+                return ResourceManager.GetString("Dashboard_IncompleteProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} products with missing data.
+        /// </summary>
+        public static string Dashboard_IncompleteProducts_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_IncompleteProducts_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Everything under control.
+        /// </summary>
+        public static string Dashboard_NoActions {
+            get {
+                return ResourceManager.GetString("Dashboard_NoActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orders to handle.
+        /// </summary>
+        public static string Dashboard_PendingOrders {
+            get {
+                return ResourceManager.GetString("Dashboard_PendingOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} pending orders.
+        /// </summary>
+        public static string Dashboard_PendingOrders_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_PendingOrders_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready for DPP export.
+        /// </summary>
+        public static string Dashboard_ReadyForExport {
+            get {
+                return ResourceManager.GetString("Dashboard_ReadyForExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} products ready to export.
+        /// </summary>
+        public static string Dashboard_ReadyForExport_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_ReadyForExport_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orders to handle.
+        /// </summary>
+        public static string Dashboard_RejectedOrders {
+            get {
+                return ResourceManager.GetString("Dashboard_RejectedOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} rejected orders.
+        /// </summary>
+        public static string Dashboard_RejectedOrders_Desc {
+            get {
+                return ResourceManager.GetString("Dashboard_RejectedOrders_Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string Dashboard_View {
+            get {
+                return ResourceManager.GetString("Dashboard_View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome, {0}.
+        /// </summary>
+        public static string Dashboard_Welcome {
+            get {
+                return ResourceManager.GetString("Dashboard_Welcome", resourceCulture);
             }
         }
         
@@ -2986,6 +3256,33 @@ namespace HospitexDPP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string Menu_Logout {
+            get {
+                return ResourceManager.GetString("Menu_Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string Menu_Profile {
+            get {
+                return ResourceManager.GetString("Menu_Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Menu_Settings {
+            get {
+                return ResourceManager.GetString("Menu_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleting....
         /// </summary>
         public static string Msg_Deleting {
@@ -3072,6 +3369,24 @@ namespace HospitexDPP.Resources {
         public static string Relations_NoSuppliers {
             get {
                 return ResourceManager.GetString("Relations_NoSuppliers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brand.
+        /// </summary>
+        public static string Role_Brand {
+            get {
+                return ResourceManager.GetString("Role_Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supplier.
+        /// </summary>
+        public static string Role_Supplier {
+            get {
+                return ResourceManager.GetString("Role_Supplier", resourceCulture);
             }
         }
         
@@ -3373,6 +3688,15 @@ namespace HospitexDPP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Digital Product Passport Platform.
+        /// </summary>
+        public static string Splash_Tagline {
+            get {
+                return ResourceManager.GetString("Splash_Tagline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accepted.
         /// </summary>
         public static string Status_Accepted {
@@ -3603,6 +3927,15 @@ namespace HospitexDPP.Resources {
         public static string Tab_BrandSuppliers {
             get {
                 return ResourceManager.GetString("Tab_BrandSuppliers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard.
+        /// </summary>
+        public static string Tab_Dashboard {
+            get {
+                return ResourceManager.GetString("Tab_Dashboard", resourceCulture);
             }
         }
         

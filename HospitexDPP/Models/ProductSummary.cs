@@ -28,6 +28,10 @@ namespace HospitexDPP.Models
         [JsonPropertyName("updated_at")]
         public string? UpdatedAt { get; set; }
 
+        /// <summary>Client-side computed: "complete" or "incomplete". Loaded after product list.</summary>
+        [JsonIgnore]
+        public string CompletenessStatus { get; set; } = "unknown";
+
         public string VariantCountDisplay => VariantCount.ToString();
     }
 }

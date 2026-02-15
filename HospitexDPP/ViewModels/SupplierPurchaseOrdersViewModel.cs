@@ -99,6 +99,13 @@ namespace HospitexDPP.ViewModels
             }
         }
 
+        /// <summary>Set status filter programmatically (from dashboard card).</summary>
+        public void SetStatusFilter(string status)
+        {
+            foreach (var opt in _statusFilterOptions)
+                opt.IsSelected = opt.Value == status;
+        }
+
         public string SearchText
         {
             get => _searchText;

@@ -27,20 +27,12 @@ namespace HospitexDPP.ViewModels
             BrandsTab.OnDataChanged = () => BrandCount = BrandsTab.TotalCount;
             SuppliersTab.OnDataChanged = () => SupplierCount = SuppliersTab.TotalCount;
 
-            SetLanguageCommand = new RelayCommand(lang =>
-            {
-                var code = lang as string ?? "sv";
-                LanguageService.SetLanguage(code);
-            });
-
             _ = LoadStatsAsync();
         }
 
         public AdminBrandsViewModel BrandsTab { get; }
         public AdminSuppliersViewModel SuppliersTab { get; }
         public AdminRelationsViewModel RelationsTab { get; }
-
-        public ICommand SetLanguageCommand { get; }
 
         public int BrandCount
         {

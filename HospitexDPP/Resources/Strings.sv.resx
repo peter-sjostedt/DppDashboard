@@ -1282,4 +1282,115 @@
   <data name="StatusBar_PurchaseOrders" xml:space="preserve">
     <value>{0} ordrar</value>
   </data>
+  <data name="Splash_Tagline" xml:space="preserve">
+    <value>Digital produktpass-plattform</value>
+  </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>Inställningar</value>
+  </data>
+  <data name="Menu_Logout" xml:space="preserve">
+    <value>Logga ut</value>
+  </data>
+  <data name="Tab_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Dashboard_Welcome" xml:space="preserve">
+    <value>Välkommen, {0}</value>
+  </data>
+  <data name="Dashboard_NoActions" xml:space="preserve">
+    <value>Inga åtgärder just nu</value>
+  </data>
+  <data name="Dashboard_View" xml:space="preserve">
+    <value>Visa</value>
+  </data>
+  <data name="Dashboard_RejectedOrders" xml:space="preserve">
+    <value>Ordrar att hantera</value>
+  </data>
+  <data name="Dashboard_RejectedOrders_Desc" xml:space="preserve">
+    <value>{0} avvisade ordrar</value>
+  </data>
+  <data name="Dashboard_CompletedBatches" xml:space="preserve">
+    <value>Batcher att granska</value>
+  </data>
+  <data name="Dashboard_CompletedBatches_Desc" xml:space="preserve">
+    <value>{0} färdiga batcher</value>
+  </data>
+  <data name="Dashboard_IncompleteProducts" xml:space="preserve">
+    <value>Ofullständig produktdata</value>
+  </data>
+  <data name="Dashboard_IncompleteProducts_Desc" xml:space="preserve">
+    <value>{0} produkter med ofullständig data</value>
+  </data>
+  <data name="Dashboard_ReadyForExport" xml:space="preserve">
+    <value>Redo för DPP-export</value>
+  </data>
+  <data name="Dashboard_ReadyForExport_Desc" xml:space="preserve">
+    <value>{0} produkter redo att exportera</value>
+  </data>
+  <data name="Dashboard_ExpiringCerts" xml:space="preserve">
+    <value>Certifieringar som löper ut</value>
+  </data>
+  <data name="Dashboard_ExpiringCerts_Desc" xml:space="preserve">
+    <value>{0} löper ut inom 30 dagar</value>
+  </data>
+  <data name="Dashboard_ExpiredCerts" xml:space="preserve">
+    <value>Utgångna certifieringar</value>
+  </data>
+  <data name="Dashboard_ExpiredCerts_Desc" xml:space="preserve">
+    <value>{0} utgångna</value>
+  </data>
+  <data name="Dashboard_PendingOrders" xml:space="preserve">
+    <value>Ordrar att hantera</value>
+  </data>
+  <data name="Dashboard_PendingOrders_Desc" xml:space="preserve">
+    <value>{0} väntande ordrar</value>
+  </data>
+  <data name="Dashboard_BatchesNoMaterials" xml:space="preserve">
+    <value>Batcher utan material</value>
+  </data>
+  <data name="Dashboard_BatchesNoMaterials_Desc" xml:space="preserve">
+    <value>{0} saknar materialkopplingar</value>
+  </data>
+  <data name="Dashboard_BatchesNoItems" xml:space="preserve">
+    <value>Batcher utan artiklar</value>
+  </data>
+  <data name="Dashboard_BatchesNoItems_Desc" xml:space="preserve">
+    <value>{0} utan registrerade artiklar</value>
+  </data>
+  <data name="Dashboard_IncompleteMaterials" xml:space="preserve">
+    <value>Ofullständiga tyger</value>
+  </data>
+  <data name="Dashboard_IncompleteMaterials_Desc" xml:space="preserve">
+    <value>{0} tyger utan komposition</value>
+  </data>
+  <data name="CertFilter_All" xml:space="preserve">
+    <value>Alla</value>
+  </data>
+  <data name="CertFilter_Ok" xml:space="preserve">
+    <value>Giltiga</value>
+  </data>
+  <data name="CertFilter_Expiring" xml:space="preserve">
+    <value>Löper ut</value>
+  </data>
+  <data name="CertFilter_Expired" xml:space="preserve">
+    <value>Utgångna</value>
+  </data>
+  <data name="CertFilter_None" xml:space="preserve">
+    <value>Inga cert</value>
+  </data>
+  <data name="CompletenessFilter_Complete" xml:space="preserve">
+    <value>Fullständig</value>
+  </data>
+  <data name="CompletenessFilter_Incomplete" xml:space="preserve">
+    <value>Ofullständig</value>
+  </data>
+  <data name="Role_Brand" xml:space="preserve">
+    <value>Varumärke</value>
+  </data>
+  <data name="Role_Supplier" xml:space="preserve">
+    <value>Leverantör</value>
+  </data>
+  <data name="Menu_Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
 </root>
