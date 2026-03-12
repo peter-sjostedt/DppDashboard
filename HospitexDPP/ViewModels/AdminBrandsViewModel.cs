@@ -17,7 +17,8 @@ namespace HospitexDPP.ViewModels
     {
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
+            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
         };
 
         private readonly ApiClient _apiClient;
@@ -462,10 +463,10 @@ namespace HospitexDPP.ViewModels
                 var relJson = await _apiClient.GetRawAsync("/api/admin/relations");
                 if (relJson != null)
                 {
-                    using var doc = JsonDocument.Parse(relJson);
-                    if (doc.RootElement.TryGetProperty("data", out var dataArray))
+                    using var relDoc = JsonDocument.Parse(relJson);
+                    if (relDoc.RootElement.TryGetProperty("data", out var relData))
                     {
-                        var items = JsonSerializer.Deserialize<List<RelationEntry>>(dataArray.GetRawText(), JsonOptions);
+                        var items = JsonSerializer.Deserialize<List<RelationEntry>>(relData.GetRawText(), JsonOptions);
                         if (items != null)
                             _allRelations = items;
                     }
