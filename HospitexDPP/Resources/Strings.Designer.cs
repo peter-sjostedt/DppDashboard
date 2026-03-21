@@ -1861,6 +1861,24 @@ namespace HospitexDPP.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No suppliers linked.
+        /// </summary>
+        public static string Empty_NoSuppliersLinked {
+            get {
+                return ResourceManager.GetString("Empty_NoSuppliersLinked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact your admin to link suppliers..
+        /// </summary>
+        public static string Empty_NoSuppliersLinkedDesc {
+            get {
+                return ResourceManager.GetString("Empty_NoSuppliersLinkedDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Age group.
         /// </summary>
         public static string Field_AgeGroup {

@@ -42,7 +42,7 @@ namespace HospitexDPP.ViewModels
         {
             _apiClient = App.ApiClient;
 
-            AddSupplierForBrandCommand = new RelayCommand(p => OpenDrawerForBrand(p as BrandRelationGroup));
+            AddSupplierForBrandCommand = new RelayCommand(async p => await OpenDrawerForBrandAsync(p as BrandRelationGroup));
             DeleteCommand = new RelayCommand(async p => await DeleteRelationAsync(p as RelationEntry));
             ToggleActiveCommand = new RelayCommand(async p => await ToggleActiveAsync(p as RelationEntry));
             SaveCommand = new RelayCommand(async _ => await SaveAsync(), _ => DrawerSelectedBrand != null && DrawerSelectedSupplier != null && !IsSaving);
@@ -141,12 +141,31 @@ namespace HospitexDPP.ViewModels
         public ICommand SaveCommand { get; }
         public ICommand CancelDrawerCommand { get; }
 
-        public void OpenDrawerForBrand(BrandRelationGroup? group)
+        public async Task OpenDrawerForBrandAsync(BrandRelationGroup? group)
         {
             if (group == null) return;
 
             var brand = _allBrands.FirstOrDefault(b => b.Id == group.BrandId);
             if (brand == null) return;
+
+            // Refresh suppliers list from API so newly created suppliers appear
+            try
+            {
+                var suppliersJson = await _apiClient.GetRawAsync("/api/admin/suppliers");
+                if (suppliersJson != null)
+                {
+                    using var doc = JsonDocument.Parse(suppliersJson);
+                    if (doc.RootElement.TryGetProperty("data", out var dataArray))
+                    {
+                        var items = JsonSerializer.Deserialize<List<SupplierDetail>>(dataArray.GetRawText(), JsonOptions);
+                        if (items != null) _allSuppliers = items;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[AdminRelations] Refresh suppliers error: {ex.Message}");
+            }
 
             DrawerSelectedBrand = brand;
             DrawerSelectedSupplier = null;

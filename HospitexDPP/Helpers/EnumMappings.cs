@@ -110,6 +110,45 @@ namespace HospitexDPP.Helpers
         }
 
         /// <summary>
+        /// ISO 3166-1 alpha-2 country codes for ComboBox selection.
+        /// Sorted alphabetically by display name ("CODE – Name").
+        /// </summary>
+        public static List<EnumOption> GetCountryOptions()
+        {
+            var countries = new (string Code, string Name)[]
+            {
+                ("AR", "Argentina"), ("AT", "Austria"), ("BD", "Bangladesh"),
+                ("BE", "Belgium"), ("BR", "Brazil"), ("BG", "Bulgaria"),
+                ("KH", "Cambodia"), ("CL", "Chile"), ("CN", "China"),
+                ("CO", "Colombia"), ("HR", "Croatia"), ("CZ", "Czech Republic"),
+                ("DK", "Denmark"), ("EG", "Egypt"), ("EE", "Estonia"),
+                ("ET", "Ethiopia"), ("FI", "Finland"), ("FR", "France"),
+                ("DE", "Germany"), ("GR", "Greece"), ("HU", "Hungary"),
+                ("IN", "India"), ("ID", "Indonesia"), ("IE", "Ireland"),
+                ("IT", "Italy"), ("JP", "Japan"), ("KE", "Kenya"),
+                ("KR", "South Korea"), ("LV", "Latvia"), ("LT", "Lithuania"),
+                ("MY", "Malaysia"), ("MX", "Mexico"), ("MA", "Morocco"),
+                ("MM", "Myanmar"), ("NL", "Netherlands"), ("NO", "Norway"),
+                ("PK", "Pakistan"), ("PE", "Peru"), ("PH", "Philippines"),
+                ("PL", "Poland"), ("PT", "Portugal"), ("RO", "Romania"),
+                ("SK", "Slovakia"), ("SI", "Slovenia"), ("ZA", "South Africa"),
+                ("ES", "Spain"), ("LK", "Sri Lanka"), ("SE", "Sweden"),
+                ("CH", "Switzerland"), ("TW", "Taiwan"), ("TH", "Thailand"),
+                ("TN", "Tunisia"), ("TR", "Turkey"), ("GB", "United Kingdom"),
+                ("US", "United States"), ("VN", "Vietnam"),
+            };
+
+            return countries
+                .OrderBy(c => c.Name)
+                .Select(c => new EnumOption
+                {
+                    Value = c.Code,
+                    DisplayName = $"{c.Code} – {c.Name}"
+                })
+                .ToList();
+        }
+
+        /// <summary>
         /// Generate ComboBox option list for a given enum group.
         /// </summary>
         public static List<EnumOption> GetOptions(string prefix)

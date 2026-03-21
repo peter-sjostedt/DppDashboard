@@ -18,7 +18,8 @@ namespace HospitexDPP.ViewModels
     {
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
+            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
         };
 
         private readonly ApiClient _apiClient;
@@ -123,7 +124,7 @@ namespace HospitexDPP.ViewModels
         {
             try
             {
-                var json = await _apiClient.GetWithTenantKeyAsync("/api/suppliers", App.Session!.BrandKey!);
+                var json = await _apiClient.GetWithTenantKeyAsync("/api/brand-suppliers", App.Session!.BrandKey!);
                 if (json == null) return;
 
                 using var doc = JsonDocument.Parse(json);
@@ -133,7 +134,10 @@ namespace HospitexDPP.ViewModels
 
                 foreach (var supplierEl in dataArray.EnumerateArray())
                 {
-                    var supplierId = supplierEl.GetProperty("id").GetInt32();
+                    var idProp = supplierEl.GetProperty("id");
+                    var supplierId = idProp.ValueKind == JsonValueKind.String
+                        ? int.Parse(idProp.GetString()!)
+                        : idProp.GetInt32();
                     var supplierName = supplierEl.GetProperty("supplier_name").GetString() ?? string.Empty;
                     string? supplierLocation = null;
                     if (supplierEl.TryGetProperty("supplier_location", out var locProp) && locProp.ValueKind == JsonValueKind.String)

@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Input;
+using HospitexDPP.Helpers;
 using HospitexDPP.Models;
 using HospitexDPP.Resources;
 using HospitexDPP.Services;
@@ -228,6 +229,8 @@ namespace HospitexDPP.ViewModels
             get => _editFacilityIdentifier;
             set { _editFacilityIdentifier = value; OnPropertyChanged(); }
         }
+
+        public List<EnumOption> CountryOptions => EnumMappings.GetCountryOptions();
 
         public string EditCountryConfection
         {

@@ -22,8 +22,8 @@
             </DockPanel>
 
             <!-- Empty state -->
-            <controls:EmptyState Title="{h:Loc Empty_NoSuppliers}"
-                                 Description="{h:Loc Empty_NoSuppliersDesc}">
+            <controls:EmptyState Title="{h:Loc Empty_NoSuppliersLinked}"
+                                 Description="{h:Loc Empty_NoSuppliersLinkedDesc}">
                 <controls:EmptyState.Style>
                     <Style TargetType="controls:EmptyState">
                         <Setter Property="Visibility" Value="Collapsed" />

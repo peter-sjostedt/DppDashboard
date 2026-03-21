@@ -1,0 +1,56 @@
+<Window x:Class="HospitexDPP.Views.CertificationEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:h="clr-namespace:HospitexDPP.Helpers"
+        Title="{h:Loc Button_AddCertification}"
+        Width="420" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{DynamicResource SurfaceBrush}">
+    <StackPanel Margin="24,20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Certification -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{h:Loc Column_Certification}"
+                       Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                       VerticalAlignment="Center" Margin="0,0,12,8" />
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtCertification"
+                     Style="{DynamicResource FormTextBox}" Margin="0,0,0,8" />
+
+            <!-- Certification ID -->
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{h:Loc Column_CertificationId}"
+                       Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                       VerticalAlignment="Center" Margin="0,0,12,8" />
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtCertificationId"
+                     Style="{DynamicResource FormTextBox}" Margin="0,0,0,8" />
+
+            <!-- Valid Until -->
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="{h:Loc Column_ValidUntil}"
+                       Style="{DynamicResource FormLabel}" TextAlignment="Right"
+                       VerticalAlignment="Center" Margin="0,0,12,8" />
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="TxtValidUntil"
+                     Style="{DynamicResource FormTextBox}" Margin="0,0,0,8" />
+        </Grid>
+
+        <!-- Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="{h:Loc Button_Save}"
+                    Style="{DynamicResource PrimaryButton}"
+                    Click="BtnSave_Click" Margin="0,0,8,0"
+                    IsDefault="True" />
+            <Button Content="{h:Loc Button_Cancel}"
+                    Style="{DynamicResource SecondaryButton}"
+                    Click="BtnCancel_Click"
+                    IsCancel="True" />
+        </StackPanel>
+    </StackPanel>
+</Window>

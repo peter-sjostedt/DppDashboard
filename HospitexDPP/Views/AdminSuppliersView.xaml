@@ -218,20 +218,26 @@
                                 <TextBlock Grid.Row="6" Grid.Column="0" Text="{h:Loc Field_CountryConfection}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
-                                <TextBox Grid.Row="6" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                         Text="{Binding EditCountryConfection, UpdateSourceTrigger=PropertyChanged}" />
+                                <ComboBox Grid.Row="6" Grid.Column="1" Margin="0,0,0,8"
+                                         ItemsSource="{Binding CountryOptions}"
+                                         DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                         SelectedValue="{Binding EditCountryConfection}" IsEditable="True" />
 
                                 <TextBlock Grid.Row="7" Grid.Column="0" Text="{h:Loc Field_CountryDyeing}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
-                                <TextBox Grid.Row="7" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                         Text="{Binding EditCountryDyeing, UpdateSourceTrigger=PropertyChanged}" />
+                                <ComboBox Grid.Row="7" Grid.Column="1" Margin="0,0,0,8"
+                                         ItemsSource="{Binding CountryOptions}"
+                                         DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                         SelectedValue="{Binding EditCountryDyeing}" IsEditable="True" />
 
                                 <TextBlock Grid.Row="8" Grid.Column="0" Text="{h:Loc Field_CountryWeaving}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"
                                            VerticalAlignment="Center" Margin="0,0,12,8" />
-                                <TextBox Grid.Row="8" Grid.Column="1" Style="{DynamicResource FormTextBox}" Margin="0,0,0,8"
-                                         Text="{Binding EditCountryWeaving, UpdateSourceTrigger=PropertyChanged}" />
+                                <ComboBox Grid.Row="8" Grid.Column="1" Margin="0,0,0,8"
+                                         ItemsSource="{Binding CountryOptions}"
+                                         DisplayMemberPath="DisplayName" SelectedValuePath="Value"
+                                         SelectedValue="{Binding EditCountryWeaving}" IsEditable="True" />
 
                                 <TextBlock Grid.Row="9" Grid.Column="0" Text="{h:Loc Field_Lei}"
                                            Style="{DynamicResource FormLabel}" TextAlignment="Right"

@@ -296,8 +296,14 @@ namespace HospitexDPP.Services
                         return (null, null, null);
 
                     string? name = item.TryGetProperty(nameField, out var nameProp) ? nameProp.GetString() : null;
-                    int? id = item.TryGetProperty("id", out var idProp) && idProp.ValueKind == JsonValueKind.Number
-                        ? idProp.GetInt32() : null;
+                    int? id = null;
+                    if (item.TryGetProperty("id", out var idProp))
+                    {
+                        if (idProp.ValueKind == JsonValueKind.Number)
+                            id = idProp.GetInt32();
+                        else if (idProp.ValueKind == JsonValueKind.String && int.TryParse(idProp.GetString(), out var parsed))
+                            id = parsed;
+                    }
                     string? apiKey = item.TryGetProperty("api_key", out var keyProp) ? keyProp.GetString() : null;
                     return (name, id, apiKey);
                 }

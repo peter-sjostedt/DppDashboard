@@ -241,6 +241,12 @@
   <data name="Empty_NoSuppliersDesc" xml:space="preserve">
     <value>Lägg till din första leverantör för att komma igång.</value>
   </data>
+  <data name="Empty_NoSuppliersLinked" xml:space="preserve">
+    <value>Inga leverantörer kopplade</value>
+  </data>
+  <data name="Empty_NoSuppliersLinkedDesc" xml:space="preserve">
+    <value>Kontakta din admin för att koppla leverantörer.</value>
+  </data>
   <data name="Empty_NoRelations" xml:space="preserve">
     <value>Inga relationer ännu</value>
   </data>

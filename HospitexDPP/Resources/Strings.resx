@@ -241,6 +241,12 @@
   <data name="Empty_NoSuppliersDesc" xml:space="preserve">
     <value>Add your first supplier to get started.</value>
   </data>
+  <data name="Empty_NoSuppliersLinked" xml:space="preserve">
+    <value>No suppliers linked</value>
+  </data>
+  <data name="Empty_NoSuppliersLinkedDesc" xml:space="preserve">
+    <value>Contact your admin to link suppliers.</value>
+  </data>
   <data name="Empty_NoRelations" xml:space="preserve">
     <value>No relations yet</value>
   </data>

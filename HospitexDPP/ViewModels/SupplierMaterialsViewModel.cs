@@ -18,7 +18,8 @@ namespace HospitexDPP.ViewModels
     {
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
+            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
         };
 
         private readonly ApiClient _apiClient;
@@ -468,9 +469,21 @@ namespace HospitexDPP.ViewModels
 
         private async Task AddCompositionAsync()
         {
+            var dialog = new Views.CompositionEditDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() != true) return;
+
             try
             {
-                var payload = new Dictionary<string, object?>();
+                var payload = new Dictionary<string, object?>
+                {
+                    ["content_name"] = dialog.ContentName,
+                    ["content_value"] = dialog.ContentValue,
+                    ["content_source"] = dialog.ContentSource,
+                    ["recycled"] = dialog.Recycled
+                };
                 var json = await _apiClient.PostWithTenantKeyAsync($"/api/materials/{_editMaterialId}/compositions", payload, App.Session!.SupplierKey!);
                 if (json != null)
                 {
@@ -478,12 +491,19 @@ namespace HospitexDPP.ViewModels
                     if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
                     {
                         await ReloadCompositionsAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        StatusMessage = $"Fel: {err.GetString()}";
+                        return;
                     }
                 }
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[SupplierMaterials] AddComposition error: {ex.Message}");
+                StatusMessage = $"Fel: {ex.Message}";
             }
         }
 
@@ -520,9 +540,20 @@ namespace HospitexDPP.ViewModels
 
         private async Task AddCertificationAsync()
         {
+            var dialog = new Views.CertificationEditDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() != true) return;
+
             try
             {
-                var payload = new Dictionary<string, object?>();
+                var payload = new Dictionary<string, object?>
+                {
+                    ["certification"] = dialog.Certification,
+                    ["certification_id"] = dialog.CertificationId,
+                    ["valid_until"] = dialog.ValidUntil
+                };
                 var json = await _apiClient.PostWithTenantKeyAsync($"/api/materials/{_editMaterialId}/certifications", payload, App.Session!.SupplierKey!);
                 if (json != null)
                 {
@@ -530,12 +561,19 @@ namespace HospitexDPP.ViewModels
                     if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
                     {
                         await ReloadCertificationsAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        StatusMessage = $"Fel: {err.GetString()}";
+                        return;
                     }
                 }
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[SupplierMaterials] AddCertification error: {ex.Message}");
+                StatusMessage = $"Fel: {ex.Message}";
             }
         }
 
@@ -572,9 +610,20 @@ namespace HospitexDPP.ViewModels
 
         private async Task AddSupplyChainAsync()
         {
+            var dialog = new Views.SupplyChainEditDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() != true) return;
+
             try
             {
-                var payload = new Dictionary<string, object?>();
+                var payload = new Dictionary<string, object?>
+                {
+                    ["process_step"] = dialog.ProcessStep,
+                    ["country"] = dialog.Country,
+                    ["facility_name"] = dialog.FacilityName
+                };
                 var json = await _apiClient.PostWithTenantKeyAsync($"/api/materials/{_editMaterialId}/supply-chain", payload, App.Session!.SupplierKey!);
                 if (json != null)
                 {
@@ -582,12 +631,19 @@ namespace HospitexDPP.ViewModels
                     if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
                     {
                         await ReloadSupplyChainAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        StatusMessage = $"Fel: {err.GetString()}";
+                        return;
                     }
                 }
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[SupplierMaterials] AddSupplyChain error: {ex.Message}");
+                StatusMessage = $"Fel: {ex.Message}";
             }
         }
 

@@ -18,7 +18,8 @@ namespace HospitexDPP.ViewModels
     {
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
-            PropertyNameCaseInsensitive = true
+            PropertyNameCaseInsensitive = true,
+            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
         };
 
         private readonly ApiClient _apiClient;
@@ -117,6 +118,8 @@ namespace HospitexDPP.ViewModels
             DeleteVariantCommand = new RelayCommand(async p => await DeleteVariantAsync(p as VariantInfo));
             AddComponentCommand = new RelayCommand(async _ => await AddComponentAsync());
             DeleteComponentCommand = new RelayCommand(async p => await DeleteComponentAsync(p as ComponentInfo));
+            EditVariantCommand = new RelayCommand(async p => await EditVariantAsync(p as VariantInfo));
+            EditComponentCommand = new RelayCommand(async p => await EditComponentAsync(p as ComponentInfo));
             SaveCareCommand = new RelayCommand(async _ => await SaveCareAsync());
             SaveComplianceCommand = new RelayCommand(async _ => await SaveComplianceAsync());
             SaveCircularityCommand = new RelayCommand(async _ => await SaveCircularityAsync());
@@ -564,6 +567,8 @@ namespace HospitexDPP.ViewModels
         public ICommand DeleteVariantCommand { get; }
         public ICommand AddComponentCommand { get; }
         public ICommand DeleteComponentCommand { get; }
+        public ICommand EditVariantCommand { get; }
+        public ICommand EditComponentCommand { get; }
         public ICommand SaveCareCommand { get; }
         public ICommand SaveComplianceCommand { get; }
         public ICommand SaveCircularityCommand { get; }
@@ -1096,9 +1101,22 @@ namespace HospitexDPP.ViewModels
 
         private async Task AddVariantAsync()
         {
+            var dialog = new Views.VariantEditDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() != true) return;
+
             try
             {
-                var payload = new Dictionary<string, object?>();
+                var payload = new Dictionary<string, object?>
+                {
+                    ["item_number"] = dialog.ItemNumber,
+                    ["size"] = dialog.Size,
+                    ["color_brand"] = dialog.ColorBrand,
+                    ["color_general"] = dialog.ColorGeneral,
+                    ["gtin"] = dialog.Gtin
+                };
                 var json = await _apiClient.PostWithTenantKeyAsync($"/api/products/{_editProductId}/variants", payload, App.Session!.BrandKey!);
                 if (json != null)
                 {
@@ -1106,12 +1124,19 @@ namespace HospitexDPP.ViewModels
                     if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
                     {
                         await ReloadVariantsAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        StatusMessage = $"Fel: {err.GetString()}";
+                        return;
                     }
                 }
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[BrandProducts] AddVariant error: {ex.Message}");
+                StatusMessage = $"Fel: {ex.Message}";
             }
         }
 
@@ -1137,11 +1162,67 @@ namespace HospitexDPP.ViewModels
             }
         }
 
-        private async Task AddComponentAsync()
+        private async Task EditVariantAsync(VariantInfo? variant)
         {
+            if (variant == null) return;
+            var dialog = new Views.VariantEditDialog(variant)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() != true) return;
+
             try
             {
-                var payload = new Dictionary<string, object?>();
+                var payload = new Dictionary<string, object?>
+                {
+                    ["item_number"] = dialog.ItemNumber,
+                    ["size"] = dialog.Size,
+                    ["color_brand"] = dialog.ColorBrand,
+                    ["color_general"] = dialog.ColorGeneral,
+                    ["gtin"] = dialog.Gtin
+                };
+
+                var json = await _apiClient.PutWithTenantKeyAsync($"/api/variants/{variant.Id}", payload, App.Session!.BrandKey!);
+                if (json != null)
+                {
+                    using var doc = JsonDocument.Parse(json);
+                    if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
+                    {
+                        await ReloadVariantsAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        StatusMessage = $"Fel: {err.GetString()}";
+                        return;
+                    }
+                }
+                StatusMessage = Strings.Msg_NoResponse;
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Fel: {ex.Message}";
+            }
+        }
+
+        private async Task AddComponentAsync()
+        {
+            var dialog = new Views.ComponentEditDialog
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() != true) return;
+
+            try
+            {
+                var payload = new Dictionary<string, object?>
+                {
+                    ["component"] = dialog.SelectedComponent,
+                    ["material"] = dialog.SelectedMaterial,
+                    ["content_name"] = dialog.ContentName,
+                    ["content_value"] = dialog.ContentValue,
+                    ["content_source"] = dialog.ContentSource
+                };
                 var json = await _apiClient.PostWithTenantKeyAsync($"/api/products/{_editProductId}/components", payload, App.Session!.BrandKey!);
                 if (json != null)
                 {
@@ -1149,12 +1230,19 @@ namespace HospitexDPP.ViewModels
                     if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
                     {
                         await ReloadComponentsAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        StatusMessage = $"Fel: {err.GetString()}";
+                        return;
                     }
                 }
+                StatusMessage = Strings.Msg_NoResponse;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[BrandProducts] AddComponent error: {ex.Message}");
+                StatusMessage = $"Fel: {ex.Message}";
             }
         }
 
@@ -1177,6 +1265,49 @@ namespace HospitexDPP.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine($"[BrandProducts] DeleteComponent error: {ex.Message}");
+            }
+        }
+
+        private async Task EditComponentAsync(ComponentInfo? component)
+        {
+            if (component == null) return;
+            var dialog = new Views.ComponentEditDialog(component)
+            {
+                Owner = Application.Current.MainWindow
+            };
+            if (dialog.ShowDialog() != true) return;
+
+            try
+            {
+                var payload = new Dictionary<string, object?>
+                {
+                    ["component"] = dialog.SelectedComponent,
+                    ["material"] = dialog.SelectedMaterial,
+                    ["content_name"] = dialog.ContentName,
+                    ["content_value"] = dialog.ContentValue,
+                    ["content_source"] = dialog.ContentSource
+                };
+
+                var json = await _apiClient.PutWithTenantKeyAsync($"/api/components/{component.Id}", payload, App.Session!.BrandKey!);
+                if (json != null)
+                {
+                    using var doc = JsonDocument.Parse(json);
+                    if (doc.RootElement.TryGetProperty("success", out var s) && s.GetBoolean())
+                    {
+                        await ReloadComponentsAsync();
+                        return;
+                    }
+                    if (doc.RootElement.TryGetProperty("error", out var err))
+                    {
+                        StatusMessage = $"Fel: {err.GetString()}";
+                        return;
+                    }
+                }
+                StatusMessage = Strings.Msg_NoResponse;
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = $"Fel: {ex.Message}";
             }
         }
 

@@ -512,10 +512,18 @@
                                             <DataGridTemplateColumn Width="Auto">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Button Content="✕" FontSize="11" Padding="4,2"
-                                                                Style="{DynamicResource SecondaryButton}"
-                                                                Command="{Binding DataContext.DeleteVariantCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                CommandParameter="{Binding}" />
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Button Content="✏" FontSize="11" Padding="4,2"
+                                                                    ToolTip="{h:Loc Action_Edit}"
+                                                                    Style="{DynamicResource SecondaryButton}"
+                                                                    Command="{Binding DataContext.EditVariantCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Margin="0,0,4,0" />
+                                                            <Button Content="✕" FontSize="11" Padding="4,2"
+                                                                    Style="{DynamicResource SecondaryButton}"
+                                                                    Command="{Binding DataContext.DeleteVariantCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </StackPanel>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>
@@ -607,10 +615,18 @@
                                             <DataGridTemplateColumn Width="Auto">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Button Content="✕" FontSize="11" Padding="4,2"
-                                                                Style="{DynamicResource SecondaryButton}"
-                                                                Command="{Binding DataContext.DeleteComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                                CommandParameter="{Binding}" />
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Button Content="✏" FontSize="11" Padding="4,2"
+                                                                    ToolTip="{h:Loc Action_Edit}"
+                                                                    Style="{DynamicResource SecondaryButton}"
+                                                                    Command="{Binding DataContext.EditComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    CommandParameter="{Binding}"
+                                                                    Margin="0,0,4,0" />
+                                                            <Button Content="✕" FontSize="11" Padding="4,2"
+                                                                    Style="{DynamicResource SecondaryButton}"
+                                                                    Command="{Binding DataContext.DeleteComponentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                    CommandParameter="{Binding}" />
+                                                        </StackPanel>
                                                     </DataTemplate>
                                                 </DataGridTemplateColumn.CellTemplate>
                                             </DataGridTemplateColumn>

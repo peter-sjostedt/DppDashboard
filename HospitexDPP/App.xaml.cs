@@ -7,7 +7,7 @@ namespace HospitexDPP
 {
     public partial class App : Application
     {
-        public const string Version = "0.8.32";
+        public const string Version = "0.8.70";
 
         public static ApiClient ApiClient { get; } = new ApiClient();
         public static SessionContext? Session { get; set; }

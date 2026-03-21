@@ -13,7 +13,11 @@ namespace HospitexDPP.ViewModels
 {
     public class SupplierDashboardViewModel : INotifyPropertyChanged
     {
-        private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+        private static readonly JsonSerializerOptions JsonOptions = new()
+        {
+            PropertyNameCaseInsensitive = true,
+            NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowReadingFromString
+        };
 
         private readonly ApiClient _apiClient;
         private readonly Action<int> _navigateToTab;

@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
+using HospitexDPP.Helpers;
 using HospitexDPP.Models;
 using HospitexDPP.Resources;
 using HospitexDPP.Services;
@@ -179,6 +180,8 @@ namespace HospitexDPP.ViewModels
             get => _editOperatorIdentifier;
             set { _editOperatorIdentifier = value; OnPropertyChanged(); }
         }
+
+        public List<EnumOption> CountryOptions => EnumMappings.GetCountryOptions();
 
         public string EditCountryConfection
         {
